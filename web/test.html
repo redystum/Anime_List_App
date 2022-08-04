@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime List</title>
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+<body>
+
+    <p>Test paragraph</p>
+    <h1 id="test"></h1>
+    <input type="text" id="testinp">
+    <button onclick="change();">btn</button>
+
+    <script>
+        async function change() {
+            var x = document.getElementById("testinp").value;
+            returned = await eel.get_data(x)();
+            console.log(returned);
+            document.getElementById("test").innerHTML = returned;
+        }
+    </script>
+
+<span class="material-symbols-outlined deleteBtn" data-bs-toggle="tooltip"
+data-bs-placement="top" data-bs-delay='{"show":"500", "hide":"300"}'
+data-bs-title="Delete">
+delete
+</span>
+<span class="material-symbols-outlined viewedBtn" data-bs-toggle="tooltip"
+data-bs-placement="top" data-bs-title="Viewed"
+data-bs-delay='{"show":"500", "hide":"300"}'>
+done
+</span>
+    
+</body>
+</html>
