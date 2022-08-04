@@ -1,0 +1,107 @@
+{
+    "data": [
+        {
+            "node": {
+                "id": 37450,
+                "title": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/1301/93586.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/1301/93586l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 38610,
+                "title": "Tejina-senpai",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/1510/99891.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/1510/99891l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 42351,
+                "title": "Senpai ga Uzai Kouhai no Hanashi",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/1055/118890.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/1055/118890l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 34881,
+                "title": "Aho Girl",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/7/86665.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/7/86665l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 10162,
+                "title": "Usagi Drop",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/2/29665.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/2/29665l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 38787,
+                "title": "Senryuu Shoujo",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/1751/98216.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/1751/98216l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 201,
+                "title": "Video Girl Ai",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/2/22130.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/2/22130l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 241,
+                "title": "Girls Bravo: First Season",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/1/241.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/1/241l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 41595,
+                "title": "Tiger & Bunny 2",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/1678/121388.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/1678/121388l.jpg"
+                }
+            }
+        },
+        {
+            "node": {
+                "id": 863,
+                "title": "Joshikousei: Girl's High",
+                "main_picture": {
+                    "medium": "https://api-cdn.myanimelist.net/images/anime/5/23224.jpg",
+                    "large": "https://api-cdn.myanimelist.net/images/anime/5/23224l.jpg"
+                }
+            }
+        }
+    ],
+    "paging": {
+        "next": "https://api.myanimelist.net/v2/anime?offset=10&q=bunny+girl+senpai&limit=10"
+    }
+}
