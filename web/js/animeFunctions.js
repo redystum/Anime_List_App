@@ -35,155 +35,6 @@ function showToast(title, msg, colorH, colorT) {
     bsToast.show()
 }
 
-// expose function to be called from python
-eel.expose(chooseAnime);
-function chooseAnime(animeList) {
-    //remove all children (including loading animation)
-    removeAllChildren('chooseAnimeBody');
-
-    let e = document.getElementById("chooseAnimeBody");
-    // Create Table
-    // code generated from www.htmltojs.com (Its normal to have random var names)
-    const table_AuwCe = document.createElement('table');
-    table_AuwCe.classList.add('table', 'tableHover');
-    e.appendChild(table_AuwCe);
-    const thead_JZGJr = document.createElement('thead');
-    table_AuwCe.appendChild(thead_JZGJr);
-    const tr_WzGul = document.createElement('tr');
-    thead_JZGJr.appendChild(tr_WzGul);
-    const th_wSlfO = document.createElement('th');
-    th_wSlfO.classList.add('text-center');
-    th_wSlfO.setAttribute(`scope`, `col`);
-    tr_WzGul.appendChild(th_wSlfO);
-    th_wSlfO.textContent += `Image`;
-    const th_bdiDy = document.createElement('th');
-    th_bdiDy.setAttribute(`scope`, `col`);
-    tr_WzGul.appendChild(th_bdiDy);
-    th_bdiDy.textContent += `Name`;
-    const tbody_eutXG = document.createElement('tbody');
-
-    // insert data on table
-    for (let i = 0; i < animeList.length; i++) {
-        table_AuwCe.appendChild(tbody_eutXG);
-        const tr_pFSpQ = document.createElement('tr');
-        tbody_eutXG.appendChild(tr_pFSpQ);
-        const td_ZEsLC = document.createElement('td');
-        tr_pFSpQ.appendChild(td_ZEsLC);
-        const img_blHfy = new Image();
-        img_blHfy.src = animeList[i].node.main_picture.large;
-        img_blHfy.setAttribute(`width`, `50px`);
-        img_blHfy.setAttribute(`onclick`, `getAnimeData(${animeList[i].node.id})`);
-        img_blHfy.classList.add('animeNameChooseTable');
-        td_ZEsLC.appendChild(img_blHfy);
-        const td_MgHCv = document.createElement('td');
-        td_MgHCv.classList.add('tableName');
-        td_MgHCv.id = 'chooseNameTable';
-        tr_pFSpQ.appendChild(td_MgHCv);
-        const a_KgCmV = document.createElement('a');
-        a_KgCmV.classList.add('animeNameChooseTable');
-        a_KgCmV.setAttribute(`onclick`, `getAnimeData(${animeList[i].node.id})`);
-        td_MgHCv.appendChild(a_KgCmV);
-        a_KgCmV.textContent += animeList[i].node.title;
-    }
-
-    table_AuwCe.appendChild(tbody_eutXG);
-    const tr_pFSpQ = document.createElement('tr');
-    tbody_eutXG.appendChild(tr_pFSpQ);
-    const td_MgHCv = document.createElement('td');
-    td_MgHCv.setAttribute(`colspan`, `2`);
-    td_MgHCv.classList.add('tableName');
-    td_MgHCv.id = 'chooseNameTable';
-    tr_pFSpQ.appendChild(td_MgHCv);
-    const p_KgCmV = document.createElement('p');
-    td_MgHCv.appendChild(p_KgCmV);
-    p_KgCmV.textContent += "if you can't find the anime you want:";
-    const ul = document.createElement('ul');
-    td_MgHCv.appendChild(ul);
-    const li = document.createElement('li');
-    ul.appendChild(li);
-    li.textContent += "Check if you wrote it correctly or try to write another title of the same anime";
-    const li_1 = document.createElement('li');
-    ul.appendChild(li_1);
-    li_1.textContent += "Write the id of myanimelist.net like this: ";
-    const code = document.createElement('code');
-    li_1.appendChild(code);
-    code.textContent += "id:30";
-
-    // launch modal
-    const myModal = new bootstrap.Modal(document.getElementById('chooseAnimeModal'))
-    myModal.show()
-
-}
-
-function addLoadingElementTable(table) {
-    // block "add anime" fields
-    changeSearchDisableStatus(true);
-    // stop glow animation
-    for (let i = 0; i < document.querySelectorAll(".glowActivator").length; i++) {
-        let el = document.querySelectorAll(".glowActivator")[i]
-        target = el.dataset.target;
-        document.querySelector("#" + target).classList.remove("glowShadow");
-    }
-
-    // create loading element
-    // basically add a table row with a loading animation instead anime data
-    // code generated from www.htmltojs.com (Its normal to have random var names)
-    let e = document.getElementById(table);
-    const tr_qnPyJ = document.createElement('tr');
-    tr_qnPyJ.classList.add('loadingTr');
-    tr_qnPyJ.classList.add('placeholder-glow');
-    tr_qnPyJ.setAttribute(`aria-hidden`, `true`);
-    e.appendChild(tr_qnPyJ);
-    const th_pzBZb = document.createElement('th');
-    th_pzBZb.setAttribute(`scope`, `row`);
-    tr_qnPyJ.appendChild(th_pzBZb);
-    const span_BlbSw = document.createElement('span');
-    span_BlbSw.classList.add('iconElement', 'placeholder');
-    span_BlbSw.setAttribute(`data-icon`, `done`);
-    span_BlbSw.setAttribute(`data-tooltip`, ``);
-    th_pzBZb.appendChild(span_BlbSw);
-    const span_GMNDn = document.createElement('span');
-    span_GMNDn.classList.add('iconElement', 'placeholder');
-    span_GMNDn.setAttribute(`data-icon`, `delete`);
-    span_GMNDn.setAttribute(`data-tooltip`, ``);
-    th_pzBZb.appendChild(span_GMNDn);
-    const td_KuaCl = document.createElement('td');
-    tr_qnPyJ.appendChild(td_KuaCl);
-    const img_PWaZk = new Image();
-    img_PWaZk.classList.add('placeholder');
-    img_PWaZk.setAttribute(`width`, `50px`);
-    img_PWaZk.setAttribute(`height`, `75px`);
-    td_KuaCl.appendChild(img_PWaZk);
-    const td_PlKlG = document.createElement('td');
-    td_PlKlG.classList.add('tableName');
-    tr_qnPyJ.appendChild(td_PlKlG);
-    const td_xmaE = document.createElement('td');
-    tr_qnPyJ.appendChild(td_xmaE);
-    const span_dnHCe = document.createElement('span');
-    span_dnHCe.classList.add('placeholder', 'col-7');
-    td_PlKlG.appendChild(span_dnHCe);
-    const td_rVKtA = document.createElement('td');
-    td_rVKtA.classList.add('text-center');
-    tr_qnPyJ.appendChild(td_rVKtA);
-    const span_WJhWT = document.createElement('span');
-    span_WJhWT.classList.add('placeholder', 'col-12');
-    td_rVKtA.appendChild(span_WJhWT);
-    const td_xmaEo = document.createElement('td');
-    td_xmaEo.classList.add('text-center');
-    tr_qnPyJ.appendChild(td_xmaEo);
-    const span_eHXfe = document.createElement('span');
-    span_eHXfe.classList.add('placeholder', 'col-7');
-    td_xmaEo.appendChild(span_eHXfe);
-    const td_eoLpi = document.createElement('td');
-    td_eoLpi.classList.add('tableStars');
-    tr_qnPyJ.appendChild(td_eoLpi);
-    const span_aZHlj = document.createElement('span');
-    span_aZHlj.classList.add('placeholder', 'col-11');
-    td_eoLpi.appendChild(span_aZHlj);
-    // call function to add icons to respective elements
-    putIcon();
-}
-
 async function getAnimeData(AnimeId) {
     // hide modal
     document.getElementById('closeModal').click();
@@ -241,7 +92,7 @@ async function getAnimeList(order = 0) {
         // call function to add anime to table
         addAnimeToTable(data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id);
     }
-    // permit the window be closed without warns
+    // call function to add icons to respective elements
     putIcon();
 
     // remove loading animation and no anime message
@@ -263,105 +114,6 @@ function appendNoAnime(table) {
     tr.textContent += "No Anime yet";
     tr.classList.add("noAnime");
     e.appendChild(tr);
-}
-
-function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, AnimeStatus = "complete") {
-    let e;
-    if (AnimeViewed == false) {
-        e = document.getElementById("animeListTable") // table for non viewed anime
-    } else {
-        e = document.getElementById("watchedAnimeListTable") // table for viewed anime
-    }
-
-    // define some vars to the recommended icon
-    let scoreText = ""
-    let cssClass = ""
-    if (AnimeScore < 5) {
-        scoreText = "not highly recommended"
-        cssClass = "negativeScore"
-    } else if (AnimeScore > 5) {
-        scoreText = "highly recommended"
-        cssClass = "positiveScore"
-    } else {
-        scoreText = "recommended"
-        cssClass = "middleScore"
-    }
-
-    // add the anime to the table
-    // code generated from www.htmltojs.com (Its normal to have random var names)
-    const tr_pyFdT = document.createElement('tr');
-    tr_pyFdT.id = `Anime${AnimeId}_` + ((id == "\"Processing...\"") ? "" : id);
-    e.appendChild(tr_pyFdT);
-    const th_umBZQ = document.createElement('th');
-    th_umBZQ.setAttribute(`scope`, `row`);
-    tr_pyFdT.appendChild(th_umBZQ);
-    const span_tIvWc = document.createElement('span');
-    span_tIvWc.classList.add('iconElement');
-    span_tIvWc.setAttribute(`data-icon`, `done`);
-    span_tIvWc.setAttribute(`data-tooltip`, `Viewed`);
-    span_tIvWc.setAttribute(`onclick`, `setViewed(${id}, ${AnimeId})`);
-    if (AnimeStatus === "p") { // if the anime is being processed, don't allow to change her state
-        span_tIvWc.classList.add(`processing`);
-    }
-    th_umBZQ.appendChild(span_tIvWc);
-    const span_umBrx = document.createElement('span');
-    span_umBrx.classList.add('iconElement');
-    span_umBrx.setAttribute(`data-icon`, `delete`);
-    span_umBrx.setAttribute(`data-tooltip`, `Delete`);
-    span_umBrx.setAttribute(`onclick`, `deleteAnime(${id}, ${AnimeId}, ${+AnimeViewed})`);
-    if (AnimeStatus === "p") { // if the anime is being processed, don't allow to delete it
-        span_umBrx.classList.add(`processing`);
-    }
-    th_umBZQ.appendChild(span_umBrx);
-    const td_XRgDI = document.createElement('td');
-    tr_pyFdT.appendChild(td_XRgDI);
-    const img_QdMhX = new Image();
-    img_QdMhX.src = AnimeImg;
-    img_QdMhX.setAttribute(`width`, `50px`);
-    td_XRgDI.appendChild(img_QdMhX);
-    const td_qzEBp = document.createElement('td');
-    const a_QZqZ = document.createElement('span');
-    a_QZqZ.classList.add(`AnimeName`);
-    a_QZqZ.textContent += AnimeTitle;
-    td_qzEBp.classList.add('tableName');
-    td_qzEBp.appendChild(a_QZqZ);
-    tr_pyFdT.appendChild(td_qzEBp);
-    const td_info = document.createElement('td');
-    tr_pyFdT.appendChild(td_info);
-    const span_info = document.createElement('span');
-    span_info.classList.add('iconElement', 'infoBtn');
-    span_info.setAttribute(`data-icon`, `info`);
-    span_info.setAttribute(`data-tooltip`, `More Info`);
-    span_info.setAttribute(`onclick`, `showMoreInfo(${AnimeId})`);
-    td_info.appendChild(span_info);
-    const td_JAGvf = document.createElement('td');
-    td_JAGvf.classList.add('text-center', 'animeNotesTd');
-    tr_pyFdT.appendChild(td_JAGvf);
-    if (AnimeNotes != "") {
-        const span_tIvW = document.createElement('span');
-        span_tIvW.classList.add('iconElement', 'notesIcon');
-        span_tIvW.setAttribute(`data-icon`, `description`);
-        span_tIvW.setAttribute(`data-tooltip`, `Show Notes`);
-        span_tIvW.setAttribute(`data-popover-text`, AnimeNotes);
-        span_tIvW.setAttribute(`data-popover-title`, "Notes");
-        span_tIvW.setAttribute(`data-type`, 'popover');
-        td_JAGvf.appendChild(span_tIvW);
-    }
-    const td_jqFGF = document.createElement('td');
-    td_jqFGF.classList.add('text-center');
-    tr_pyFdT.appendChild(td_jqFGF);
-    td_jqFGF.textContent += AnimeEpisodes;
-    const td_aobBl = document.createElement('td');
-    const span_VfUf = document.createElement('span');
-    span_VfUf.classList.add('iconElement', cssClass);
-    span_VfUf.setAttribute(`data-icon`, `recommend`);
-    span_VfUf.setAttribute(`data-tooltip`, scoreText);
-    td_aobBl.classList.add('tableStars');
-    td_aobBl.appendChild(span_VfUf);
-    const p_qzEBp = document.createElement('p');
-    p_qzEBp.textContent = AnimeScore;
-    td_aobBl.appendChild(p_qzEBp);
-    tr_pyFdT.appendChild(td_aobBl);
 }
 
 function cancelAddAnime() {
@@ -435,11 +187,13 @@ function changeBtnId(row, id) {
 }
 
 function saveScoreAndNotes() {
+    // get and update notes
     notes = document.getElementById("inpNotesModal").value;
     score = document.getElementById("localScoreInp").value;
     id = document.getElementById("moreInfoModalAnimeId").textContent;
     animeId = document.getElementById("moreInfoModalAnimeIdMAL").textContent;
     eel.updateNotesAndScore(notes, score, id);
+    // add/remove notes button
     if (notes == "") {
         document.getElementById(`Anime${animeId}_${id}`).getElementsByClassName("notesIcon")[0].remove()
     } else {
@@ -457,6 +211,7 @@ function saveScoreAndNotes() {
             el.appendChild(span_tIvW);
         }
     }
+    // call function to add icons to respective elements
     putIcon();
 }
 
