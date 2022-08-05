@@ -12,7 +12,7 @@ function startSearch() {
         window.running = true;
 
         // activate loading animation
-        addLoadingElementTable();
+        addLoadingElementTable('animeListTable');
 
         // call python function
         if (anime.startsWith("id:")) { // if anime is an id
@@ -115,7 +115,7 @@ function chooseAnime(animeList) {
 
 }
 
-function addLoadingElementTable() {
+function addLoadingElementTable(table) {
     // block "add anime" fields
     changeSearchDisableStatus(true);
     // stop glow animation
@@ -128,7 +128,7 @@ function addLoadingElementTable() {
     // create loading element
     // basically add a table row with a loading animation instead anime data
     // code generated from www.htmltojs.com (Its normal to have random var names)
-    let e = document.getElementById("animeListTable")
+    let e = document.getElementById(table);
     const tr_qnPyJ = document.createElement('tr');
     tr_qnPyJ.classList.add('loadingTr');
     tr_qnPyJ.classList.add('placeholder-glow');
@@ -140,12 +140,12 @@ function addLoadingElementTable() {
     const span_BlbSw = document.createElement('span');
     span_BlbSw.classList.add('iconElement', 'placeholder');
     span_BlbSw.setAttribute(`data-icon`, `done`);
-    span_BlbSw.setAttribute(`data-tooltip`, `Viewed`);
+    span_BlbSw.setAttribute(`data-tooltip`, ``);
     th_pzBZb.appendChild(span_BlbSw);
     const span_GMNDn = document.createElement('span');
     span_GMNDn.classList.add('iconElement', 'placeholder');
     span_GMNDn.setAttribute(`data-icon`, `delete`);
-    span_GMNDn.setAttribute(`data-tooltip`, `delete`);
+    span_GMNDn.setAttribute(`data-tooltip`, ``);
     th_pzBZb.appendChild(span_GMNDn);
     const td_KuaCl = document.createElement('td');
     tr_qnPyJ.appendChild(td_KuaCl);
@@ -193,8 +193,6 @@ async function getAnimeData(AnimeId) {
     if (data == "not_found") {
         // if error, show error message
         showToast("Error", `Anime with id ${AnimeId} was not found! Try again with some existing id.`, 'red', 'soft-black')
-        // remove loading element
-        removeLoading_NoAnime('animeListTable');
         // enable search fields
         changeSearchDisableStatus(false);
         // permit the window be closed without warns
@@ -225,13 +223,16 @@ async function getAnimeData(AnimeId) {
 async function getAnimeList(order = 0) {
     // remove all children (including loading animation)
     removeAllChildren('animeListTable');
+    removeAllChildren('watchedAnimeListTable');
     // add loading animation
-    addLoadingElementTable();
+    addLoadingElementTable('animeListTable');
+    addLoadingElementTable('watchedAnimeListTable');
 
     // call python function
     data = await eel.getAnimeList(order)();
     if (data.length == 0) {
-        appendNoAnime();
+        appendNoAnime('animeListTable');
+        appendNoAnime('watchedAnimeListTable');
         changeSearchDisableStatus(true);
         changeSearchDisableStatus(false);
         return;
@@ -242,15 +243,20 @@ async function getAnimeList(order = 0) {
     }
     // permit the window be closed without warns
     putIcon();
+
     // remove loading animation and no anime message
+    removeLoading_NoAnime('watchedAnimeListTable');
     removeLoading_NoAnime('animeListTable');
+    ifEmptyList('animeListTable');
+    ifEmptyList('watchedAnimeListTable');
+
     // activate "add anime" fields
     changeSearchDisableStatus(false);
 }
 
-function appendNoAnime() {
+function appendNoAnime(table) {
     // add a no anime message
-    const e = document.getElementById("animeListTable");
+    const e = document.getElementById(table);
     const tr = document.createElement('th');
     tr.classList.add('text-center');
     tr.colSpan = 6;
@@ -260,11 +266,11 @@ function appendNoAnime() {
 }
 
 function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, AnimeStatus = "complete") {
-    if (AnimeViewed == false || AnimeViewed == "False") {
-        let e = document.getElementById("animeListTable") // table for non viewed anime
+    let e;
+    if (AnimeViewed == false) {
+        e = document.getElementById("animeListTable") // table for non viewed anime
     } else {
-        let e = document.getElementById("ViewedAnimeListTable") // table for viewed anime (coming soon)
-        e = document.getElementById("animeListTable")
+        e = document.getElementById("watchedAnimeListTable") // table for viewed anime
     }
 
     // define some vars to the recommended icon
@@ -282,7 +288,6 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     }
 
     // add the anime to the table
-    let e = document.getElementById("animeListTable")
     // code generated from www.htmltojs.com (Its normal to have random var names)
     const tr_pyFdT = document.createElement('tr');
     tr_pyFdT.id = `Anime${AnimeId}_` + ((id == "\"Processing...\"") ? "" : id);
@@ -303,7 +308,7 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     span_umBrx.classList.add('iconElement');
     span_umBrx.setAttribute(`data-icon`, `delete`);
     span_umBrx.setAttribute(`data-tooltip`, `Delete`);
-    span_umBrx.setAttribute(`onclick`, `deleteAnime(${id}, ${AnimeId})`);
+    span_umBrx.setAttribute(`onclick`, `deleteAnime(${id}, ${AnimeId}, ${+AnimeViewed})`);
     if (AnimeStatus === "p") { // if the anime is being processed, don't allow to delete it
         span_umBrx.classList.add(`processing`);
     }
@@ -376,12 +381,14 @@ async function setViewed(id, AnimeId) {
     }
     // call python function
     eel.setViewed(id)();
-    // remove anime from table
-    await removeTableElement('animeListTable', id, AnimeId)
+    // move anime to the other table
+    const el = document.getElementById(`Anime${AnimeId}_${id}`);
+    const tr = document.getElementById('watchedAnimeListTable')
+    tr.appendChild(el);
     ifEmptyList('animeListTable')
 }
 
-async function deleteAnime(id, AnimeId) {
+async function deleteAnime(id, AnimeId, table) {
     // if the anime are being processed, don't allow to delete it
     if (id == "Processing...") {
         showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-black")
@@ -390,8 +397,9 @@ async function deleteAnime(id, AnimeId) {
     // call python function
     eel.deleteAnime(id)();
     // remove anime from table
-    await removeTableElement('animeListTable', id, AnimeId)
-    ifEmptyList('animeListTable')
+    let t = table ? 'watchedAnimeListTable' : 'animeListTable';
+    await removeTableElement(t, id, AnimeId)
+    ifEmptyList(t)
 }
 
 function pickRandom(table) {
@@ -414,15 +422,16 @@ function pickRandom(table) {
 
 // expose function to be called from python
 eel.expose(changeBtnId);
-function changeBtnId(id) {
+function changeBtnId(row, id) {
     // when called from python, change the delete/viewed button onclick function to the right id
-    for (let i = 0; i < document.getElementsByClassName("processing").length; i++) {
-        document.getElementsByClassName("processing")[i].classList.remove("processing");
-        func = document.getElementsByClassName("processing")[i].getAttribute("onclick");
-        document.getElementsByClassName("processing")[i].removeAttribute("onclick");
-        document.getElementsByClassName("processing")[i].setAttribute("onclick", func.replace("\"Processing...\"", id));
-        document.getElementsByClassName("processing")[i].parentElement.parentElement.id += id;
+    let e = document.getElementById(`Anime${id}_`).getElementsByClassName("processing")
+    for (i = e.length; i > 0; i--) {
+        func = e[i - 1].getAttribute("onclick");
+        e[i - 1].removeAttribute("onclick");
+        e[i - 1].setAttribute("onclick", func.replace("\"Processing...\"", row));
+        e[i - 1].classList.remove("processing");
     }
+    document.getElementById(`Anime${id}_`).id += row;
 }
 
 function saveScoreAndNotes() {
@@ -477,14 +486,14 @@ function removeTableElement(table, id, AnimeId) {
 function ifEmptyList(table) {
     // if the table is empty, show a message
     let e = document.getElementById(table);
-    cl(e)
     var child = e.lastElementChild;
-    cl(child)
     if (child == null) {
-        addLoadingElementTable();
-        appendNoAnime();
+        addLoadingElementTable(table);
+        appendNoAnime(table);
         changeSearchDisableStatus(false);
+        return true
     }
+    return false
 }
 function removeLoading_NoAnime(table) {
     // remove loading animation and no anime message
