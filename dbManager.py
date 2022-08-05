@@ -17,7 +17,7 @@ def addAnimeToDb(data):
     episodes = data['num_episodes'] if data['num_episodes']!=0 else "Unknown"
     globalScore = float(data['mean'])
     localScore = float(0.0)
-    viewed = False
+    viewed = 0
     status = data['status'].replace('"', "'")
     genres = ""
     for g in data['genres']:
@@ -32,10 +32,11 @@ def addAnimeToDb(data):
     studio = studio[:-2]
     relatedAnime = data['related_anime']
     relatedManga = data['related_manga']
+    favorite = 0
 
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
-    q = f'''INSERT INTO anime (title, titleJp, animeID, image, notes, startDate, endDate, synopsis, episodes, globalScore, localScore, pictures, viewed, status, genres, background, studio, relatedAnime, relatedManga, averageEpDuration) VALUES ("{title}", "{titleJp}", "{animeID}", "{image}", "{notes}", "{startDate}", "{endDate}", "{synopsis}", "{episodes}", "{globalScore}", "{localScore}", "{pictures}", "{viewed}", "{status}", "{genres}", "{background}", "{studio}", "{relatedAnime}", "{relatedManga}", "{averageEpDuration}")'''
+    q = f'''INSERT INTO anime (title, titleJp, animeID, image, notes, startDate, endDate, synopsis, episodes, globalScore, localScore, pictures, viewed, status, genres, background, studio, relatedAnime, relatedManga, averageEpDuration, favorite) VALUES ("{title}", "{titleJp}", "{animeID}", "{image}", "{notes}", "{startDate}", "{endDate}", "{synopsis}", "{episodes}", "{globalScore}", "{localScore}", "{pictures}", "{viewed}", "{status}", "{genres}", "{background}", "{studio}", "{relatedAnime}", "{relatedManga}", "{averageEpDuration}", "{favorite}")'''
     c.execute(q)
     conn.commit()
     conn.close()
@@ -83,6 +84,7 @@ def getAnimeList(order):
         i['relatedAnime'] = eval(i['relatedAnime'])
         i['relatedManga'] = eval(i['relatedManga'])
         i['viewed'] = bool(i['viewed'])
+        i['favorite'] = bool(i['favorite'])
 
     return finalAnimeList
 

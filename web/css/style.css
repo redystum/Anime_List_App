@@ -63,20 +63,22 @@ body{
     text-align: center;
 }
 
-.DeleteBtn{
+.deleteBtn{
+    color: var(--red);
     cursor: pointer;
 }
-.DeleteBtn:hover{
+.deleteBtn:hover{
     transition: ease-in .25s;
-    color: var(--red);
+    color: var(--soft-red);
 }
 
-.ViewedBtn{
+.doneBtn{
     cursor: pointer;
-}
-.ViewedBtn:hover{
-    transition: ease-in .25s;
     color: var(--green)
+}
+.doneBtn:hover{
+    transition: ease-in .25s;
+    color: var(--soft-green);
 }
 
 .form-control:focus {
@@ -243,7 +245,7 @@ body{
 
 .infoBtn{
     text-align: right;
-    /* width: 100%; */
+    cursor: pointer;
 }
 #animeListTable tr .infoBtn{
     opacity: 0;
@@ -359,4 +361,36 @@ body{
     cursor: pointer;
     transition: ease-in-out .25s;
     color: var(--green);
+}
+
+.favoriteBtn{
+    color: palevioletred;
+    cursor: pointer;
+}
+.favoriteBtn:hover{
+    transition: ease-in .25s;
+    color: var(--orange);
+}   
+
+.heart_plusBtn{
+    color: palevioletred;
+    cursor: pointer;
+}
+.heart_plusBtn:hover{
+    transition: ease-in .25s;
+    color: var(--orange);
+}
+
+.remove_doneBtn{
+    color: var(--orange);
+    cursor: pointer;
+}
+.remove_doneBtn:hover{
+    transition: ease-in .25s;
+    color: var(--red);
+}
+
+.actionsBtns{
+    min-width: 90px !important;
+    text-align: center;
 }
