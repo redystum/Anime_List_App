@@ -27,6 +27,11 @@ function showToast(title, msg, colorH, colorT) {
     // set toast colors and text
     document.getElementById("toastHeader").style.backgroundColor = `var(--${colorH})`;
     document.getElementById("toastBodyText").style.backgroundColor = `var(--${colorT})`;
+    let color;
+    if (colorH == "soft-green") {
+        color = "black";
+    }
+    document.getElementById("toastHeader").style.color = color;
     document.getElementById("toastBodyText").innerHTML = msg;
     document.getElementById("toastTitle").innerHTML = title;
     // show toast
@@ -56,9 +61,10 @@ async function getAnimeData(AnimeId) {
     img = data.main_picture.large;
     episodes = ((data.num_episodes != 0) ? data.num_episodes : "Unknown");
     score = data.mean;
+    fav = data.favorite;
 
     // insert data on table
-    addAnimeToTable(animeID, title, img, episodes, score, "", 0, "\"Processing...\"", "p");
+    addAnimeToTable(animeID, title, img, episodes, score, "", 0, "\"Processing...\"",fav, "p");
 
     // call function to add icons to respective elements
     putIcon();
@@ -90,7 +96,7 @@ async function getAnimeList(order = 0) {
     }
     for (let i = 0; i < data.length; i++) {
         // call function to add anime to table
-        addAnimeToTable(data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id);
+        addAnimeToTable(data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite);
     }
     // call function to add icons to respective elements
     putIcon();
@@ -134,9 +140,20 @@ async function setViewed(id, AnimeId) {
     // call python function
     eel.setViewed(id)();
     // move anime to the other table
-    const el = document.getElementById(`Anime${AnimeId}_${id}`);
+    let el = document.getElementById(`Anime${AnimeId}_${id}`);
     const tr = document.getElementById('watchedAnimeListTable')
     tr.appendChild(el);
+    // change actions buttons
+    removeLoading_NoAnime('watchedAnimeListTable');
+    el = document.getElementById(`Anime${AnimeId}_${id}`);
+    actionBtns = el.getElementsByClassName('actionsBtns')[0]
+    var child = actionBtns.lastElementChild;
+    while (child) {
+        actionBtns.removeChild(child);
+        child = actionBtns.lastElementChild;
+    }
+    changeActions(actionBtns, id, AnimeId)
+
     ifEmptyList('animeListTable')
 }
 
@@ -166,7 +183,14 @@ function pickRandom(table) {
             animeList.push(element.id)
         }
     });
-    cl(animeList)
+    if (animeList.length == 0) {
+        showToast("Error", "No anime to choose from! The random just takes anime from unwatched table, add some and try again.", "red", "soft-black")
+        return;
+    }
+    if (animeList.length == 1) {
+        showToast("Info", "Really? If you only have one anime on the list it's kind of obvious which one you're going to get, right?", "soft-green", "soft-black")
+        return;
+    }
     let randomAnime = animeList[Math.floor(Math.random() * animeList.length)]
     let el = document.getElementById(`${randomAnime}`).getElementsByClassName("infoBtn")[0]
     el.click()
@@ -260,9 +284,9 @@ function removeLoading_NoAnime(table) {
         e.getElementsByClassName("noAnime")[i - 1].remove();
     }
 }
-function removeAllChildren(table) {
+function removeAllChildren(element) {
     // remove all children of an element
-    let e = document.getElementById(table);
+    let e = document.getElementById(element);
     var child = e.lastElementChild;
     while (child) {
         e.removeChild(child);

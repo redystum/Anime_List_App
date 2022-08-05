@@ -20,7 +20,7 @@ def main(reset=False):
     tokens(id INTEGER PRIMARY KEY AUTOINCREMENT, clientId TEXT, token TEXT, refreshToken TEXT)''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS 
-    anime(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, titleJp TEXT, animeID INTEGER, image TEXT, notes TEXT, startDate TEXT, endDate TEXT, synopsis TEXT, episodes INTEGER, averageEpDuration INTEGER, globalScore FLOAT, localScore FLOAT, pictures TEXT, viewed BOOLEAN, status TEXT, genres TEXT, background TEXT, studio TEXT, relatedAnime TEXT, relatedManga TEXT)''')
+    anime(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, titleJp TEXT, animeID INTEGER, image TEXT, notes TEXT, startDate TEXT, endDate TEXT, synopsis TEXT, episodes INTEGER, averageEpDuration INTEGER, globalScore FLOAT, localScore FLOAT, pictures TEXT, viewed BOOLEAN, favorite BOOLEAN, status TEXT, genres TEXT, background TEXT, studio TEXT, relatedAnime TEXT, relatedManga TEXT)''')
 
     c.execute('''INSERT INTO tokens (clientId, token, refreshToken) VALUES(0, 0, 0)''')
 

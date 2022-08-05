@@ -63,12 +63,6 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h3>Watched Anime</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
                 <table class="table tableHover">
                     <thead>
                         <tr>
@@ -104,6 +98,12 @@
 
         <br><br>
 
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Watched Anime</h3>
+            </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-md-12">
                 <table class="table tableHover">
@@ -237,10 +237,10 @@
                 let icon = document.getElementsByClassName("iconElement")[i].dataset.icon;
                 let tooltip = document.getElementsByClassName("iconElement")[i].dataset.tooltip;
                 let type = document.getElementsByClassName("iconElement")[i].dataset.type;
-                if (!tooltip.includes(" ")) {
-                    document.getElementsByClassName("iconElement")[i].classList.add(tooltip + "Btn");
+                if (!icon.includes(" ")) {
+                    document.getElementsByClassName("iconElement")[i].classList.add(icon + "Btn");
                 }
-                let html
+                let html;
                 if (tooltip == "") {
                     if (type == "popover") {
                         let popoverText = document.getElementsByClassName("iconElement")[i].dataset.popoverText;
@@ -295,6 +295,7 @@
     <script src="./js/loadingElement.js"></script>
     <script src="./js/animeFunctions.js"></script>
     <script src="./js/infoModal.js"></script>
+    <script src="./js/changeActions.js"></script>
 
     <script language="JavaScript">
         // to show a dialog wen user trys to close the page (only during processing)
