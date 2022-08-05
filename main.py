@@ -4,7 +4,6 @@ import getData
 import threading
 import dbManager
 import globalVars
-import json
 
 @eel.expose
 def getAnime(data):
