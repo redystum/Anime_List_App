@@ -15,7 +15,11 @@ function startSearch() {
         addLoadingElementTable();
 
         // call python function
-        eel.getAnime(anime)
+        if (anime.startsWith("id:")) { // if anime is an id
+            getAnimeData(anime.replace("id:", ""));
+        } else {
+            eel.getAnime(anime)
+        }
     }
 }
 
@@ -186,6 +190,17 @@ async function getAnimeData(AnimeId) {
 
     // call python function
     data = await eel.AnimeData(AnimeId)();
+    if (data == "not_found") {
+        // if error, show error message
+        showToast("Error", `Anime with id ${AnimeId} was not found! Try again with some existing id.`, 'red', 'soft-black')
+        // remove loading element
+        removeLoading_NoAnime('animeListTable');
+        // enable search fields
+        changeSearchDisableStatus(false);
+        // permit the window be closed without warns
+        window.running = false;
+        return
+    }
     // data processing
     animeID = data.id;
     title = data.title;

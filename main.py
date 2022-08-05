@@ -13,6 +13,8 @@ def getAnime(data):
 @eel.expose
 def AnimeData(data):
     animeData = getData.getAnimeData(data)
+    if "error" in animeData:
+        return animeData['error']
     globalVars.running_a_task = True
     globalVars.adding_to_db = True
     saveDb = threading.Thread(target=dbManager.addAnimeToDb, args=(animeData,))
