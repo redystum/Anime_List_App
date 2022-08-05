@@ -32,7 +32,7 @@ def deleteAnime(data):
     dbManager.deleteAnime(data)
 
 @eel.expose
-def viewedAnime(data):
+def setViewed(data):
     dbManager.viewedAnime(data)
 
 @eel.expose
@@ -47,7 +47,8 @@ def changeJsFunction(id):
     while globalVars.adding_to_db:
         time.sleep(0.1)
     row = dbManager.getRowId(id)
-    eel.changeBtnId(row)
+    time.sleep(.5)
+    eel.changeBtnId(row, id)
 
 
 def close_callback(route, websockets):

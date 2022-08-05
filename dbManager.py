@@ -113,7 +113,6 @@ def getRowId(Animeid):
     return rowId
 
 def getAnimeInfo(AnimeId):
-
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
     c.execute(f'SELECT * FROM anime WHERE animeID = {AnimeId}')
