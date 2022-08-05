@@ -15,7 +15,11 @@ function startSearch() {
         addLoadingElementTable();
 
         // call python function
-        eel.getAnime(anime)
+        if (anime.startsWith("id:")) { // if anime is an id
+            getAnimeData(anime.replace("id:", ""));
+        } else {
+            eel.getAnime(anime)
+        }
     }
 }
 
@@ -81,6 +85,29 @@ function chooseAnime(animeList) {
         td_MgHCv.appendChild(a_KgCmV);
         a_KgCmV.textContent += animeList[i].node.title;
     }
+
+    table_AuwCe.appendChild(tbody_eutXG);
+    const tr_pFSpQ = document.createElement('tr');
+    tbody_eutXG.appendChild(tr_pFSpQ);
+    const td_MgHCv = document.createElement('td');
+    td_MgHCv.setAttribute(`colspan`, `2`);
+    td_MgHCv.classList.add('tableName');
+    td_MgHCv.id = 'chooseNameTable';
+    tr_pFSpQ.appendChild(td_MgHCv);
+    const p_KgCmV = document.createElement('p');
+    td_MgHCv.appendChild(p_KgCmV);
+    p_KgCmV.textContent += "if you can't find the anime you want:";
+    const ul = document.createElement('ul');
+    td_MgHCv.appendChild(ul);
+    const li = document.createElement('li');
+    ul.appendChild(li);
+    li.textContent += "Check if you wrote it correctly or try to write another title of the same anime";
+    const li_1 = document.createElement('li');
+    ul.appendChild(li_1);
+    li_1.textContent += "Write the id of myanimelist.net like this: ";
+    const code = document.createElement('code');
+    li_1.appendChild(code);
+    code.textContent += "id:30";
 
     // launch modal
     const myModal = new bootstrap.Modal(document.getElementById('chooseAnimeModal'))
@@ -163,6 +190,17 @@ async function getAnimeData(AnimeId) {
 
     // call python function
     data = await eel.AnimeData(AnimeId)();
+    if (data == "not_found") {
+        // if error, show error message
+        showToast("Error", `Anime with id ${AnimeId} was not found! Try again with some existing id.`, 'red', 'soft-black')
+        // remove loading element
+        removeLoading_NoAnime('animeListTable');
+        // enable search fields
+        changeSearchDisableStatus(false);
+        // permit the window be closed without warns
+        window.running = false;
+        return
+    }
     // data processing
     animeID = data.id;
     title = data.title;
