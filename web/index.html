@@ -215,23 +215,28 @@
                 }
                 let html
                 if (tooltip == "") {
-                    if (type = "popover") {
+                    if (type == "popover") {
                         let popoverText = document.getElementsByClassName("iconElement")[i].dataset.popoverText;
                         let popoverTitle = document.getElementsByClassName("iconElement")[i].dataset.popoverTitle;
-                        document.getElementsByClassName("iconElement")[i].innerHTML = `<a class=\"material-symbols-outlined thePopover\" data-bs-toggle="popover" data-bs-trigger="focus" tabindex="0" data-bs-content="${popoverText}" data-bs-title="${popoverTitle}" data-bs-custom-class="myPopover">${icon}</a>`;
+                        document.getElementsByClassName("iconElement")[i].innerHTML = `<a class=\"material-symbols-outlined thePopover\" data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" data-bs-content=\"${popoverText}\" data-bs-title=\"${popoverTitle}\" data-bs-custom-class=\"myPopover\">${icon}</a>`;
                     } else {
                         document.getElementsByClassName("iconElement")[i].innerHTML = `<span class=\"material-symbols-outlined\">${icon}</span>`;
                     }
                 } else {
-                    if (type = "popover") {
+                    if (type == "popover") {
+                        // let popoverText = document.getElementsByClassName("iconElement")[i].dataset.popoverText;
+                        // let popoverTitle = document.getElementsByClassName("iconElement")[i].dataset.popoverTitle;
+                        // document.getElementsByClassName("iconElement")[i].innerHTML = `<a class=\"material-symbols-outlined thePopover\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"${tooltip}\" data-bs-delay='{\"show\":\"1000\", \"hide\":\"300\"}' data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" data-bs-content=\"${popoverText}\" data-bs-title=\"${popoverTitle}\" data-bs-custom-class=\"myPopover\" tabindex=\"0\">${icon}</a>`;
+
+                        // tooltip wont work with popover, and idk how to solve, so... this button will not have tooltip
+
                         let popoverText = document.getElementsByClassName("iconElement")[i].dataset.popoverText;
                         let popoverTitle = document.getElementsByClassName("iconElement")[i].dataset.popoverTitle;
-                        document.getElementsByClassName("iconElement")[i].innerHTML = `<a class=\"material-symbols-outlined thePopover\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"${tooltip}\" data-bs-delay='{\"show\":\"1000\", \"hide\":\"300\"}' data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="${popoverText}" data-bs-title="${popoverTitle}" data-bs-custom-class="myPopover">${icon}</a>`;
+                        document.getElementsByClassName("iconElement")[i].innerHTML = `<a class=\"material-symbols-outlined thePopover\" data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" data-bs-content=\"${popoverText}\" data-bs-title=\"${popoverTitle}\" data-bs-custom-class=\"myPopover\">${icon}</a>`;
                     } else {
                         document.getElementsByClassName("iconElement")[i].innerHTML = `<span class=\"material-symbols-outlined\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"${tooltip}\" data-bs-delay='{\"show\":\"1000\", \"hide\":\"300\"}'>${icon}</span>`;
                     }
                 }
-
             }
             // activate bootstrap tooltips
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -239,7 +244,6 @@
             // activate bootstrap popovers
             const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
             const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-
         }
         putIcon();
     </script>
