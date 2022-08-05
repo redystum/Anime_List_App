@@ -16,6 +16,7 @@ Create an app with integration to the [My Anime List](https://myanimelist.net/) 
 - Logo
 - Unviewed table
 - Import/Export data
+- White mode (only dark mode available)
 - Generate a radom anime (which is not in the table)
 - Manga list (unsure)
 
