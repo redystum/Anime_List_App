@@ -298,7 +298,7 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
         const span_tIvW = document.createElement('span');
         span_tIvW.classList.add('iconElement', 'notesIcon');
         span_tIvW.setAttribute(`data-icon`, `description`);
-        span_tIvW.setAttribute(`data-tooltip`, ``);
+        span_tIvW.setAttribute(`data-tooltip`, `Show Notes`);
         span_tIvW.setAttribute(`data-popover-text`, AnimeNotes);
         span_tIvW.setAttribute(`data-popover-title`, "Notes");
         span_tIvW.setAttribute(`data-type`, 'popover');
@@ -403,7 +403,7 @@ function saveScoreAndNotes() {
             const span_tIvW = document.createElement('span');
             span_tIvW.classList.add('iconElement', 'notesIcon');
             span_tIvW.setAttribute(`data-icon`, `description`);
-            span_tIvW.setAttribute(`data-tooltip`, ``);
+            span_tIvW.setAttribute(`data-tooltip`, `Show Notes`);
             span_tIvW.setAttribute(`data-popover-text`, notes);
             span_tIvW.setAttribute(`data-popover-title`, "Notes");
             span_tIvW.setAttribute(`data-type`, 'popover');
