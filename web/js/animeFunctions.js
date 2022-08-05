@@ -152,9 +152,10 @@ async function setViewed(id, AnimeId) {
         actionBtns.removeChild(child);
         child = actionBtns.lastElementChild;
     }
-    changeActions(actionBtns, id, AnimeId)
+    changeActions(actionBtns, id, AnimeId, "view")
 
     ifEmptyList('animeListTable')
+    putIcon();
 }
 
 async function deleteAnime(id, AnimeId, table) {
@@ -236,6 +237,28 @@ function saveScoreAndNotes() {
         }
     }
     // call function to add icons to respective elements
+    putIcon();
+}
+
+function setUnview(id, animeId){
+    // call python function
+    //! eel.setUnviewed(id)();
+    // move anime to the other table
+    let el = document.getElementById(`Anime${animeId}_${id}`);
+    const tr = document.getElementById('animeListTable')
+    tr.appendChild(el);
+    // change actions buttons
+    removeLoading_NoAnime('animeListTable');
+    el = document.getElementById(`Anime${animeId}_${id}`);
+    actionBtns = el.getElementsByClassName('actionsBtns')[0]
+    var child = actionBtns.lastElementChild;
+    while (child) {
+        actionBtns.removeChild(child);
+        child = actionBtns.lastElementChild;
+    }
+    changeActions(actionBtns, id, animeId, "unview")
+
+    ifEmptyList('watchedAnimeListTable')
     putIcon();
 }
 

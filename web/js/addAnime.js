@@ -28,9 +28,6 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     const th_umBZQ = document.createElement('th');
     th_umBZQ.setAttribute(`scope`, `row`);
     th_umBZQ.classList.add(`actionsBtns`);
-    if (AnimeViewed == true) {
-        th_umBZQ.style.minWidth = "90px";
-    }
     tr_pyFdT.appendChild(th_umBZQ);
     const span_tIvWc = document.createElement('span');
     span_tIvWc.classList.add('iconElement');
