@@ -1,6 +1,7 @@
 // expose function to be called from python
 eel.expose(chooseAnime);
 function chooseAnime(animeList) {
+    closeToolTips();
     //remove all children (including loading animation)
     removeAllChildren('chooseAnimeBody');
 

@@ -1,4 +1,5 @@
 function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, favorite, AnimeStatus = "complete") {
+    closeToolTips();
     let e;
     if (AnimeViewed == true) {
         e = document.getElementById("watchedAnimeListTable") // table for viewed anime

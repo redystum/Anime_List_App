@@ -15,8 +15,6 @@ def AnimeData(data):
     animeData = getData.getAnimeData(data)
     if "error" in animeData:
         return animeData['error']
-    globalVars.running_a_task = True
-    globalVars.adding_to_db = True
     saveDb = threading.Thread(target=dbManager.addAnimeToDb, args=(animeData,))
     saveDb.start()
     changeJs = threading.Thread(target=changeJsFunction, args=(animeData['id'],))
@@ -29,21 +27,15 @@ def getAnimeList(data):
 
 @eel.expose
 def deleteAnime(data):
-    globalVars.running_a_task = True
     dbManager.deleteAnime(data)
-    globalVars.running_a_task = False
 
 @eel.expose
 def setViewed(data):
-    globalVars.running_a_task = True
     dbManager.viewedAnime(data)
-    globalVars.running_a_task = False
 
 @eel.expose
 def setUnviewed(data):
-    globalVars.running_a_task = True
     dbManager.setUnviewed(data)
-    globalVars.running_a_task = False
 
 @eel.expose
 def getAnimeInfo(data):
@@ -52,6 +44,14 @@ def getAnimeInfo(data):
 @eel.expose
 def updateNotesAndScore(notes, score, id):
     dbManager.updateNotesScore(notes, score, id)
+
+@eel.expose
+def favAnime(data):
+    dbManager.favAnime(data)
+
+@eel.expose
+def unFavAnime(data):
+    dbManager.unFavAnime(data)
 
 def changeJsFunction(id):
     while globalVars.adding_to_db:
