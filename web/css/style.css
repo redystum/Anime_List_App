@@ -260,6 +260,19 @@ body{
     cursor: pointer;
 }
 
+#watchedAnimeListTable tr .infoBtn{
+    opacity: 0;
+}
+#watchedAnimeListTable tr:hover .infoBtn{
+    transition: ease-in-out .25s;
+    opacity: 1;
+}
+#watchedAnimeListTable tr .infoBtn:hover{
+    transition: ease-in-out .25s;
+    color: var(--green);
+    cursor: pointer;
+}
+
 .moreInfoModalImages{
     transition: cubic-bezier(0.215, 0.610, 0.355, 1) .5s;
     padding: 1px;

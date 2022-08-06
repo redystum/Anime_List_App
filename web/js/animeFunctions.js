@@ -3,6 +3,7 @@ cl = console.log;
 function startSearch() {
     // ez understand peace of code
     anime = document.getElementById('animeNameAdd').value;
+    closeToolTips();
     if (anime == "" || anime == " ") {
         showToast("Error", "Please enter an anime name", "red", "soft-black")
     } else {
@@ -41,6 +42,7 @@ function showToast(title, msg, colorH, colorT) {
 }
 
 async function getAnimeData(AnimeId) {
+    closeToolTips();
     // hide modal
     document.getElementById('closeModal').click();
 
@@ -78,6 +80,7 @@ async function getAnimeData(AnimeId) {
 }
 
 async function getAnimeList(order = 0) {
+    closeToolTips();
     // remove all children (including loading animation)
     removeAllChildren('animeListTable');
     removeAllChildren('watchedAnimeListTable');
@@ -112,6 +115,7 @@ async function getAnimeList(order = 0) {
 }
 
 function appendNoAnime(table) {
+    closeToolTips();
     // add a no anime message
     const e = document.getElementById(table);
     const tr = document.createElement('th');
@@ -123,6 +127,7 @@ function appendNoAnime(table) {
 }
 
 function cancelAddAnime() {
+    closeToolTips();
     // activate "add anime" fields
     changeSearchDisableStatus(false);
     // remove loading animation and no anime message
@@ -132,6 +137,7 @@ function cancelAddAnime() {
 }
 
 async function setViewed(id, AnimeId) {
+    closeToolTips();
     // if the anime are being processed, don't allow to change her state
     if (id == "Processing...") {
         showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-black")
@@ -159,6 +165,7 @@ async function setViewed(id, AnimeId) {
 }
 
 async function deleteAnime(id, AnimeId, table) {
+    closeToolTips();
     // if the anime are being processed, don't allow to delete it
     if (id == "Processing...") {
         showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-black")
@@ -174,6 +181,7 @@ async function deleteAnime(id, AnimeId, table) {
 
 function pickRandom(table) {
     // choose a random anime from the not viewed list
+    closeToolTips();
     let e = document.getElementById(table).childNodes
     let animeList = []
     e.forEach(element => {
@@ -241,6 +249,7 @@ function saveScoreAndNotes() {
 }
 
 function setUnview(id, animeId){
+    closeToolTips();
     // call python function
     eel.setUnviewed(id)();
     // move anime to the other table
@@ -262,8 +271,31 @@ function setUnview(id, animeId){
     putIcon();
 }
 
-function addFav(id, animeId) {
-    
+function addFav(id, AnimeId) {
+    closeToolTips();
+    eel.favAnime(id)
+    el = document.getElementById(`Anime${AnimeId}_${id}`);
+    actionBtns = el.getElementsByClassName('actionsBtns')[0]
+    var child = actionBtns.lastElementChild;
+    while (child) {
+        actionBtns.removeChild(child);
+        child = actionBtns.lastElementChild;
+    }
+    changeActions(actionBtns, id, AnimeId, "view", 1)
+    putIcon();
+}
+function removeFav(id, AnimeId) {
+    closeToolTips();
+    eel.unFavAnime(id)
+    el = document.getElementById(`Anime${AnimeId}_${id}`);
+    actionBtns = el.getElementsByClassName('actionsBtns')[0]
+    var child = actionBtns.lastElementChild;
+    while (child) {
+        actionBtns.removeChild(child);
+        child = actionBtns.lastElementChild;
+    }
+    changeActions(actionBtns, id, AnimeId, "view", 0)
+    putIcon();
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)

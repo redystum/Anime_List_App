@@ -3,6 +3,8 @@ import globalVars
 globalVars.init()
 
 def addAnimeToDb(data):
+    globalVars.running_a_task = True
+    globalVars.adding_to_db = True
     title = data['title'].replace('"', "'")
     titleJp = data['alternative_titles']['ja'].replace('"', "'")
     animeID = int(data['id'])
@@ -156,6 +158,24 @@ def updateNotesScore(notes, score, id):
 
     q += f' WHERE id = {id}'
     c.execute(q)
+    conn.commit()
+    conn.close()
+    globalVars.running_a_task = False
+
+def favAnime(id):
+    globalVars.running_a_task = True
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'UPDATE anime SET favorite = 1 WHERE id = {id}')
+    conn.commit()
+    conn.close()
+    globalVars.running_a_task = False
+
+def unFavAnime(id):
+    globalVars.running_a_task = True
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'UPDATE anime SET favorite = 0 WHERE id = {id}')
     conn.commit()
     conn.close()
     globalVars.running_a_task = False

@@ -1,5 +1,8 @@
-function changeActions(element, id, AnimeId, option) {
+function changeActions(element, id, AnimeId, option, fav = 0) {
+    closeToolTips();
     if (option == "view") {
+        console.log("view");
+        console.log(element)
         const span_tIvWc = document.createElement('span');
         span_tIvWc.classList.add('iconElement');
         span_tIvWc.setAttribute(`data-icon`, `remove_done`);
@@ -14,9 +17,17 @@ function changeActions(element, id, AnimeId, option) {
         element.appendChild(span_umBrx);
         const span_umBr = document.createElement('span');
         span_umBr.classList.add('iconElement');
-        span_umBr.setAttribute(`data-icon`, `heart_plus`);
-        span_umBr.setAttribute(`data-tooltip`, `Add to favorites`);
-        span_umBr.setAttribute(`onclick`, `addFav(${id}, ${AnimeId})`);
+        if (fav == 0) {
+            console.log("not fav");
+            span_umBr.setAttribute(`data-icon`, `heart_plus`);
+            span_umBr.setAttribute(`data-tooltip`, `Add to favorites`);
+            span_umBr.setAttribute(`onclick`, `addFav(${id}, ${AnimeId})`);
+        } else {
+            console.log(" fav");
+            span_umBr.setAttribute(`data-icon`, `favorite`);
+            span_umBr.setAttribute(`data-tooltip`, `In favorites List`);
+            span_umBr.setAttribute(`onclick`, `removeFav(${id}, ${AnimeId})`);
+        }
         element.appendChild(span_umBr);
     } else if (option == "unview") {
         const span_tIvWc = document.createElement('span');
@@ -31,6 +42,5 @@ function changeActions(element, id, AnimeId, option) {
         span_umBrx.setAttribute(`data-tooltip`, `Delete`);
         span_umBrx.setAttribute(`onclick`, `deleteAnime(${id}, ${AnimeId}, 0)`);
         element.appendChild(span_umBrx);
-
     }
 }

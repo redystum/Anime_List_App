@@ -1,4 +1,5 @@
 async function showMoreInfo(AnimeId) {
+    closeToolTips();
     // call python function
     data = await eel.getAnimeInfo(AnimeId)();
 

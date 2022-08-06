@@ -1,5 +1,6 @@
 
 function addLoadingElementTable(table) {
+    closeToolTips();
     // block "add anime" fields
     changeSearchDisableStatus(true);
     // stop glow animation
