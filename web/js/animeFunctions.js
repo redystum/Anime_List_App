@@ -242,7 +242,7 @@ function saveScoreAndNotes() {
 
 function setUnview(id, animeId){
     // call python function
-    //! eel.setUnviewed(id)();
+    eel.setUnviewed(id)();
     // move anime to the other table
     let el = document.getElementById(`Anime${animeId}_${id}`);
     const tr = document.getElementById('animeListTable')
@@ -260,6 +260,10 @@ function setUnview(id, animeId){
 
     ifEmptyList('watchedAnimeListTable')
     putIcon();
+}
+
+function addFav(id, animeId) {
+    
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)

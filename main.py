@@ -29,11 +29,21 @@ def getAnimeList(data):
 
 @eel.expose
 def deleteAnime(data):
+    globalVars.running_a_task = True
     dbManager.deleteAnime(data)
+    globalVars.running_a_task = False
 
 @eel.expose
 def setViewed(data):
+    globalVars.running_a_task = True
     dbManager.viewedAnime(data)
+    globalVars.running_a_task = False
+
+@eel.expose
+def setUnviewed(data):
+    globalVars.running_a_task = True
+    dbManager.setUnviewed(data)
+    globalVars.running_a_task = False
 
 @eel.expose
 def getAnimeInfo(data):
