@@ -9,12 +9,12 @@ Create an app with integration to the [My Anime List](https://myanimelist.net/) 
 - Add/Remove Animes from list
 - See info about the anime
 - Take notes and rate anime
-- Chose a random anime from viewed
+- Chose a random anime from unviewed
 - Change the list order
+- Viewed table
 
 ## Coming soon
 - Logo
-- Unviewed table
 - Import/Export data
 - White mode (only dark mode available)
 - Generate a radom anime (which is not in the table)
