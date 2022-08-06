@@ -3,6 +3,8 @@ import globalVars
 globalVars.init()
 
 def addAnimeToDb(data):
+    globalVars.running_a_task = True
+    globalVars.adding_to_db = True
     title = data['title'].replace('"', "'")
     titleJp = data['alternative_titles']['ja'].replace('"', "'")
     animeID = int(data['id'])
@@ -17,7 +19,7 @@ def addAnimeToDb(data):
     episodes = data['num_episodes'] if data['num_episodes']!=0 else "Unknown"
     globalScore = float(data['mean'])
     localScore = float(0.0)
-    viewed = False
+    viewed = 0
     status = data['status'].replace('"', "'")
     genres = ""
     for g in data['genres']:
@@ -32,10 +34,11 @@ def addAnimeToDb(data):
     studio = studio[:-2]
     relatedAnime = data['related_anime']
     relatedManga = data['related_manga']
+    favorite = 0
 
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
-    q = f'''INSERT INTO anime (title, titleJp, animeID, image, notes, startDate, endDate, synopsis, episodes, globalScore, localScore, pictures, viewed, status, genres, background, studio, relatedAnime, relatedManga, averageEpDuration) VALUES ("{title}", "{titleJp}", "{animeID}", "{image}", "{notes}", "{startDate}", "{endDate}", "{synopsis}", "{episodes}", "{globalScore}", "{localScore}", "{pictures}", "{viewed}", "{status}", "{genres}", "{background}", "{studio}", "{relatedAnime}", "{relatedManga}", "{averageEpDuration}")'''
+    q = f'''INSERT INTO anime (title, titleJp, animeID, image, notes, startDate, endDate, synopsis, episodes, globalScore, localScore, pictures, viewed, status, genres, background, studio, relatedAnime, relatedManga, averageEpDuration, favorite) VALUES ("{title}", "{titleJp}", "{animeID}", "{image}", "{notes}", "{startDate}", "{endDate}", "{synopsis}", "{episodes}", "{globalScore}", "{localScore}", "{pictures}", "{viewed}", "{status}", "{genres}", "{background}", "{studio}", "{relatedAnime}", "{relatedManga}", "{averageEpDuration}", "{favorite}")'''
     c.execute(q)
     conn.commit()
     conn.close()
@@ -83,6 +86,7 @@ def getAnimeList(order):
         i['relatedAnime'] = eval(i['relatedAnime'])
         i['relatedManga'] = eval(i['relatedManga'])
         i['viewed'] = bool(i['viewed'])
+        i['favorite'] = bool(i['favorite'])
 
     return finalAnimeList
 
@@ -104,6 +108,15 @@ def viewedAnime(id):
     conn.close()
     globalVars.running_a_task = False
 
+def setUnviewed(id):
+    globalVars.running_a_task = True
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'UPDATE anime SET viewed = 0 WHERE id = {id}')
+    conn.commit()
+    conn.close()
+    globalVars.running_a_task = False
+
 def getRowId(Animeid):
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
@@ -113,7 +126,6 @@ def getRowId(Animeid):
     return rowId
 
 def getAnimeInfo(AnimeId):
-
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
     c.execute(f'SELECT * FROM anime WHERE animeID = {AnimeId}')
@@ -146,6 +158,24 @@ def updateNotesScore(notes, score, id):
 
     q += f' WHERE id = {id}'
     c.execute(q)
+    conn.commit()
+    conn.close()
+    globalVars.running_a_task = False
+
+def favAnime(id):
+    globalVars.running_a_task = True
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'UPDATE anime SET favorite = 1 WHERE id = {id}')
+    conn.commit()
+    conn.close()
+    globalVars.running_a_task = False
+
+def unFavAnime(id):
+    globalVars.running_a_task = True
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'UPDATE anime SET favorite = 0 WHERE id = {id}')
     conn.commit()
     conn.close()
     globalVars.running_a_task = False

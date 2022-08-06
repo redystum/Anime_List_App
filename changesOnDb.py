@@ -14,7 +14,9 @@ conn = sqlite3.connect(path + 'LocalStorage.db')
 
 c = conn.cursor()
 
-c.execute('DELETE FROM anime WHERE id = 6')
+c.execute('update anime set favorite = 0 where id = 84')
+c.execute('update anime set favorite = 1 where id = 85')
+c.execute('update anime set favorite = 0 where id = 87')
 # c.execute('DROP TABLE anime')
 
 

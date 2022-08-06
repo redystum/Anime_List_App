@@ -33,72 +33,99 @@
             <div class="col-md-12">
                 <h3>Anime to watch</h3>
             </div>
-
-            <div class="row">
-                <div class="col-md-12 sortDropdown">
-
-                    <div class="dropdown">
-                        <button class="randomBigBtn" type="button" onclick="pickRandom('animeListTable');">
-                            <span class="iconElement orderBtn" data-icon="shuffle"
-                                data-tooltip="Random from list"></span>
-                        </button>
-                        <button class="dropdownBtn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <span class="iconElement orderBtn" data-icon="sort_by_alpha"
-                                data-tooltip="Sort list"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdownList">
-                            <li><a class="dropdown-item" onclick="getAnimeList();">Default</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('a-z');">A-Z</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('z-a');">Z-A</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('g-l');">Highest Score</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('l-g');">Lower Score</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('e-p');">More Episodes</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('p-e');">Less Episodes</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('i-d');">Higher ID</a></li>
-                            <li><a class="dropdown-item" onclick="getAnimeList('d-i');">Lower ID</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table tableHover">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Actions</th>
-                                <th scope="col" class="text-center">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col"></th> <!-- Info btn -->
-                                <th scope="col" class="text-center">Notes</th>
-                                <th scope="col" class="text-center">Episodes</th>
-                                <th scope="col" class="text-center">Score</th>
-                            </tr>
-                        </thead>
-                        <tbody class="animeList" id="animeListTable">
-                            <!-- injected by js -->
-                        </tbody>
-                    </table>
-                    <div class="row addAnimeFields flex-nowrap">
-                        <div class="col-md-1 addText">
-                            Add
-                        </div>
-                        <div class="tableNameAdd col-md-8" colspan="4">
-                            <input type="text" class="form-control" id="animeNameAdd" autocomplete="off"
-                                placeholder="Anime name">
-                        </div>
-                        <div class="col-md-3">
-                            <button class="addAnimeBtn glowActivator" data-target="animeNameAdd" id="addAnimeBtn">
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <div class="row">
+            <div class="col-md-12 sortDropdown">
+
+                <div class="dropdown">
+                    <button class="randomBigBtn" type="button" onclick="pickRandom('animeListTable');">
+                        <span class="iconElement orderBtn" data-icon="shuffle" data-tooltip="Random from list"></span>
+                    </button>
+                    <button class="dropdownBtn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="iconElement orderBtn" data-icon="sort_by_alpha" data-tooltip="Sort list"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdownList">
+                        <li><a class="dropdown-item" onclick="getAnimeList();">Default</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('a-z');">A-Z</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('z-a');">Z-A</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('g-l');">Highest Score</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('l-g');">Lower Score</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('e-p');">More Episodes</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('p-e');">Less Episodes</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('i-d');">Higher ID</a></li>
+                        <li><a class="dropdown-item" onclick="getAnimeList('d-i');">Lower ID</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table tableHover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Actions</th>
+                            <th scope="col" class="text-center">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col"></th> <!-- Info btn -->
+                            <th scope="col" class="text-center">Notes</th>
+                            <th scope="col" class="text-center">Episodes</th>
+                            <th scope="col" class="text-center">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody class="animeList" id="animeListTable">
+                        <!-- injected by js -->
+                    </tbody>
+                </table>
+                <div class="row addAnimeFields flex-nowrap">
+                    <div class="col-md-1 addText">
+                        Add
+                    </div>
+                    <div class="tableNameAdd col-md-8" colspan="4">
+                        <input type="text" class="form-control" id="animeNameAdd" autocomplete="off"
+                            placeholder="Anime name">
+                    </div>
+                    <div class="col-md-3">
+                        <button class="addAnimeBtn glowActivator" data-target="animeNameAdd" id="addAnimeBtn">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Watched Anime</h3>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table tableHover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Actions</th>
+                            <th scope="col" class="text-center">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col"></th> <!-- Info btn -->
+                            <th scope="col" class="text-center">Notes</th>
+                            <th scope="col" class="text-center">Episodes</th>
+                            <th scope="col" class="text-center">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody class="animeList" id="watchedAnimeListTable">
+                        <!-- injected by js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
     </div>
 
     <!-- Hidden Elements -->
@@ -210,10 +237,10 @@
                 let icon = document.getElementsByClassName("iconElement")[i].dataset.icon;
                 let tooltip = document.getElementsByClassName("iconElement")[i].dataset.tooltip;
                 let type = document.getElementsByClassName("iconElement")[i].dataset.type;
-                if (!tooltip.includes(" ")) {
-                    document.getElementsByClassName("iconElement")[i].classList.add(tooltip + "Btn");
+                if (!icon.includes(" ")) {
+                    document.getElementsByClassName("iconElement")[i].classList.add(icon + "Btn");
                 }
-                let html
+                let html;
                 if (tooltip == "") {
                     if (type == "popover") {
                         let popoverText = document.getElementsByClassName("iconElement")[i].dataset.popoverText;
@@ -263,8 +290,12 @@
     </script>
 
     <!--  more complex functions -->
+    <script src="./js/addAnime.js"></script>
+    <script src="./js/chooseAnime.js"></script>
+    <script src="./js/loadingElement.js"></script>
     <script src="./js/animeFunctions.js"></script>
     <script src="./js/infoModal.js"></script>
+    <script src="./js/changeActions.js"></script>
 
     <script language="JavaScript">
         // to show a dialog wen user trys to close the page (only during processing)
@@ -281,7 +312,8 @@
 
     <script>
         // add a loading element
-        addLoadingElementTable();
+        addLoadingElementTable('animeListTable');
+        addLoadingElementTable('watchedAnimeListTable');
         // get the anime list from the local server
         getAnimeList();
     </script>
