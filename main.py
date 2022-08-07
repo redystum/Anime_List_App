@@ -4,6 +4,7 @@ import getData
 import threading
 import dbManager
 import globalVars
+import os
 
 @eel.expose
 def getAnime(data):
@@ -70,5 +71,12 @@ def close_callback(route, websockets):
 
 
 globalVars.init()
+
+path = globalVars.path
+if not os.path.exists(path):
+    import setUpDb
+    setUpDb.main()
+    
+
 eel.init('web', allowed_extensions=['.js', '.html'])
 eel.start('index.html', close_callback=close_callback) # , mode='mozilla' for firefox

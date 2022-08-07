@@ -23,7 +23,8 @@ function startSearch() {
         }
     }
 }
-
+// expose function to python
+eel.expose(showToast);
 function showToast(title, msg, colorH, colorT) {
     // set toast colors and text
     document.getElementById("toastHeader").style.backgroundColor = `var(--${colorH})`;
