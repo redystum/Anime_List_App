@@ -1,0 +1,180 @@
+:root {
+    --black: #131516;
+    --soft-black: #181a1b;
+    --orange: #f4aa89;
+    --soft-red: #ef8383;
+    --red: #f06261;
+    --green: #44bba4;
+    --soft-green: #44bba399;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 5px;
+
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #292c2e;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #292c2e;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL'0,
+        'wght'400,
+        'GRAD'-25,
+        'opsz'48
+}
+
+
+a {
+    color: inherit;
+}
+
+a:link {
+    color: inherit;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    transition: all 0.3s ease-in-out;
+    color: var(--soft-green);
+}
+
+a:active {
+    color: inherit;
+}
+
+.table {
+    vertical-align: middle;
+    color: white !important;
+}
+
+body {
+    background-color: var(--black);
+    color: white !important;
+}
+
+#welcopeContainer {
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+}
+
+.welcomeRow{
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+}
+.welcomeText {
+    font-size: 4em;
+}
+
+.WCentered {
+    font-family: 'Roboto', sans-serif;
+    color: var(--green);
+    position: relative;
+    top: 40%;
+}
+
+.welcomeRowTop {
+    transition: cubic-bezier(.35, .02, 0, .99) 2s;
+    height: 20vh !important;
+}
+
+.spaceContainer {
+    margin-top: 20vh;
+}
+
+.miniInfoBtn {
+    font-size: 20px;
+}
+
+.miniInfoBtn:hover {
+    transition: ease-in-out .25s;
+    color: var(--soft-green);
+}
+
+/* .material-symbols-outlined{
+    vertical-align: middle;
+} */
+
+.myPopover {
+    --bs-popover-border-color: var(--soft-green);
+    --bs-popover-header-bg: var(--black);
+    --bs-popover-header-color: white;
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: .5rem;
+    --bs-popover-bg: var(--soft-black);
+    --bs-popover-body-color: white;
+}
+
+.myBtn {
+    border: 0;
+    border-radius: 5px;
+    padding: 6px;
+    background-color: var(--green);
+
+}
+
+.myBtn:hover {
+    transition: ease-in-out .25s;
+    background-color: var(--orange);
+}
+
+.myBtn:active {
+    background-color: var(--soft-green);
+}
+
+.myBtn:disabled {
+    background-color: var(--soft-green);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control:focus {
+    border-color: var(--soft-green);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    background-color: var(--soft-black);
+}
+
+.form-control {
+    border-color: rgba(255, 255, 255, 0.5);
+    outline: 0;
+    background-color: var(--soft-black);
+    color: white !important;
+    width: 50% !important;
+    display: inline-block;
+}
+.form-control:disabled{
+    background-color: rgba(255, 255, 255, 0.123);
+}
+
+.ScrollForMore {
+    font-size: 5em;
+    vertical-align: middle;
+    color: var(--soft-green);
+}
+
+.ScrollForMoreText {
+    font-size: 1em;
+    vertical-align: middle;
+    color: var(--soft-green);
+}
+
+.downRow {
+    width: 100%;
+}

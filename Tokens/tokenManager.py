@@ -38,11 +38,10 @@ def update(client_id):
 
     try:
         client_idE = encryptToken(str(client_id))
-
         path = roaming + '\\AnimeList\\data\\'
         conn = sqlite3.connect(path + 'LocalStorage.db')
         c = conn.cursor()
-        query = f'''UPDATE tokens SET clientId = "{str(client_idE)} WHERE id = 1'''
+        query = f'''UPDATE tokens SET clientId = "{str(client_idE)}" WHERE id = 1'''
         c.execute(query)
         conn.commit()
         conn.close()
@@ -51,7 +50,7 @@ def update(client_id):
     return {'Info': 'Success'}
 
 def getClient():
-    response = request('client_id')
+    response = request()
     return response['Data'] if response['Info'] == 'Success' else response
 
 def encryptToken(text):
