@@ -31,5 +31,38 @@
 
 
 
-a = [999]
-print(a[-1]) # 999
+# a = [999]
+# print(a[-1]) # 999
+
+
+# import requests
+# import json
+# from Tokens import tokenManager
+
+# token = ':)'
+
+# animeName = "bunny girl senpai"
+# animeId = 35507
+# req = f'https://api.myanimelist.net/v2/anime?q={animeName}&limit=10'
+# req = f'https://api.myanimelist.net/v2/anime/{animeId}?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,studios,statistics'
+
+# response = requests.get(req, headers={'X-MAL-CLIENT-ID': token})
+
+# with open('anime3.json', 'w') as f:
+#     json.dump(response.json(), f, indent=4)
+
+# import requests
+# import json
+# token = "0"
+
+# req = f'https://api.myanimelist.net/v2/anime?q=evangelionlimit=1'
+# response = requests.get(req, headers={'X-MAL-CLIENT-ID': token})
+# print(response.status_code)
+# with open('anime3.json', 'w') as f:
+#     json.dump(response.json(), f, indent=4)
+ 
+
+import os
+
+path = os.getenv('APPDATA') + '\\AnimeList\\data\\tokens.db'
+print(os.path.exists(path))

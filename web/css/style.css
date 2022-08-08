@@ -360,7 +360,6 @@ body{
 }
 
 .myPopover{
-    --bs-popover-max-width: 200px;
   --bs-popover-border-color: var(--soft-green);
   --bs-popover-header-bg: var(--soft-black);
   --bs-popover-header-color: white;

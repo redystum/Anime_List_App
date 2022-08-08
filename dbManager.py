@@ -180,5 +180,20 @@ def unFavAnime(id):
     conn.close()
     globalVars.running_a_task = False
 
+
+def checkToken():
+    from Tokens import tokenManager
+    tk = tokenManager.request()
+    if tk['Info'] == "Success":
+        if tk['Data'] != "" or tk['Data'] != 0 or tk['Data'] != "0" or tk['Data'] != None:
+            return True
+    return False
+
+def updateClient(clientId):
+    globalVars.running_a_task = True
+    from Tokens import tokenManager
+    tokenManager.update(clientId)
+    globalVars.running_a_task = False
+
 if __name__ == '__main__':
     getAnimeList()

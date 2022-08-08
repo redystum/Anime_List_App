@@ -4,6 +4,7 @@ import getData
 import threading
 import dbManager
 import globalVars
+import os
 
 @eel.expose
 def getAnime(data):
@@ -53,6 +54,14 @@ def favAnime(data):
 def unFavAnime(data):
     dbManager.unFavAnime(data)
 
+@eel.expose
+def checkToken(data):
+    r = getData.checkToken(data)
+    if r['status'] == "success":
+        updateDb = threading.Thread(target=dbManager.updateClient, args=(data,))
+        updateDb.start()
+    return r
+
 def changeJsFunction(id):
     while globalVars.adding_to_db:
         time.sleep(0.1)
@@ -60,15 +69,31 @@ def changeJsFunction(id):
     time.sleep(.5)
     eel.changeBtnId(row, id)
 
-
 def close_callback(route, websockets):
     if globalVars.running_a_task:
         while globalVars.running_a_task:
             time.sleep(1)
+            print("Waiting for task to finish")
             continue
+    print("Closing")
     exit()
 
-
 globalVars.init()
+
+path = globalVars.path
+if not os.path.exists(path + "LocalStorage.db"):
+    globalVars.running_a_task = True
+    import setUpDb
+    setUpDb.main()
+    globalVars.running_a_task = False
+    file = "getStarted"
+else:
+    tk = dbManager.checkToken();
+    if tk == False:
+        file = "getStarted"
+    else:
+        file = "index"
+    
+
 eel.init('web', allowed_extensions=['.js', '.html'])
-eel.start('index.html', close_callback=close_callback) # , mode='mozilla' for firefox
+eel.start(f'{file}.html', close_callback=close_callback) # , mode='mozilla' for firefox
