@@ -195,5 +195,16 @@ def updateClient(clientId):
     tokenManager.update(clientId)
     globalVars.running_a_task = False
 
+def onDbCheck(AnimeId):
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'SELECT * FROM anime WHERE animeID = {AnimeId}')
+    animeList = c.fetchall()
+    conn.close()
+    if len(animeList) == 0:
+        return False
+    else:
+        return True
+
 if __name__ == '__main__':
     getAnimeList()
