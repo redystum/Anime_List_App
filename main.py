@@ -20,6 +20,8 @@ def AnimeData(data):
     saveDb.start()
     changeJs = threading.Thread(target=changeJsFunction, args=(animeData['id'],))
     changeJs.start()
+    onDbCheck_ = threading.Thread(target=onDbCheck, args=(animeData['id'],))
+    onDbCheck_.start()
     return animeData
 
 @eel.expose
@@ -68,6 +70,11 @@ def changeJsFunction(id):
     row = dbManager.getRowId(id)
     time.sleep(.5)
     eel.changeBtnId(row, id)
+
+def onDbCheck(id):
+    r = dbManager.onDbCheck(id)    
+    if r:
+        eel.showToast("Info", "Just to know that the anime you added was already on the list.", "soft-green", "soft-black")
 
 def close_callback(route, websockets):
     if globalVars.running_a_task:
