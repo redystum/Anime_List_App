@@ -257,13 +257,15 @@ async function showMoreInfo(AnimeId) {
     const div_Gwfbx = document.createElement('div');
     div_Gwfbx.classList.add('col-md-6');
     div_IJZTb.appendChild(div_Gwfbx);
-    const button_VrukS = document.createElement('button');
-    button_VrukS.classList.add('addAnimeBtn');
-    button_VrukS.setAttribute(`type`, `button`);
-    button_VrukS.setAttribute(`data-bs-toggle`, `modal`);
-    button_VrukS.setAttribute(`data-bs-target`, `#relatedAnimeModal`);
-    div_Gwfbx.appendChild(button_VrukS);
-    button_VrukS.textContent += `Related Anime`;
+    if (relatedAnime.length > 0) {
+        const button_VrukS = document.createElement('button');
+        button_VrukS.classList.add('addAnimeBtn');
+        button_VrukS.setAttribute(`type`, `button`);
+        button_VrukS.setAttribute(`data-bs-toggle`, `modal`);
+        button_VrukS.setAttribute(`data-bs-target`, `#relatedAnimeModal`);
+        div_Gwfbx.appendChild(button_VrukS);
+        button_VrukS.textContent += `Related Anime`;
+    }
     const div_DbZlx = document.createElement('div');
     div_DbZlx.classList.add('col-md-6');
     div_IJZTb.appendChild(div_DbZlx);
@@ -287,4 +289,11 @@ async function showMoreInfo(AnimeId) {
         saveScoreAndNotes(); // function on animeFunctions.js
     })
 
+    // call function to put related anime and manga in modal
+    if (relatedAnime.length > 0) {
+        relatedAnimeManga(relatedAnime, title, "anime")
+    }
+    if (relatedManga.length > 0) {
+        relatedAnimeManga(relatedManga, title, "manga")
+    }
 }

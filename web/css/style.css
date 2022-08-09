@@ -406,3 +406,33 @@ body{
     min-width: 90px !important;
     text-align: center;
 }
+
+.addToListBtn{
+    text-align: right;
+    cursor: pointer;
+}
+.relatedTableElement .addToListBtn{
+    opacity: 0;
+}
+.relatedTableElement:hover .addToListBtn{
+    transition: ease-in-out .25s;
+    opacity: 1;
+}
+.relatedTableElement .addToListBtn:hover{
+    transition: ease-in-out .25s;
+    color: var(--green);
+    cursor: pointer;
+}
+
+.relatedTableElement .addToListBtn{
+    opacity: 0;
+}
+.relatedTableElement:hover .addToListBtn{
+    transition: ease-in-out .25s;
+    opacity: 1;
+}
+.relatedTableElement .addToListBtn:hover{
+    transition: ease-in-out .25s;
+    color: var(--green);
+    cursor: pointer;
+}

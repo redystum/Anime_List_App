@@ -229,7 +229,9 @@ function saveScoreAndNotes() {
     eel.updateNotesAndScore(notes, score, id);
     // add/remove notes button
     if (notes == "") {
-        document.getElementById(`Anime${animeId}_${id}`).getElementsByClassName("notesIcon")[0].remove()
+        try{
+            document.getElementById(`Anime${animeId}_${id}`).getElementsByClassName("notesIcon")[0].remove()
+        } catch (e) {}
     } else {
         try {
             document.getElementById(`Anime${animeId}_${id}`).getElementsByClassName("notesIcon")[0].setAttribute("data-popover-text", notes);
@@ -297,6 +299,11 @@ function removeFav(id, AnimeId) {
     }
     changeActions(actionBtns, id, AnimeId, "view", 0)
     putIcon();
+}
+
+function addToList(AnimeId){
+    addLoadingElementTable('animeListTable');
+    getAnimeData(AnimeId)
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
