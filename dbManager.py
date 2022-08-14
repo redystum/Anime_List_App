@@ -112,7 +112,7 @@ def setUnviewed(id):
     globalVars.running_a_task = True
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
-    c.execute(f'UPDATE anime SET viewed = 0 WHERE id = {id}')
+    c.execute(f'UPDATE anime SET viewed = 0, favorite = 0 WHERE id = {id}')
     conn.commit()
     conn.close()
     globalVars.running_a_task = False
@@ -205,6 +205,30 @@ def onDbCheck(AnimeId):
         return False
     else:
         return True
+
+def getFavList():
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM anime WHERE favorite = 1 ORDER BY localScore DESC')
+    animeList = c.fetchall()
+    conn.close()
+    names = list(map(lambda x: x[0], c.description))
+    finalAnimeList = []
+    for i in range(len(animeList)):
+        animeList[i] = list(animeList[i])
+        listWKeys = {}
+        for j in range(len(animeList[i])):
+            listWKeys[names[j]] = animeList[i][j]
+        finalAnimeList.append(listWKeys)
+
+    for i in finalAnimeList:
+        i['pictures'] = eval(i['pictures'])
+        i['relatedAnime'] = eval(i['relatedAnime'])
+        i['relatedManga'] = eval(i['relatedManga'])
+        i['viewed'] = bool(i['viewed'])
+    
+    return finalAnimeList
+
 
 if __name__ == '__main__':
     getAnimeList()

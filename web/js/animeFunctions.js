@@ -67,7 +67,7 @@ async function getAnimeData(AnimeId) {
     fav = data.favorite;
 
     // insert data on table
-    addAnimeToTable(animeID, title, img, episodes, score, "", 0, "\"Processing...\"",fav, "p");
+    addAnimeToTable(animeID, title, img, episodes, score, "", 0, "\"Processing...\"", fav, "p");
 
     // call function to add icons to respective elements
     putIcon();
@@ -229,9 +229,9 @@ function saveScoreAndNotes() {
     eel.updateNotesAndScore(notes, score, id);
     // add/remove notes button
     if (notes == "") {
-        try{
+        try {
             document.getElementById(`Anime${animeId}_${id}`).getElementsByClassName("notesIcon")[0].remove()
-        } catch (e) {}
+        } catch (e) { }
     } else {
         try {
             document.getElementById(`Anime${animeId}_${id}`).getElementsByClassName("notesIcon")[0].setAttribute("data-popover-text", notes);
@@ -251,7 +251,7 @@ function saveScoreAndNotes() {
     putIcon();
 }
 
-function setUnview(id, animeId){
+function setUnview(id, animeId) {
     closeToolTips();
     // call python function
     eel.setUnviewed(id)();
@@ -286,6 +286,8 @@ function addFav(id, AnimeId) {
     }
     changeActions(actionBtns, id, AnimeId, "view", 1)
     putIcon();
+
+    favoriteList()
 }
 function removeFav(id, AnimeId) {
     closeToolTips();
@@ -299,11 +301,24 @@ function removeFav(id, AnimeId) {
     }
     changeActions(actionBtns, id, AnimeId, "view", 0)
     putIcon();
+
+    favoriteList()
 }
 
-function addToList(AnimeId){
+function addToList(AnimeId) {
     addLoadingElementTable('animeListTable');
     getAnimeData(AnimeId)
+}
+
+async function favoriteList() {
+    closeToolTips();
+    removeAllChildren('favoriteAnimeListTable')
+    data = await eel.getFavList()();
+    for (i = 0; i < data.length; i++) {
+        addAnimeToTable(data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite, "fav", 'favoriteAnimeListTable', i + 1)
+    }
+    putIcon();
+    ifEmptyList('favoriteAnimeListTable')
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
