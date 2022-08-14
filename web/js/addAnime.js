@@ -1,10 +1,15 @@
-function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, favorite, AnimeStatus = "complete") {
+function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, favorite, AnimeStatus = "complete", table = 0, favPos) {
     closeToolTips();
     let e;
     if (AnimeViewed == true) {
         e = document.getElementById("watchedAnimeListTable") // table for viewed anime
     } else {
         e = document.getElementById("animeListTable") // table for non viewed anime
+    }
+
+    // if teh table are specified, use it, else use the default one
+    if (table != 0) {
+        e = document.getElementById(table)
     }
 
     // define some vars to the recommended icon
@@ -24,52 +29,62 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     // add the anime to the table
     // code generated from www.htmltojs.com (Its normal to have random var names)
     const tr_pyFdT = document.createElement('tr');
-    tr_pyFdT.id = `Anime${AnimeId}_` + ((id == "\"Processing...\"") ? "" : id);
+    if (AnimeStatus != "fav") {
+        tr_pyFdT.id = `Anime${AnimeId}_` + ((id == "\"Processing...\"") ? "" : id);
+    } else {
+        tr_pyFdT.id = `FavAnime${AnimeId}_` + ((id == "\"Processing...\"") ? "" : id);
+    }
     e.appendChild(tr_pyFdT);
     const th_umBZQ = document.createElement('th');
     th_umBZQ.setAttribute(`scope`, `row`);
     th_umBZQ.classList.add(`actionsBtns`);
     tr_pyFdT.appendChild(th_umBZQ);
-    const span_tIvWc = document.createElement('span');
-    span_tIvWc.classList.add('iconElement');
-    if (AnimeViewed == true) {
-        span_tIvWc.setAttribute(`data-icon`, `remove_done`);
-        span_tIvWc.setAttribute(`data-tooltip`, `Unview`);
-        span_tIvWc.setAttribute(`onclick`, `setUnview(${id}, ${AnimeId})`);
-    } else {
-        span_tIvWc.setAttribute(`data-icon`, `done`);
-        span_tIvWc.setAttribute(`data-tooltip`, `Viewed`);
-        span_tIvWc.setAttribute(`onclick`, `setViewed(${id}, ${AnimeId})`);
-    }
-    if (AnimeStatus === "p") { // if the anime is being processed, don't allow to change her state
-        span_tIvWc.classList.add(`processing`);
-    }
-    th_umBZQ.appendChild(span_tIvWc);
-    const span_umBrx = document.createElement('span');
-    span_umBrx.classList.add('iconElement');
-    span_umBrx.setAttribute(`data-icon`, `delete`);
-    span_umBrx.setAttribute(`data-tooltip`, `Delete`);
-    span_umBrx.setAttribute(`onclick`, `deleteAnime(${id}, ${AnimeId}, ${+AnimeViewed})`);
-    if (AnimeStatus === "p") { // if the anime is being processed, don't allow to delete it
-        span_umBrx.classList.add(`processing`);
-    }
-    th_umBZQ.appendChild(span_umBrx);
-    if (AnimeViewed == true) {
-        if (favorite == true) {
-        const span_umBrx = document.createElement('span');
-        span_umBrx.classList.add('iconElement');
-        span_umBrx.setAttribute(`data-icon`, `favorite`);
-        span_umBrx.setAttribute(`data-tooltip`, `Marked as favorite`);
-        span_umBrx.setAttribute(`onclick`, `removeFav(${id}, ${AnimeId})`);
-        th_umBZQ.appendChild(span_umBrx);
-    } else {
-        const span_umBrx = document.createElement('span');
-        span_umBrx.classList.add('iconElement');
-        span_umBrx.setAttribute(`data-icon`, `heart_plus`);
-        span_umBrx.setAttribute(`data-tooltip`, `Add to favorites`);
-        span_umBrx.setAttribute(`onclick`, `addFav(${id}, ${AnimeId})`);
-        th_umBZQ.appendChild(span_umBrx);
+    if (AnimeStatus != "fav") {
+        const span_tIvWc = document.createElement('span');
+        span_tIvWc.classList.add('iconElement');
+        if (AnimeViewed == true) {
+            span_tIvWc.setAttribute(`data-icon`, `remove_done`);
+            span_tIvWc.setAttribute(`data-tooltip`, `Unview`);
+            span_tIvWc.setAttribute(`onclick`, `setUnview(${id}, ${AnimeId})`);
+        } else {
+            span_tIvWc.setAttribute(`data-icon`, `done`);
+            span_tIvWc.setAttribute(`data-tooltip`, `Viewed`);
+            span_tIvWc.setAttribute(`onclick`, `setViewed(${id}, ${AnimeId})`);
         }
+        if (AnimeStatus === "p") { // if the anime is being processed, don't allow to change her state
+            span_tIvWc.classList.add(`processing`);
+        }
+        th_umBZQ.appendChild(span_tIvWc);
+        const span_umBrx = document.createElement('span');
+        span_umBrx.classList.add('iconElement');
+        span_umBrx.setAttribute(`data-icon`, `delete`);
+        span_umBrx.setAttribute(`data-tooltip`, `Delete`);
+        span_umBrx.setAttribute(`onclick`, `deleteAnime(${id}, ${AnimeId}, ${+AnimeViewed})`);
+        if (AnimeStatus === "p") { // if the anime is being processed, don't allow to delete it
+            span_umBrx.classList.add(`processing`);
+        }
+        th_umBZQ.appendChild(span_umBrx);
+        if (AnimeViewed == true) {
+            if (favorite == true) {
+                const span_umBrx = document.createElement('span');
+                span_umBrx.classList.add('iconElement');
+                span_umBrx.setAttribute(`data-icon`, `favorite`);
+                span_umBrx.setAttribute(`data-tooltip`, `Marked as favorite`);
+                span_umBrx.setAttribute(`onclick`, `removeFav(${id}, ${AnimeId})`);
+                th_umBZQ.appendChild(span_umBrx);
+            } else {
+                const span_umBrx = document.createElement('span');
+                span_umBrx.classList.add('iconElement');
+                span_umBrx.setAttribute(`data-icon`, `heart_plus`);
+                span_umBrx.setAttribute(`data-tooltip`, `Add to favorites`);
+                span_umBrx.setAttribute(`onclick`, `addFav(${id}, ${AnimeId})`);
+                th_umBZQ.appendChild(span_umBrx);
+            }
+        }
+    } else {
+        const span_umBrx = document.createElement('span');
+        span_umBrx.textContent = favPos + ".";
+        th_umBZQ.appendChild(span_umBrx);
     }
     const td_XRgDI = document.createElement('td');
     tr_pyFdT.appendChild(td_XRgDI);

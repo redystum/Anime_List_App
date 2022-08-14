@@ -63,6 +63,10 @@ def checkToken(data):
         updateDb = threading.Thread(target=dbManager.updateClient, args=(data,))
         updateDb.start()
     return r
+    
+@eel.expose
+def getFavList():
+    return dbManager.getFavList()
 
 def changeJsFunction(id):
     while globalVars.adding_to_db:

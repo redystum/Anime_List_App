@@ -51,18 +51,18 @@
 # with open('anime3.json', 'w') as f:
 #     json.dump(response.json(), f, indent=4)
 
-# import requests
-# import json
-# token = "0"
+import requests
+import json
+token = ":)"
 
-# req = f'https://api.myanimelist.net/v2/anime?q=evangelionlimit=1'
-# response = requests.get(req, headers={'X-MAL-CLIENT-ID': token})
-# print(response.status_code)
-# with open('anime3.json', 'w') as f:
-#     json.dump(response.json(), f, indent=4)
+req = f'https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=4'
+response = requests.get(req, headers={'X-MAL-CLIENT-ID': token})
+print(response.status_code)
+with open('anime3.json', 'w') as f:
+    json.dump(response.json(), f, indent=4)
  
 
-import os
+# import os
 
-path = os.getenv('APPDATA') + '\\AnimeList\\data\\tokens.db'
-print(os.path.exists(path))
+# path = os.getenv('APPDATA') + '\\AnimeList\\data\\tokens.db'
+# print(os.path.exists(path))

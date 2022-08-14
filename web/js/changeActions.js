@@ -1,8 +1,6 @@
 function changeActions(element, id, AnimeId, option, fav = 0) {
     closeToolTips();
     if (option == "view") {
-        console.log("view");
-        console.log(element)
         const span_tIvWc = document.createElement('span');
         span_tIvWc.classList.add('iconElement');
         span_tIvWc.setAttribute(`data-icon`, `remove_done`);
@@ -23,7 +21,7 @@ function changeActions(element, id, AnimeId, option, fav = 0) {
             span_umBr.setAttribute(`data-tooltip`, `Add to favorites`);
             span_umBr.setAttribute(`onclick`, `addFav(${id}, ${AnimeId})`);
         } else {
-            console.log(" fav");
+            console.log("fav");
             span_umBr.setAttribute(`data-icon`, `favorite`);
             span_umBr.setAttribute(`data-tooltip`, `In favorites List`);
             span_umBr.setAttribute(`onclick`, `removeFav(${id}, ${AnimeId})`);

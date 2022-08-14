@@ -125,7 +125,35 @@
             </div>
         </div>
 
-    </div>
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Favorite Anime</h3>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table tableHover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Position</th>
+                            <th scope="col" class="text-center">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col"></th> <!-- Info btn -->
+                            <th scope="col" class="text-center">Notes</th>
+                            <th scope="col" class="text-center">Episodes</th>
+                            <th scope="col" class="text-center">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody class="animeList" id="favoriteAnimeListTable">
+                        <!-- injected by js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <!-- Hidden Elements -->
@@ -188,7 +216,9 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="relatedAnimeTitle"> <!-- injected by js --></h5>
+                    <h5 class="modal-title" id="relatedAnimeTitle">
+                        <!-- injected by js -->
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         id="closeModal"></button>
                 </div>
@@ -207,7 +237,9 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="relatedMangaTitle"> <!-- injected by js --></h5>
+                    <h5 class="modal-title" id="relatedMangaTitle">
+                        <!-- injected by js -->
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         id="closeModal"></button>
                 </div>
@@ -315,8 +347,10 @@
         // add a loading element
         addLoadingElementTable('animeListTable');
         addLoadingElementTable('watchedAnimeListTable');
+        // addLoadingElementTable('favoriteAnimeListTable');
         // get the anime list from the local server
         getAnimeList();
+        favoriteList();
     </script>
 
     <script>
