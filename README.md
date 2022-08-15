@@ -12,6 +12,7 @@ Create an app with integration to the [My Anime List](https://myanimelist.net/) 
 - Chose a random anime from unviewed
 - Change the list order
 - Viewed table
+- Favorite List
 
 ## Coming soon
 - Logo

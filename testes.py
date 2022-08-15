@@ -51,18 +51,24 @@
 # with open('anime3.json', 'w') as f:
 #     json.dump(response.json(), f, indent=4)
 
-import requests
-import json
-token = ":)"
+# import requests
+# import json
+# token = ":)"
 
-req = f'https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=4'
-response = requests.get(req, headers={'X-MAL-CLIENT-ID': token})
-print(response.status_code)
-with open('anime3.json', 'w') as f:
-    json.dump(response.json(), f, indent=4)
+# req = f'https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=4'
+# response = requests.get(req, headers={'X-MAL-CLIENT-ID': token})
+# print(response.status_code)
+# with open('anime3.json', 'w') as f:
+#     json.dump(response.json(), f, indent=4)
  
 
 # import os
 
 # path = os.getenv('APPDATA') + '\\AnimeList\\data\\tokens.db'
 # print(os.path.exists(path))
+
+import requests
+import json
+response = requests.get("https://api.github.com/repos/redystum/Anime_List_App/releases")
+with open('git.json', 'w') as f:
+    json.dump(response.json(), f, indent=4)

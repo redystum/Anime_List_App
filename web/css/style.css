@@ -436,3 +436,20 @@ body{
     color: var(--green);
     cursor: pointer;
 }
+
+#favoriteAnimeListTable tr .infoBtn{
+    opacity: 0;
+}
+#favoriteAnimeListTable tr:hover .infoBtn{
+    transition: ease-in-out .25s;
+    opacity: 1;
+}
+#favoriteAnimeListTable tr .infoBtn:hover{
+    transition: ease-in-out .25s;
+    color: var(--green);
+    cursor: pointer;
+}
+
+.recommendBtn{
+    cursor: default;
+}

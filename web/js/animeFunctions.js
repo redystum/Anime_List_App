@@ -178,6 +178,9 @@ async function deleteAnime(id, AnimeId, table) {
     let t = table ? 'watchedAnimeListTable' : 'animeListTable';
     await removeTableElement(t, id, AnimeId)
     ifEmptyList(t)
+    if (t == 'watchedAnimeListTable'){
+        favoriteList();
+    }
 }
 
 function pickRandom(table) {

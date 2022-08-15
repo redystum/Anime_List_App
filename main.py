@@ -5,6 +5,7 @@ import threading
 import dbManager
 import globalVars
 import os
+import sys
 
 @eel.expose
 def getAnime(data):
@@ -87,7 +88,7 @@ def close_callback(route, websockets):
             print("Waiting for task to finish")
             continue
     print("Closing")
-    exit()
+    sys.exit()
 
 globalVars.init()
 
