@@ -254,6 +254,22 @@
         </div>
     </div>
 
+    <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UpdateModalLabel">NEW VERSION AVAILABLE</h5>
+                </div>
+                <div class="modal-body" id="UpdateModalBody">
+                    <!-- injected by js -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="addAnimeBtn" onclick="updateApp(0);" data-bs-dismiss="modal">Update</button>
+                    <button type="button" class="addAnimeBtn" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JS Scripts -->
 
@@ -351,6 +367,7 @@
         // get the anime list from the local server
         getAnimeList();
         favoriteList();
+        updateApp();
     </script>
 
     <script>

@@ -178,7 +178,7 @@ async function deleteAnime(id, AnimeId, table) {
     let t = table ? 'watchedAnimeListTable' : 'animeListTable';
     await removeTableElement(t, id, AnimeId)
     ifEmptyList(t)
-    if (t == 'watchedAnimeListTable'){
+    if (t == 'watchedAnimeListTable') {
         favoriteList();
     }
 }
@@ -275,6 +275,8 @@ function setUnview(id, animeId) {
 
     ifEmptyList('watchedAnimeListTable')
     putIcon();
+
+    favoriteList();
 }
 
 function addFav(id, AnimeId) {
@@ -322,6 +324,31 @@ async function favoriteList() {
     }
     putIcon();
     ifEmptyList('favoriteAnimeListTable')
+}
+
+async function updateApp(verify = 1) {
+    if (verify == 1) {
+        update = await eel.checkForUpdates()();
+        if (update.info == "old") {
+            let e = document.getElementById("UpdateModalBody")
+            const h1 = document.createElement('h1');
+            h1.textContent += update.version;
+            e.appendChild(h1);
+            const p = document.createElement('p');
+            p.textContent += update.body;
+            e.appendChild(p);
+            // launch modal
+            const myModal = new bootstrap.Modal(document.getElementById('UpdateModal'))
+            myModal.show()
+        }
+    } else if (verify == 0) {
+        eel.updateApp()();
+    }
+}
+
+eel.expose(exitApp);
+function exitApp() {
+    window.close();
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
