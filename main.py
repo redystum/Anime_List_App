@@ -1,11 +1,20 @@
+"""
+ python -m eel main.py web --onefile --noconsole
+"""
+
 import eel
 import time
+import os
+import sys
+# project imports
 import getData
 import threading
 import dbManager
 import globalVars
-import os
-import sys
+import updater
+
+global VERSION
+VERSION = '1.0.0'
 
 @eel.expose
 def getAnime(data):
@@ -17,12 +26,13 @@ def AnimeData(data):
     animeData = getData.getAnimeData(data)
     if "error" in animeData:
         return animeData['error']
+    # onDbCheck_ = threading.Thread(target=onDbCheck, args=(animeData['id'],))
+    # onDbCheck_.start()
+    onDbCheck(animeData['id'])
     saveDb = threading.Thread(target=dbManager.addAnimeToDb, args=(animeData,))
     saveDb.start()
     changeJs = threading.Thread(target=changeJsFunction, args=(animeData['id'],))
     changeJs.start()
-    onDbCheck_ = threading.Thread(target=onDbCheck, args=(animeData['id'],))
-    onDbCheck_.start()
     return animeData
 
 @eel.expose
@@ -76,6 +86,19 @@ def changeJsFunction(id):
     time.sleep(.5)
     eel.changeBtnId(row, id)
 
+@eel.expose
+def checkForUpdates():
+    return updater.checkForUpdates(VERSION)
+
+@eel.expose
+def updateApp():
+    if os.path.exists("updater.exe"):
+        eel.exitApp()
+        os.system("updater.exe update")
+        sys.exit()
+    else:
+        eel.showToast("Error", "Something went wrong while updating the app! Go to my github and update manually <a href='https://github.com/redystum/Anime_List_App/releases' class='visibleLink'>Click Here</a>", "red", "black")
+
 def onDbCheck(id):
     r = dbManager.onDbCheck(id)    
     if r:
@@ -108,4 +131,11 @@ else:
     
 
 eel.init('web', allowed_extensions=['.js', '.html'])
-eel.start(f'{file}.html', close_callback=close_callback) # , mode='mozilla' for firefox
+try:
+    eel.start(f'{file}.html', close_callback=close_callback) # , mode='mozilla' for firefox
+except OSError:
+    try:
+        eel.start(f'{file}.html', close_callback=close_callback, port=8001) # , mode='mozilla' for firefox
+    except OSError:
+        sys.exit()
+

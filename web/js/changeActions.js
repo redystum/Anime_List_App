@@ -16,12 +16,10 @@ function changeActions(element, id, AnimeId, option, fav = 0) {
         const span_umBr = document.createElement('span');
         span_umBr.classList.add('iconElement');
         if (fav == 0) {
-            console.log("not fav");
             span_umBr.setAttribute(`data-icon`, `heart_plus`);
             span_umBr.setAttribute(`data-tooltip`, `Add to favorites`);
             span_umBr.setAttribute(`onclick`, `addFav(${id}, ${AnimeId})`);
         } else {
-            console.log("fav");
             span_umBr.setAttribute(`data-icon`, `favorite`);
             span_umBr.setAttribute(`data-tooltip`, `In favorites List`);
             span_umBr.setAttribute(`onclick`, `removeFav(${id}, ${AnimeId})`);

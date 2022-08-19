@@ -453,3 +453,7 @@ body{
 .recommendBtn{
     cursor: default;
 }
+
+.visibleLink{
+    text-decoration: underline !important;
+}
