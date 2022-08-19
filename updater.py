@@ -28,7 +28,7 @@ def updateApp():
     try:
         url = checkForUpdates("V0.0.0", 1)['url']
         r = requests.get(url)
-        with open("animeApp.txt", "wb") as f:
+        with open("animeApp.exe", "wb") as f:
             f.write(r.content)
         os.system(".\\animeApp.exe")
     except Exception as e:
