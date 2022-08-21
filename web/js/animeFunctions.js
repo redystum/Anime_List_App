@@ -335,7 +335,7 @@ async function updateApp(verify = 1) {
             h1.textContent += update.version;
             e.appendChild(h1);
             const p = document.createElement('p');
-            p.textContent += update.body;
+            p.textContent += update.body.replace("\n", "<br>");
             e.appendChild(p);
             // launch modal
             const myModal = new bootstrap.Modal(document.getElementById('UpdateModal'))

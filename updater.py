@@ -4,12 +4,11 @@ this file besides being called by the main program must also be converted to .ex
 
 """
 
-import zipfile
 import os
 import requests
 
 def checkForUpdates(version, instal=0):
-    currentVersion = version.split(".")
+    currentVersion = version.replace("V", "").split(".")
     response = requests.get("https://api.github.com/repos/redystum/Anime_List_App/releases")
     data = response.json()
     url = ''
