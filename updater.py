@@ -14,7 +14,8 @@ def checkForUpdates(version, instal=0):
     data = response.json()
     url = ''
     for i in data:
-        if i['tag_name'].replace('V','') > currentVersion[0] or i['tag_name'].replace('V','')  > currentVersion[1]:
+        ver = i['tag_name'].replace('V','').split('.')
+        if ver[0] > currentVersion[0] or ver[1]  > currentVersion[1]:
             url = i
             break
     if url == '':
