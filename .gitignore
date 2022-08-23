@@ -130,3 +130,6 @@ dmypy.json
 
 #test_*.py
 test*.py
+
+# ideas
+*.todo

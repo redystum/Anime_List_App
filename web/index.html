@@ -22,6 +22,11 @@
 
 <body>
 
+    <span class="material-symbols-outlined settingsBtn" data-bs-toggle="offcanvas" href="#settingsOffCanvas"
+        role="button" aria-controls="settingsOffCanvas">
+        settings
+    </span>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center ">
@@ -264,8 +269,127 @@
                     <!-- injected by js -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="addAnimeBtn" onclick="updateApp(0);" data-bs-dismiss="modal">Update</button>
+                    <button type="button" class="addAnimeBtn" onclick="updateApp(0);"
+                        data-bs-dismiss="modal">Update</button>
                     <button type="button" class="addAnimeBtn" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="settingsOffCanvas" aria-labelledby="settingsOffCanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="settingsOffCanvasLabel">Settings</h5>
+            <span class="material-symbols-outlined" type="button" data-bs-dismiss="offcanvas"
+                data-bs-target="#settingsOffCanvas" aria-label="Close">
+                close
+            </span>
+        </div>
+        <div class="offcanvas-body">
+
+            <h4 class="text-center">Themes</h4>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio1" checked>
+                <label class="form-check-label" for="themesRadio1">
+                    <p>Theme Name</p>
+                    <img src="./img/..." alt="InDev" class="img-fluid">
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio2">
+                <label class="form-check-label" for="themesRadio2">
+                    <p>Theme Name</p>
+                    <img src="./img/..." alt="InDev" class="img-fluid">
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio3">
+                <label class="form-check-label" for="themesRadio3">
+                    <p>Theme Name</p>
+                    <img src="./img/..." alt="InDev" class="img-fluid">
+                </label>
+            </div>
+
+            <h4 class="text-center">Other Options</h4>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                <label class="form-check-label" for="flexCheckDefault">
+                    Mark animes that are still on air. <a href="" class="visibleLink" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#markAnimeExample" aria-expanded="false"
+                        aria-controls="markAnimeExample">Example</a>
+                    <div class="collapse" id="markAnimeExample">
+                        <img src="..." alt="InDev" class="img-fluid">
+                    </div>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Update anime when the info panel is opened
+                </label>
+            </div>
+
+            <br><br>
+            <!-- last things -->
+            <div class="settingsDangerBox">
+                <h4 class="settingsDangerTitle">Danger Zone</h4>
+                <br>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#importCollapse" aria-expanded="false"
+                                aria-controls="importCollapse">Import List</button>
+                            <div class="collapse" id="importCollapse">
+                                <div class="card card-body importCollapseBody">
+                                    <button class="addAnimeBtn" style="margin-bottom: 10px;">Overwrite List</button>
+                                    <button class="addAnimeBtn">Add to List</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="addAnimeBtn">Export List</button>
+                        </div>
+                    </div>
+                    <div class="row text-center" id="importExportInfo">
+                        <!-- injected by js -->
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#deleteAnimeTableCollapse" aria-expanded="false"
+                                aria-controls="deleteAnimeTableCollapse">Delete Anime List</button>
+                            <div class="collapse" id="deleteAnimeTableCollapse">
+                                <div class="card card-body importCollapseBody">
+                                    Are you sure you want to delete Anime List data?
+                                    <button class="addAnimeBtn yesDeleteData">Yes, Delete</button>
+                                    <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#deleteAnimeTableCollapse" aria-expanded="false"
+                                        aria-controls="deleteAnimeTableCollapse">No</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#deleteAllTableCollapse" aria-expanded="false"
+                                aria-controls="deleteAllTableCollapse">Delete All Data</button>
+                            <div class="collapse" id="deleteAllTableCollapse">
+                                <div class="card card-body importCollapseBody">
+                                    Are you sure you want to delete <b>ALL</b> data?
+                                    <button class="addAnimeBtn yesDeleteData">Yes, Delete</button>
+                                    <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#deleteAllTableCollapse" aria-expanded="false"
+                                        aria-controls="deleteAllTableCollapse">No</button>
+                                </div>
+                                Don't forget to export your anime table!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center" id="deleteTableInfo">
+                        <!-- injected by js -->
+                    </div>
                 </div>
             </div>
         </div>

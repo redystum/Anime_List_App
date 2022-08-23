@@ -332,7 +332,7 @@ async function updateApp(verify = 1) {
         if (update.info == "old") {
             let e = document.getElementById("UpdateModalBody")
             const h1 = document.createElement('h1');
-            h1.textContent += update.version;
+            h1.textContent += update.version; 
             e.appendChild(h1);
             const p = document.createElement('p');
             p.textContent += update.body.replace("\n", "<br>");
@@ -350,6 +350,8 @@ eel.expose(exitApp);
 function exitApp() {
     window.close();
 }
+
+
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
 

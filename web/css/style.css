@@ -457,3 +457,44 @@ body{
 .visibleLink{
     text-decoration: underline !important;
 }
+
+.settingsBtn{
+    position: absolute;
+    right: 50px;
+    top: 20px;
+    cursor: pointer;
+}
+.settingsBtn:hover{
+    transition: ease-in-out .25s;
+    color: var(--soft-green);
+}
+
+#settingsOffCanvasLabel{
+    color: var(--green) !important;
+}
+
+.settingsDangerTitle{
+    color: var(--red) !important;
+    text-align: center;
+}
+
+.settingsDangerBox{
+    background-color: var(--black) !important;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--orange);
+}
+
+.importCollapseBody{
+    background-color: var(--black) !important;
+    color: white !important;
+    border: 0 !important;
+}
+
+.yesDeleteData{
+    background-color: var(--red) !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
