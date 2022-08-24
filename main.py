@@ -15,7 +15,7 @@ import updater
 import math
 
 global VERSION
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 @eel.expose
 def getAnime(data):
@@ -112,6 +112,9 @@ def setTheme(data):
 def setOtherOptions(data):
     dbManager.setOtherOptions(data)
 
+@eel.expose
+def updateAnime(data):
+    dbManager.updateAnime(data)
 
 
 @eel.expose
@@ -156,6 +159,7 @@ else:
         file = "getStarted"
     else:
         file = "index"
+        dbManager.updateDBonUpdate()
     
 
 eel.init('web', allowed_extensions=['.js', '.html', '.css'])

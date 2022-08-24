@@ -67,8 +67,12 @@
 # path = os.getenv('APPDATA') + '\\AnimeList\\data\\tokens.db'
 # print(os.path.exists(path))
 
-import requests
-import json
-response = requests.get("https://api.github.com/repos/redystum/Anime_List_App/releases")
-with open('git.json', 'w') as f:
-    json.dump(response.json(), f, indent=4)
+# import requests
+# import json
+# response = requests.get("https://api.github.com/repos/redystum/Anime_List_App/releases")
+# with open('git.json', 'w') as f:
+#     json.dump(response.json(), f, indent=4)
+
+import datetime
+
+print(datetime.datetime.now())

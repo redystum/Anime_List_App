@@ -24,6 +24,11 @@ async function showMoreInfo(AnimeId) {
     studio = data.studio
     relatedAnime = data.relatedAnime
     relatedManga = data.relatedManga
+    lastUpdate = data.lastUpdate
+
+    if (lastUpdate == null) {
+        lastUpdate = "N/A"
+    }
 
     // remove all childrens
     let e = document.getElementById("moreInfoModalBody");
@@ -167,7 +172,7 @@ async function showMoreInfo(AnimeId) {
     const span_XqXxX_3 = document.createElement('span');
     if (globalScore == -9990 || globalScore == undefined) {
         span_XqXxX_3.textContent += "N/A";
-    } else{
+    } else {
         span_XqXxX_3.textContent += globalScore + ` /10`;
     }
     div_Ldqno.appendChild(span_XqXxX_3);
@@ -282,6 +287,31 @@ async function showMoreInfo(AnimeId) {
         div_DbZlx.appendChild(button_pRprs);
         button_pRprs.textContent += `Related Manga`;
     }
+
+    const div_update = document.createElement('div');
+    div_update.classList.add('row');
+    div_update.style.marginTop = '40px';
+    div_fxEUN.appendChild(div_update);
+    const div_update1 = document.createElement('div');
+    div_update1.classList.add('col-md-6');
+    div_update.appendChild(div_update1);
+
+    const button_VrukS2 = document.createElement('button');
+    button_VrukS2.classList.add('addAnimeBtn');
+    button_VrukS2.setAttribute(`type`, `button`);
+    button_VrukS2.setAttribute(`onclick`, `updateAnime(${animeID})`);
+    div_update1.appendChild(button_VrukS2);
+    button_VrukS2.textContent += `Update Info`;
+
+    const div_update2 = document.createElement('div');
+    div_update2.classList.add('col-md-6');
+    div_update.appendChild(div_update2);
+
+    const lastUpdateLabel = document.createElement('p');
+    div_update2.appendChild(lastUpdateLabel);
+    lastUpdateLabel.style.verticalAlign = 'middle';
+    lastUpdateLabel.textContent += `Last Update: ` + lastUpdate;
+
 
     // show modal
     const myModal = new bootstrap.Modal(document.getElementById('moreInfoModal'))

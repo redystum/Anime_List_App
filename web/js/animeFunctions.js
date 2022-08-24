@@ -81,7 +81,7 @@ async function getAnimeData(AnimeId) {
     // activate "add anime" fields
     changeSearchDisableStatus(false);
 }
-
+eel.expose(getAnimeList);
 async function getAnimeList(order = 0) {
     closeToolTips();
     // remove all children (including loading animation)
@@ -104,7 +104,7 @@ async function getAnimeList(order = 0) {
 
     for (let i = 0; i < data.length; i++) {
         // call function to add anime to table
-        addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": data[i].status}, data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite);
+        addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": data[i].status }, data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite);
     }
     // call function to add icons to respective elements
     putIcon();
@@ -256,6 +256,10 @@ function saveScoreAndNotes() {
     }
     // call function to add icons to respective elements
     putIcon();
+    // reload list
+    if (notes != "") {
+        getAnimeList();
+    }
 }
 
 function setUnview(id, animeId) {
@@ -319,6 +323,7 @@ function addToList(AnimeId) {
     getAnimeData(AnimeId)
 }
 
+eel.expose(favoriteList);
 async function favoriteList() {
     closeToolTips();
     removeAllChildren('favoriteAnimeListTable')
@@ -326,7 +331,7 @@ async function favoriteList() {
     settings = await eel.getSettings()();
     for (i = 0; i < data.length; i++) {
 
-        addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": data[i].status}, data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite, "fav", 'favoriteAnimeListTable', i + 1)
+        addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": data[i].status }, data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite, "fav", 'favoriteAnimeListTable', i + 1)
     }
 
     ifEmptyList('favoriteAnimeListTable')
@@ -399,6 +404,10 @@ async function changeOtherOptions(option) {
     await eel.setOtherOptions(option)();
     getAnimeList();
     favoriteList();
+}
+
+function updateAnime(animeId) {
+    eel.updateAnime(animeId)();
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)

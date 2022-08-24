@@ -15,7 +15,11 @@ function addAnimeToTable(options, AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, 
     // define some vars to the recommended icon
     let scoreText = ""
     let cssClass = ""
-    if (AnimeScore < 5) {
+    if (AnimeScore == -9990) {
+        scoreText = "N/A"
+        cssClass = "undefinedScore"
+    }
+    else if (AnimeScore < 5) {
         scoreText = "not highly recommended"
         cssClass = "negativeScore"
     } else if (AnimeScore > 5) {

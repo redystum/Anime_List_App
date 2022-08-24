@@ -543,3 +543,7 @@ body{
 .radio_button_checkedBtn .material-symbols-outlined{
     font-size: 15px !important;
 }
+
+.undefinedScore{
+    color: var(--secondary);    
+}
