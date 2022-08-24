@@ -1,5 +1,8 @@
 import sqlite3
 import globalVars
+import json
+import getData
+import datetime
 globalVars.init()
 
 def addAnimeToDb(data):
@@ -17,7 +20,10 @@ def addAnimeToDb(data):
         endDate = "still being released"
     synopsis = data['synopsis'].replace('"', "'")
     episodes = data['num_episodes'] if data['num_episodes']!=0 else "Unknown"
-    globalScore = float(data['mean'])
+    try:
+        globalScore = float(data['mean'])
+    except:
+        globalScore = -9990
     localScore = float(0.0)
     viewed = 0
     status = data['status'].replace('"', "'")
@@ -38,7 +44,7 @@ def addAnimeToDb(data):
 
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
-    q = f'''INSERT INTO anime (title, titleJp, animeID, image, notes, startDate, endDate, synopsis, episodes, globalScore, localScore, pictures, viewed, status, genres, background, studio, relatedAnime, relatedManga, averageEpDuration, favorite) VALUES ("{title}", "{titleJp}", "{animeID}", "{image}", "{notes}", "{startDate}", "{endDate}", "{synopsis}", "{episodes}", "{globalScore}", "{localScore}", "{pictures}", "{viewed}", "{status}", "{genres}", "{background}", "{studio}", "{relatedAnime}", "{relatedManga}", "{averageEpDuration}", "{favorite}")'''
+    q = f'''INSERT INTO anime (title, titleJp, animeID, image, notes, startDate, endDate, synopsis, episodes, globalScore, localScore, pictures, viewed, status, genres, background, studio, relatedAnime, relatedManga, averageEpDuration, favorite, lastUpdate) VALUES ("{title}", "{titleJp}", "{animeID}", "{image}", "{notes}", "{startDate}", "{endDate}", "{synopsis}", "{episodes}", "{globalScore}", "{localScore}", "{pictures}", "{viewed}", "{status}", "{genres}", "{background}", "{studio}", "{relatedAnime}", "{relatedManga}", "{averageEpDuration}", "{favorite}", "{datetime.datetime.now()}")'''
     c.execute(q)
     conn.commit()
     conn.close()
@@ -126,6 +132,11 @@ def getRowId(Animeid):
     return rowId
 
 def getAnimeInfo(AnimeId):
+    settings = getSettings()
+    if settings != 0:
+        if settings['updateOnInfo'] == True:
+            updateAnime(AnimeId)
+
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
     c.execute(f'SELECT * FROM anime WHERE animeID = {AnimeId}')
@@ -152,11 +163,18 @@ def updateNotesScore(notes, score, id):
     globalVars.running_a_task = True
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
+    q = f'''SELECT animeId from anime WHERE id = {id}'''
+    c.execute(q)
+    animeId = c.fetchall()[0][0]
+    conn.commit()
+    conn.close()
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
     q = f'''UPDATE anime SET notes = "{notes.replace('"', "'")}"'''
     if score != "":
         q += f', localScore = "{score}"'
 
-    q += f' WHERE id = {id}'
+    q += f' WHERE animeId = {animeId}'
     c.execute(q)
     conn.commit()
     conn.close()
@@ -228,6 +246,159 @@ def getFavList():
         i['viewed'] = bool(i['viewed'])
     
     return finalAnimeList
+
+def getCssFile():
+    try:
+        open(globalVars.path + 'settings.json', 'r')
+    except FileNotFoundError:
+        return 0
+    with open(globalVars.path + 'settings.json', 'r') as f:
+        data = json.load(f)
+    return data['cssFile'] if data['cssFile'] != 0 else 0
+    
+def getSettings():
+    try:
+        open(globalVars.path + 'settings.json', 'r')
+    except FileNotFoundError:
+        return 0
+    with open(globalVars.path + 'settings.json', 'r') as f:
+        data = json.load(f)
+    return data
+
+def setTheme(theme):
+    globalVars.running_a_task = True
+    template = """{
+    "cssFile": 0,
+    "themeId": 1,
+    "markAirAnime": false,
+    "updateOnInfo": false
+    }
+    """
+    templateJson = json.loads(template)
+    try:
+        open(globalVars.path + 'settings.json', 'r')
+    except FileNotFoundError:
+        f = open(globalVars.path + 'settings.json', 'w')
+        json.dump(templateJson, f, indent=4)
+        f.close()
+
+    with open(globalVars.path + 'settings.json', 'r') as f:
+        data = json.load(f)
+    data['themeId'] = theme
+    if theme == 0:
+        data['cssFile'] = 0
+    elif theme == 1:
+        data['cssFile'] = "style.css"
+    elif theme == 2:
+        data['cssFile'] = "styleMono.css"
+    elif theme == 3:
+        data['cssFile'] = "styleWhite.css"
+    elif theme == 4:
+        data['cssFile'] = "styleWhiteMono.css"
+
+    with open(globalVars.path + 'settings.json', 'w') as f:
+        json.dump(data, f, indent=4)
+
+    globalVars.running_a_task = False
+
+def setOtherOptions(option):
+    globalVars.running_a_task = True
+    template = """{
+    "cssFile": 0,
+    "themeId": 1,
+    "markAirAnime": false,
+    "updateOnInfo": false
+    }
+    """
+    templateJson = json.loads(template)
+    try:
+        open(globalVars.path + 'settings.json', 'r')
+    except FileNotFoundError:
+        f = open(globalVars.path + 'settings.json', 'w')
+        json.dump(templateJson, f, indent=4)
+        f.close()
+
+    with open(globalVars.path + 'settings.json', 'r') as f:
+        data = json.load(f)
+
+    if option == "markAirAnime":
+        data['markAirAnime'] = not data['markAirAnime']
+    elif option == "updateOnInfo":
+        data['updateOnInfo'] = not data['updateOnInfo']
+
+    with open(globalVars.path + 'settings.json', 'w') as f:
+        json.dump(data, f, indent=4)
+        
+    globalVars.running_a_task = False
+
+
+def updateAnime(animeId):
+    globalVars.running_a_task = True
+    globalVars.adding_to_db = True
+    data = getData.getAnimeData(animeId)
+    title = data['title'].replace('"', "'")
+    titleJp = data['alternative_titles']['ja'].replace('"', "'")
+    animeID = int(data['id'])
+    image = data['main_picture']["large"].replace('"', "'")
+    notes = "".replace('"', "'")
+    startDate = data['start_date'].replace('"', "'")
+    try:
+        endDate = data['end_date'].replace('"', "'")
+    except:
+        endDate = "still being released"
+    synopsis = data['synopsis'].replace('"', "'")
+    episodes = data['num_episodes'] if data['num_episodes']!=0 else "Unknown"
+    try:
+        globalScore = float(data['mean'])
+    except:
+        globalScore = -9990
+    status = data['status'].replace('"', "'")
+    genres = ""
+    for g in data['genres']:
+        genres += g['name'].replace('"', "'") + ", "
+    genres = genres[:-2]
+    background = data['background'].replace('"', "'").replace('"', "'")
+    pictures = [x['large'] for x in data['pictures']]
+    averageEpDuration = data['average_episode_duration']
+    studio = ""
+    for s in data['studios']:
+        studio += s['name'].replace('"', "'") + ", "
+    studio = studio[:-2]
+    relatedAnime = data['related_anime']
+    relatedManga = data['related_manga']
+    lastUpdate = datetime.datetime.now()
+
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    q = f'''UPDATE anime SET title="{title}", titleJp="{titleJp}", animeID="{animeID}", image="{image}", startDate="{startDate}", endDate="{endDate}", synopsis="{synopsis}", episodes="{episodes}", globalScore="{globalScore}", pictures="{pictures}", status="{status}", genres="{genres}", background="{background}", studio="{studio}", relatedAnime="{relatedAnime}", relatedManga ="{relatedManga}", averageEpDuration="{averageEpDuration}", lastUpdate="{lastUpdate}" WHERE animeID={animeID}'''
+    c.execute(q)
+    conn.commit()
+    conn.close()
+    globalVars.running_a_task = False
+    globalVars.adding_to_db = False
+
+def updateDBonUpdate():
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'SELECT * FROM anime')
+    conn.commit()
+    conn.close()
+    names = list(map(lambda x: x[0], c.description))
+
+    if "lastUpdate" not in names:
+        conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+        c = conn.cursor()
+        c.execute(f'ALTER TABLE anime ADD COLUMN lastUpdate TEXT')
+        conn.commit()
+        conn.close()
+
+def deleteAllAnimes():
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'''DELETE FROM anime''')
+    c.execute("DELETE FROM sqlite_sequence WHERE name='anime'")
+    conn.commit()
+    conn.close()
 
 
 if __name__ == '__main__':

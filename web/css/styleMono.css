@@ -1,5 +1,3 @@
-
-
 :root{
     --primary: #131516;
     --soft-primary: #181a1b;
@@ -68,21 +66,21 @@ body{
 }
 
 .deleteBtn{
-    color: var(--red);
     cursor: pointer;
+    color: var(--secondary)
 }
 .deleteBtn:hover{
     transition: ease-in .25s;
-    color: var(--soft-red);
+    color: var(--red);
 }
 
 .doneBtn{
     cursor: pointer;
-    color: var(--green)
+    color: var(--secondary);
 }
 .doneBtn:hover{
     transition: ease-in .25s;
-    color: var(--soft-green);
+    color: var(--green)
 }
 
 .form-control:focus {
@@ -109,15 +107,19 @@ body{
     border-radius: 5px;
     width: 100%;
     padding: 6px;
-    background-color: var(--green);
+    background-color: var(--soft-primary);
+    border: var(--secondary) 1px solid;
+    color: var(--secondary);
     
 }
 .addAnimeBtn:hover{
     transition: ease-in-out .25s;
-    background-color: var(--orange);
+    background-color: var(--soft-green);
+    border: 1px solid transparent;
 }
 .addAnimeBtn:active{
-    background-color: var(--soft-green);
+    background-color: var(--green);
+    border: 1px solid transparent;
 }
 .glowShadow{
     transition: ease-in-out .25s;
@@ -133,11 +135,12 @@ body{
   }
 }
 .addAnimeBtn:disabled{
-    background-color: var(--soft-green);
+    background-color: var(--soft-primary);
     color: rgba(255, 255, 255, 0.5);
+    border: 1px solid transparent;
 }
 #animeNameAdd:disabled{
-    background-color: rgba(255, 255, 255, 0.123);
+    background-color: rgba(255, 255, 255, 0.056);
 }
 
 .offcanvas{
@@ -145,7 +148,7 @@ body{
 }
 .closeBtn{
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
     color: var(--green);
 }
 .closeBtn:hover{
@@ -178,12 +181,24 @@ body{
 }
 
 .positiveScore{
-    color: var(--green);
+    color: var(--secondary);
 }
 .middleScore{
-    color: var(--orange);
+    color: var(--secondary);
 }
 .negativeScore{
+    color: var(--secondary);
+}
+.positiveScore:hover{
+    transition: ease-in-out .25s;
+    color: var(--green);
+}
+.middleScore:hover{
+    transition: ease-in-out .25s;
+    color: var(--orange);
+}
+.negativeScore:hover{
+    transition: ease-in-out .25s;
     color: var(--red);
 }
 
@@ -193,19 +208,20 @@ body{
 }
 
 .dropdownBtn{
-    border: 0;
+    border: 1px solid var(--secondary);
     border-radius: 5px;
-    background-color: var(--green);
+    background-color: var(--soft-primary);
     vertical-align: middle;
     padding: 5px 10px 5px 10px;
     line-height: 0;
+    color: var(--secondary);
 }
 .dropdownBtn:hover{
     transition: ease-in-out .25s;
-    background-color: var(--orange);
+    background-color: var(--soft-green);
 }
 .dropdownBtn:active{
-    background-color: var(--soft-green);
+    background-color: var(--green);
 }
 
 .orderBtn{
@@ -232,19 +248,20 @@ body{
 }
 
 .randomBigBtn{
-    border: 0;
+    border: 1px solid var(--secondary);
     border-radius: 5px;
-    background-color: var(--green);
+    background-color: var(--soft-primary);
     vertical-align: middle;
     padding: 5px 10px 5px 10px;
     line-height: 0;
+    color: var(--secondary);
 }
 .randomBigBtn:hover{
     transition: ease-in-out .25s;
-    background-color: var(--orange);
+    background-color: var(--soft-green);
 }
 .randomBigBtn:active{
-    background-color: var(--soft-green);
+    background-color: var(--green);
 }
 
 .infoBtn{
@@ -260,7 +277,7 @@ body{
 }
 #animeListTable tr .infoBtn:hover{
     transition: ease-in-out .25s;
-    color: var(--green);
+    color: var(--soft-green);
     cursor: pointer;
 }
 
@@ -380,30 +397,30 @@ body{
 }
 
 .favoriteBtn{
-    color: var(--favorite);
+    color: var(--secondary);
     cursor: pointer;
 }
 .favoriteBtn:hover{
     transition: ease-in .25s;
-    color: var(--orange);
+    color: var(--favorite);
 }   
 
 .heart_plusBtn{
-    color: var(--favorite);
+    color: var(--secondary);
     cursor: pointer;
 }
 .heart_plusBtn:hover{
     transition: ease-in .25s;
-    color: var(--orange);
+    color: var(--favorite);
 }
 
 .remove_doneBtn{
-    color: var(--orange);
+    color: var(--secondary);
     cursor: pointer;
 }
 .remove_doneBtn:hover{
     transition: ease-in .25s;
-    color: var(--red);
+    color: var(--orange);
 }
 
 .actionsBtns{
@@ -424,7 +441,7 @@ body{
 }
 .relatedTableElement .addToListBtn:hover{
     transition: ease-in-out .25s;
-    color: var(--green);
+    color: var(--soft-green);
     cursor: pointer;
 }
 
@@ -437,7 +454,7 @@ body{
 }
 .relatedTableElement .addToListBtn:hover{
     transition: ease-in-out .25s;
-    color: var(--green);
+    color: var(--soft-green);
     cursor: pointer;
 }
 
@@ -450,7 +467,7 @@ body{
 }
 #favoriteAnimeListTable tr .infoBtn:hover{
     transition: ease-in-out .25s;
-    color: var(--green);
+    color: var(--soft-green);
     cursor: pointer;
 }
 
@@ -520,18 +537,26 @@ body{
 }
 
 .airingStatus{
-    color: var(--green);
+    color: var(--secondary);
     vertical-align: middle;
     margin-left: 20px;
     font-size: 15px !important;
     cursor: pointer;
 }
+.airingStatus:hover{
+    transition: ease-in-out .25s;
+    color: var(--soft-green);
+}
 .notYetAiringStatus{
-    color: var(--orange);
+    color: var(--secondary);
     vertical-align: middle;
     margin-left: 20px;
     font-size: 15px !important;
     cursor: pointer;
+}
+.notYetAiringStatus:hover{
+    transition: ease-in-out .25s;
+    color: var(--orange);
 }
 
 .radio_button_checkedBtn .material-symbols-outlined{

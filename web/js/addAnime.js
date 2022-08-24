@@ -1,4 +1,4 @@
-function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, favorite, AnimeStatus = "complete", table = 0, favPos) {
+function addAnimeToTable(options, AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScore, AnimeNotes, AnimeViewed, id, favorite, AnimeStatus = "complete", table = 0, favPos) {
     closeToolTips();
     let e;
     if (AnimeViewed == true) {
@@ -15,7 +15,11 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     // define some vars to the recommended icon
     let scoreText = ""
     let cssClass = ""
-    if (AnimeScore < 5) {
+    if (AnimeScore == -9990) {
+        scoreText = "N/A"
+        cssClass = "undefinedScore"
+    }
+    else if (AnimeScore < 5) {
         scoreText = "not highly recommended"
         cssClass = "negativeScore"
     } else if (AnimeScore > 5) {
@@ -26,6 +30,13 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
         cssClass = "middleScore"
     }
 
+    // options
+    if (options != 0) {
+        markAirAnime = options.markAirAnime
+        animeAirStatus = options.status
+    } else {
+        markAirAnime = false
+    }
     // add the anime to the table
     // code generated from www.htmltojs.com (Its normal to have random var names)
     const tr_pyFdT = document.createElement('tr');
@@ -99,6 +110,21 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     td_qzEBp.classList.add('tableName');
     td_qzEBp.appendChild(a_QZqZ);
     tr_pyFdT.appendChild(td_qzEBp);
+    if (markAirAnime == true) {
+        if (animeAirStatus == "currently_airing") {
+            const span_airStatus = document.createElement('span');
+            span_airStatus.classList.add('iconElement', 'airingStatus');
+            span_airStatus.setAttribute(`data-icon`, `radio_button_checked`);
+            span_airStatus.setAttribute(`data-tooltip`, `Currently airing`);
+            td_qzEBp.appendChild(span_airStatus);
+        } else if (animeAirStatus == "not_yet_aired") {
+            const span_airStatus = document.createElement('span');
+            span_airStatus.classList.add('iconElement', 'notYetAiringStatus');
+            span_airStatus.setAttribute(`data-icon`, `radio_button_checked`);
+            span_airStatus.setAttribute(`data-tooltip`, `Not yet airing`);
+            td_qzEBp.appendChild(span_airStatus);
+        }
+    }
     const td_info = document.createElement('td');
     tr_pyFdT.appendChild(td_info);
     const span_info = document.createElement('span');
@@ -132,7 +158,11 @@ function addAnimeToTable(AnimeId, AnimeTitle, AnimeImg, AnimeEpisodes, AnimeScor
     td_aobBl.classList.add('tableStars');
     td_aobBl.appendChild(span_VfUf);
     const p_qzEBp = document.createElement('p');
-    p_qzEBp.textContent = AnimeScore;
+    if (AnimeScore == -9990 || AnimeScore == undefined) {
+        p_qzEBp.textContent += "N/A";
+    } else {
+        p_qzEBp.textContent += AnimeScore;
+    }
     td_aobBl.appendChild(p_qzEBp);
     tr_pyFdT.appendChild(td_aobBl);
 }

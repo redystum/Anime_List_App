@@ -12,9 +12,10 @@ import threading
 import dbManager
 import globalVars
 import updater
+import math
 
 global VERSION
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 @eel.expose
 def getAnime(data):
@@ -85,6 +86,47 @@ def changeJsFunction(id):
     row = dbManager.getRowId(id)
     time.sleep(.5)
     eel.changeBtnId(row, id)
+@eel.expose
+def dbSize():
+    file_stat = os.stat(globalVars.path + 'LocalStorage.db')
+    size_bytes = file_stat.st_size
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return "%s %s" % (s, size_name[i])
+    
+@eel.expose
+def cssFile():
+    return dbManager.getCssFile() if dbManager.getCssFile()!=0 else "style.css"
+
+@eel.expose
+def getSettings():
+    return dbManager.getSettings()
+
+@eel.expose
+def setTheme(data):
+    dbManager.setTheme(data)
+
+@eel.expose
+def setOtherOptions(data):
+    dbManager.setOtherOptions(data)
+
+@eel.expose
+def updateAnime(data):
+    dbManager.updateAnime(data)
+
+@eel.expose
+def deleteAllAnimes():
+    dbManager.deleteAllAnimes()
+
+@eel.expose
+def deleteAllData():
+    globalVars.running_a_task = True
+    os.remove(globalVars.path + 'LocalStorage.db')
+    os.remove(globalVars.path + 'settings.json')
+    globalVars.running_a_task = False
+
 
 @eel.expose
 def checkForUpdates():
@@ -97,12 +139,12 @@ def updateApp():
         os.system("updater.exe update")
         sys.exit()
     else:
-        eel.showToast("Error", "Something went wrong while updating the app! Go to my github and update manually <a href='https://github.com/redystum/Anime_List_App/releases' class='visibleLink'>Click Here</a>", "red", "black")
+        eel.showToast("Error", "Something went wrong while updating the app! Go to my github and update manually <a href='https://github.com/redystum/Anime_List_App/releases' class='visibleLink'>Click Here</a>", "red", "primary")
 
 def onDbCheck(id):
     r = dbManager.onDbCheck(id)    
     if r:
-        eel.showToast("Info", "Just to know that the anime you added was already on the list.", "soft-green", "soft-black")
+        eel.showToast("Info", "Just to know that the anime you added was already on the list.", "soft-green", "soft-primary")
 
 def close_callback(route, websockets):
     if globalVars.running_a_task:
@@ -128,9 +170,10 @@ else:
         file = "getStarted"
     else:
         file = "index"
+        dbManager.updateDBonUpdate()
     
 
-eel.init('web', allowed_extensions=['.js', '.html'])
+eel.init('web', allowed_extensions=['.js', '.html', '.css'])
 try:
     eel.start(f'{file}.html', close_callback=close_callback) # , mode='mozilla' for firefox
 except OSError:
