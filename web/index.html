@@ -7,23 +7,40 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-    <link rel="stylesheet" href="css/style.css">
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <link rel="stylesheet" href="./css/styleMono.css" class="cssFile">
+    <script>
+        // load theme
+        async function loadCss(){
+            let file = await eel.cssFile()();
+            cssFiles = document.getElementsByClassName('cssFile')
+            if(cssFiles != undefined){
+                for(let i = cssFiles.length; i > 0; i--){
+                    cssFiles[i-1].remove()
+                }
+            }
+            var newlink = document.createElement("link");
+            newlink.setAttribute("rel", "stylesheet");
+            newlink.setAttribute("type", "text/css");
+            newlink.setAttribute("href", "./css/" + file);
+            newlink.classList.add("cssFile");
+            document.head.appendChild(newlink);
+        }
+        loadCss();
+    </script>
     <link rel="shortcut icon" href="./img/logo_simple.svg" type="image/x-icon">
-
 </head>
-<!-- https://coolors.co/f4aa89-ef8383-f06261-131516-44bba4 -->
 
 <body>
 
     <span class="material-symbols-outlined settingsBtn" data-bs-toggle="offcanvas" href="#settingsOffCanvas"
-        role="button" aria-controls="settingsOffCanvas">
+        role="button" aria-controls="settingsOffCanvas" onclick="dbSize();">
         settings
     </span>
 
@@ -290,33 +307,40 @@
 
             <h4 class="text-center">Themes</h4>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio1" checked>
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio1" onclick="selectTheme(1)" checked>
                 <label class="form-check-label" for="themesRadio1">
-                    <p>Theme Name</p>
-                    <img src="./img/..." alt="InDev" class="img-fluid">
+                    <p>Default Theme</p>
+                    <img src="./img/defaultTheme.png" alt="" class="img-fluid">
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio2">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio2" onclick="selectTheme(2)">
                 <label class="form-check-label" for="themesRadio2">
-                    <p>Theme Name</p>
-                    <img src="./img/..." alt="InDev" class="img-fluid">
+                    <p>Default Monochromatic Theme</p>
+                    <img src="./img/defaultMono.png" alt="" class="img-fluid">
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio3">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio3" onclick="selectTheme(3)">
                 <label class="form-check-label" for="themesRadio3">
-                    <p>Theme Name</p>
-                    <img src="./img/..." alt="InDev" class="img-fluid">
+                    <p>White Theme</p>
+                    <img src="./img/whiteTheme.png" alt="" class="img-fluid">
                 </label>
             </div>
-
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio4" onclick="selectTheme(4)">
+                <label class="form-check-label" for="themesRadio4">
+                    <p>White Monochromatic Theme</p>
+                    <img src="./img/whiteMono.png" alt="" class="img-fluid">
+                </label>
+            </div>
+            <br><br>
             <h4 class="text-center">Other Options</h4>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                <label class="form-check-label" for="flexCheckDefault">
-                    Mark animes that are still on air. <a href="" class="visibleLink" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#markAnimeExample" aria-expanded="false"
+                <input class="form-check-input" type="checkbox" value="" id="markAirAnime" onclick="changeOtherOptions('markAirAnime');">
+                <label class="form-check-label" for="markAirAnime">
+                    Mark animes that are still on air. <a href="" class="visibleLink" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#markAnimeExample" aria-expanded="false"
                         aria-controls="markAnimeExample">Example</a>
                     <div class="collapse" id="markAnimeExample">
                         <img src="..." alt="InDev" class="img-fluid">
@@ -324,12 +348,11 @@
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+                <input class="form-check-input" type="checkbox" value="" id="updateOnInfo" onclick="changeOtherOptions('updateOnInfo');">
+                <label class="form-check-label" for="updateOnInfo">
                     Update anime when the info panel is opened
                 </label>
             </div>
-
             <br><br>
             <!-- last things -->
             <div class="settingsDangerBox">
@@ -389,6 +412,14 @@
                     </div>
                     <div class="row text-center" id="deleteTableInfo">
                         <!-- injected by js -->
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <small id="dbSize">
+                                <!-- injected by js -->
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -452,7 +483,9 @@
         for (let i = 0; i < document.querySelectorAll(".glowActivator").length; i++) {
             document.querySelectorAll(".glowActivator")[i].addEventListener("mouseover", function (event) {
                 target = event.target.dataset.target;
-                document.querySelector("#" + target).classList.add("glowShadow");
+                if (event.disabled == false) {
+                    document.querySelector("#" + target).classList.add("glowShadow");
+                }
             }, false);
             document.querySelectorAll(".glowActivator")[i].addEventListener("mouseout", function (event) {
                 target = event.target.dataset.target;
@@ -487,11 +520,11 @@
         // add a loading element
         addLoadingElementTable('animeListTable');
         addLoadingElementTable('watchedAnimeListTable');
-        // addLoadingElementTable('favoriteAnimeListTable');
         // get the anime list from the local server
         getAnimeList();
         favoriteList();
         updateApp();
+        loadSettings();
     </script>
 
     <script>

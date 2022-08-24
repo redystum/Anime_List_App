@@ -5,7 +5,7 @@ function startSearch() {
     anime = document.getElementById('animeNameAdd').value;
     closeToolTips();
     if (anime == "" || anime == " ") {
-        showToast("Error", "Please enter an anime name", "red", "soft-black")
+        showToast("Error", "Please enter an anime name", "red", "soft-primary")
     } else {
         // remove field content
         document.getElementById('animeNameAdd').value = ""
@@ -31,7 +31,7 @@ function showToast(title, msg, colorH, colorT) {
     document.getElementById("toastBodyText").style.backgroundColor = `var(--${colorT})`;
     let color;
     if (colorH == "soft-green") {
-        color = "black";
+        color = "primary";
     }
     document.getElementById("toastHeader").style.color = color;
     document.getElementById("toastBodyText").innerHTML = msg;
@@ -51,7 +51,7 @@ async function getAnimeData(AnimeId) {
     data = await eel.AnimeData(AnimeId)();
     if (data == "not_found") {
         // if error, show error message
-        showToast("Error", `Anime with id ${AnimeId} was not found! Try again with some existing id.`, 'red', 'soft-black')
+        showToast("Error", `Anime with id ${AnimeId} was not found! Try again with some existing id.`, 'red', 'soft-primary')
         // enable search fields
         changeSearchDisableStatus(false);
         // permit the window be closed without warns
@@ -65,9 +65,11 @@ async function getAnimeData(AnimeId) {
     episodes = ((data.num_episodes != 0) ? data.num_episodes : "Unknown");
     score = data.mean;
     fav = data.favorite;
+    air = data.status;
 
-    // insert data on table
-    addAnimeToTable(animeID, title, img, episodes, score, "", 0, "\"Processing...\"", fav, "p");
+    settings = await eel.getSettings()();
+
+    addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": air }, animeID, title, img, episodes, score, "", 0, "\"Processing...\"", fav, "p");
 
     // call function to add icons to respective elements
     putIcon();
@@ -90,7 +92,7 @@ async function getAnimeList(order = 0) {
     addLoadingElementTable('watchedAnimeListTable');
 
     // call python function
-    data = await eel.getAnimeList(order)();
+    let data = await eel.getAnimeList(order)();
     if (data.length == 0) {
         appendNoAnime('animeListTable');
         appendNoAnime('watchedAnimeListTable');
@@ -98,9 +100,11 @@ async function getAnimeList(order = 0) {
         changeSearchDisableStatus(false);
         return;
     }
+    settings = await eel.getSettings()();
+
     for (let i = 0; i < data.length; i++) {
         // call function to add anime to table
-        addAnimeToTable(data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite);
+        addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": data[i].status}, data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite);
     }
     // call function to add icons to respective elements
     putIcon();
@@ -141,7 +145,7 @@ async function setViewed(id, AnimeId) {
     closeToolTips();
     // if the anime are being processed, don't allow to change her state
     if (id == "Processing...") {
-        showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-black")
+        showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-primary")
         return;
     }
     // call python function
@@ -169,7 +173,7 @@ async function deleteAnime(id, AnimeId, table) {
     closeToolTips();
     // if the anime are being processed, don't allow to delete it
     if (id == "Processing...") {
-        showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-black")
+        showToast("Error", "The anime is still processing, please try again later (30s max) ", "red", "soft-primary")
         return;
     }
     // call python function
@@ -197,11 +201,11 @@ function pickRandom(table) {
         }
     });
     if (animeList.length == 0) {
-        showToast("Error", "No anime to choose from! The random just takes anime from unwatched table, add some and try again.", "red", "soft-black")
+        showToast("Error", "No anime to choose from! The random just takes anime from unwatched table, add some and try again.", "red", "soft-primary")
         return;
     }
     if (animeList.length == 1) {
-        showToast("Info", "Really? If you only have one anime on the list it's kind of obvious which one you're going to get, right?", "soft-green", "soft-black")
+        showToast("Info", "Really? If you only have one anime on the list it's kind of obvious which one you're going to get, right?", "soft-green", "soft-primary")
         return;
     }
     let randomAnime = animeList[Math.floor(Math.random() * animeList.length)]
@@ -319,11 +323,14 @@ async function favoriteList() {
     closeToolTips();
     removeAllChildren('favoriteAnimeListTable')
     data = await eel.getFavList()();
+    settings = await eel.getSettings()();
     for (i = 0; i < data.length; i++) {
-        addAnimeToTable(data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite, "fav", 'favoriteAnimeListTable', i + 1)
+
+        addAnimeToTable({ "markAirAnime": settings.markAirAnime, "status": data[i].status}, data[i].animeID, data[i].title, data[i].image, data[i].episodes, data[i].globalScore, data[i].notes, data[i].viewed, data[i].id, data[i].favorite, "fav", 'favoriteAnimeListTable', i + 1)
     }
-    putIcon();
+
     ifEmptyList('favoriteAnimeListTable')
+    putIcon();
 }
 
 async function updateApp(verify = 1) {
@@ -332,7 +339,7 @@ async function updateApp(verify = 1) {
         if (update.info == "old") {
             let e = document.getElementById("UpdateModalBody")
             const h1 = document.createElement('h1');
-            h1.textContent += update.version; 
+            h1.textContent += update.version;
             e.appendChild(h1);
             const p = document.createElement('p');
             p.textContent += update.body.replace("\n", "<br>");
@@ -351,7 +358,48 @@ function exitApp() {
     window.close();
 }
 
+eel.expose(changeCSS);
+function changeCSS(cssFile) {
 
+    var oldlink = document.getElementById("cssFile");
+
+    var newlink = document.createElement("link");
+    newlink.setAttribute("rel", "stylesheet");
+    newlink.setAttribute("type", "text/css");
+    newlink.setAttribute("href", cssFile);
+
+    oldlink.remove();
+    document.head.appendChild(newlink);
+}
+
+async function dbSize() {
+    size = await eel.dbSize()();
+    document.getElementById("dbSize").textContent = "Actual DB Size: " + size;
+}
+
+async function loadSettings() {
+    let data = await eel.getSettings()();
+    if (data == 0) {
+        document.getElementById("themesRadio1").checked = true;
+        document.getElementById("markAirAnime").checked = false;
+        document.getElementById("updateOnInfo").checked = false;
+    } else {
+        document.getElementById("themesRadio" + data.themeId).checked = true;
+        document.getElementById("markAirAnime").checked = data.markAirAnime;
+        document.getElementById("updateOnInfo").checked = data.updateOnInfo;
+    }
+}
+
+async function selectTheme(id) {
+    await eel.setTheme(id)();
+    loadCss();
+}
+
+async function changeOtherOptions(option) {
+    await eel.setOtherOptions(option)();
+    getAnimeList();
+    favoriteList();
+}
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
 

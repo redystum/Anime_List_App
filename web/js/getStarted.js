@@ -5,15 +5,15 @@ function welcomeTransition(){
 async function verifyToken(){
     let token = document.getElementById("clientIdInp").value; 
     if(token.length == 0){
-        showToast("Error", "Empty Client ID", "red", "soft-black");
+        showToast("Error", "Empty Client ID", "red", "soft-primary");
         return;
     }
     let response = await eel.checkToken(token)();
     if(response.status != "success"){
-        showToast("Error", "Invalid Client ID", "red", "soft-black");
+        showToast("Error", "Invalid Client ID", "red", "soft-primary");
         return;
     }
-    showToast("Success", "Valid Client ID! Please restart the app", "soft-green", "soft-black");
+    showToast("Success", "Valid Client ID! Please restart the app", "soft-green", "soft-primary");
     document.getElementById("clientIdInp").disabled = true;
     document.getElementById("checkButton").disabled = true;
     alert("Please restart the app");
@@ -26,7 +26,7 @@ function showToast(title, msg, colorH, colorT) {
     document.getElementById("toastBodyText").style.backgroundColor = `var(--${colorT})`;
     let color;
     if (colorH == "soft-green") {
-        color = "black";
+        color = "primary";
     } else {
         color = "white";
     }

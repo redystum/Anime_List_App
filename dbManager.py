@@ -1,5 +1,6 @@
 import sqlite3
 import globalVars
+import json
 globalVars.init()
 
 def addAnimeToDb(data):
@@ -17,7 +18,10 @@ def addAnimeToDb(data):
         endDate = "still being released"
     synopsis = data['synopsis'].replace('"', "'")
     episodes = data['num_episodes'] if data['num_episodes']!=0 else "Unknown"
-    globalScore = float(data['mean'])
+    try:
+        globalScore = float(data['mean'])
+    except:
+        globalScore = -9990
     localScore = float(0.0)
     viewed = 0
     status = data['status'].replace('"', "'")
@@ -228,6 +232,91 @@ def getFavList():
         i['viewed'] = bool(i['viewed'])
     
     return finalAnimeList
+
+def getCssFile():
+    try:
+        open(globalVars.path + 'setting.json', 'r')
+    except FileNotFoundError:
+        return 0
+    with open(globalVars.path + 'setting.json', 'r') as f:
+        data = json.load(f)
+    return data['cssFile'] if data['cssFile'] != 0 else 0
+    
+def getSettings():
+    try:
+        open(globalVars.path + 'setting.json', 'r')
+    except FileNotFoundError:
+        return 0
+    with open(globalVars.path + 'setting.json', 'r') as f:
+        data = json.load(f)
+    return data
+
+def setTheme(theme):
+    globalVars.running_a_task = True
+    template = """{
+    "cssFile": 0,
+    "themeId": 1,
+    "markAirAnime": false,
+    "updateOnInfo": false
+    }
+    """
+    templateJson = json.loads(template)
+    try:
+        open(globalVars.path + 'setting.json', 'r')
+    except FileNotFoundError:
+        f = open(globalVars.path + 'setting.json', 'w')
+        json.dump(templateJson, f, indent=4)
+        f.close()
+
+    with open(globalVars.path + 'setting.json', 'r') as f:
+        data = json.load(f)
+    data['themeId'] = theme
+    if theme == 0:
+        data['cssFile'] = 0
+    elif theme == 1:
+        data['cssFile'] = "style.css"
+    elif theme == 2:
+        data['cssFile'] = "styleMono.css"
+    elif theme == 3:
+        data['cssFile'] = "styleWhite.css"
+    elif theme == 4:
+        data['cssFile'] = "styleWhiteMono.css"
+
+    with open(globalVars.path + 'setting.json', 'w') as f:
+        json.dump(data, f, indent=4)
+
+    globalVars.running_a_task = False
+
+def setOtherOptions(option):
+    globalVars.running_a_task = True
+    template = """{
+    "cssFile": 0,
+    "themeId": 1,
+    "markAirAnime": false,
+    "updateOnInfo": false
+    }
+    """
+    templateJson = json.loads(template)
+    try:
+        open(globalVars.path + 'setting.json', 'r')
+    except FileNotFoundError:
+        f = open(globalVars.path + 'setting.json', 'w')
+        json.dump(templateJson, f, indent=4)
+        f.close()
+
+    with open(globalVars.path + 'setting.json', 'r') as f:
+        data = json.load(f)
+
+    if option == "markAirAnime":
+        data['markAirAnime'] = not data['markAirAnime']
+    elif option == "updateOnInfo":
+        data['updateOnInfo'] = not data['updateOnInfo']
+
+    with open(globalVars.path + 'setting.json', 'w') as f:
+        json.dump(data, f, indent=4)
+        
+    globalVars.running_a_task = False
+
 
 
 if __name__ == '__main__':

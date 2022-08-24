@@ -165,7 +165,11 @@ async function showMoreInfo(AnimeId) {
     const br_XqXxX_3 = document.createElement('br');
     div_Ldqno.appendChild(br_XqXxX_3);
     const span_XqXxX_3 = document.createElement('span');
-    span_XqXxX_3.textContent += globalScore + ` /10`;
+    if (globalScore == -9990 || globalScore == undefined) {
+        span_XqXxX_3.textContent += "N/A";
+    } else{
+        span_XqXxX_3.textContent += globalScore + ` /10`;
+    }
     div_Ldqno.appendChild(span_XqXxX_3);
     const div_XPtQK = document.createElement('div');
     div_XPtQK.classList.add('col-md-3');

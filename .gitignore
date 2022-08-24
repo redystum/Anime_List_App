@@ -133,3 +133,6 @@ test*.py
 
 # ideas
 *.todo
+
+# easter eggs
+*/eggs

@@ -1,18 +1,17 @@
 
 
 :root{
-    --primary: #131516;
-    --soft-primary: #181a1b;
-    --orange: #f4aa89;
-    --soft-red: #ef8383;
-    --red: #f06261;
-    --green: #44bba4;
-    --soft-green: #44bba399;
+    --primary: #dfdfdf;
+    --soft-primary: #d3d3d3;
+    --orange: #ec682b;
+    --soft-red: #f95a5a;
+    --red: #ed2626;
+    --green: #1dd2ae;
+    --soft-green: #35c7aa99;
     --scrollbar: #292c2e;
-    --secondary: white;
-    --favorite: palevioletred;
+    --secondary: rgb(0, 0, 0);
+    --favorite: rgb(221, 84, 130);
 }
-
 
 ::-webkit-scrollbar {
     width: 3px;
@@ -134,10 +133,10 @@ body{
 }
 .addAnimeBtn:disabled{
     background-color: var(--soft-green);
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
 }
 #animeNameAdd:disabled{
-    background-color: rgba(255, 255, 255, 0.123);
+    background-color: rgba(0, 0, 0, 0.123);
 }
 
 .offcanvas{
@@ -517,6 +516,13 @@ body{
 .form-check-input:focus{
     outline: 0;
     box-shadow: none;
+}
+
+.airingStatus{
+    color: var(--green);
+}
+.notYetAiringStatus{
+    color: var(--orange);
 }
 
 .airingStatus{
