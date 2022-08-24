@@ -13,11 +13,13 @@ Create an app with integration to the [My Anime List](https://myanimelist.net/) 
 - Change the list order
 - Viewed table
 - Favorite List
+- Themes
+- Update Anime Info
+- Mark Airing Anime
 
 ## Coming soon
 - Logo
 - Import/Export data
-- White mode (only dark mode available)
 - Generate a radom anime (which is not in the table)
 - Manga list (unsure)
 

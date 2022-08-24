@@ -388,10 +388,10 @@
                             <div class="collapse" id="deleteAnimeTableCollapse">
                                 <div class="card card-body importCollapseBody">
                                     Are you sure you want to delete Anime List data?
-                                    <button class="addAnimeBtn yesDeleteData">Yes, Delete</button>
+                                    <button class="addAnimeBtn yesDeleteData" onclick="deleteAllAnimeData();">Yes, Delete</button>
                                     <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#deleteAnimeTableCollapse" aria-expanded="false"
-                                        aria-controls="deleteAnimeTableCollapse">No</button>
+                                    data-bs-target="#deleteAnimeTableCollapse" aria-expanded="false"
+                                    aria-controls="deleteAnimeTableCollapse">No</button>
                                 </div>
                             </div>
                         </div>
@@ -399,10 +399,11 @@
                             <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#deleteAllTableCollapse" aria-expanded="false"
                                 aria-controls="deleteAllTableCollapse">Delete All Data</button>
-                            <div class="collapse" id="deleteAllTableCollapse">
+                                <div class="collapse" id="deleteAllTableCollapse">
                                 <div class="card card-body importCollapseBody">
                                     Are you sure you want to delete <b>ALL</b> data?
-                                    <button class="addAnimeBtn yesDeleteData">Yes, Delete</button>
+                                    <button class="addAnimeBtn yesDeleteData" onclick="deleteAllData();">Yes, Delete</button>
+                                    <p class="hide" style="color:var(--red)" id="KillerClown">The app will close and erase all data in 3 seconds</p>
                                     <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#deleteAllTableCollapse" aria-expanded="false"
                                         aria-controls="deleteAllTableCollapse">No</button>

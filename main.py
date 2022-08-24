@@ -116,6 +116,17 @@ def setOtherOptions(data):
 def updateAnime(data):
     dbManager.updateAnime(data)
 
+@eel.expose
+def deleteAllAnimes():
+    dbManager.deleteAllAnimes()
+
+@eel.expose
+def deleteAllData():
+    globalVars.running_a_task = True
+    os.remove(globalVars.path + 'LocalStorage.db')
+    os.remove(globalVars.path + 'settings.json')
+    globalVars.running_a_task = False
+
 
 @eel.expose
 def checkForUpdates():

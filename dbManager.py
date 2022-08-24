@@ -249,19 +249,19 @@ def getFavList():
 
 def getCssFile():
     try:
-        open(globalVars.path + 'setting.json', 'r')
+        open(globalVars.path + 'settings.json', 'r')
     except FileNotFoundError:
         return 0
-    with open(globalVars.path + 'setting.json', 'r') as f:
+    with open(globalVars.path + 'settings.json', 'r') as f:
         data = json.load(f)
     return data['cssFile'] if data['cssFile'] != 0 else 0
     
 def getSettings():
     try:
-        open(globalVars.path + 'setting.json', 'r')
+        open(globalVars.path + 'settings.json', 'r')
     except FileNotFoundError:
         return 0
-    with open(globalVars.path + 'setting.json', 'r') as f:
+    with open(globalVars.path + 'settings.json', 'r') as f:
         data = json.load(f)
     return data
 
@@ -276,13 +276,13 @@ def setTheme(theme):
     """
     templateJson = json.loads(template)
     try:
-        open(globalVars.path + 'setting.json', 'r')
+        open(globalVars.path + 'settings.json', 'r')
     except FileNotFoundError:
-        f = open(globalVars.path + 'setting.json', 'w')
+        f = open(globalVars.path + 'settings.json', 'w')
         json.dump(templateJson, f, indent=4)
         f.close()
 
-    with open(globalVars.path + 'setting.json', 'r') as f:
+    with open(globalVars.path + 'settings.json', 'r') as f:
         data = json.load(f)
     data['themeId'] = theme
     if theme == 0:
@@ -296,7 +296,7 @@ def setTheme(theme):
     elif theme == 4:
         data['cssFile'] = "styleWhiteMono.css"
 
-    with open(globalVars.path + 'setting.json', 'w') as f:
+    with open(globalVars.path + 'settings.json', 'w') as f:
         json.dump(data, f, indent=4)
 
     globalVars.running_a_task = False
@@ -312,13 +312,13 @@ def setOtherOptions(option):
     """
     templateJson = json.loads(template)
     try:
-        open(globalVars.path + 'setting.json', 'r')
+        open(globalVars.path + 'settings.json', 'r')
     except FileNotFoundError:
-        f = open(globalVars.path + 'setting.json', 'w')
+        f = open(globalVars.path + 'settings.json', 'w')
         json.dump(templateJson, f, indent=4)
         f.close()
 
-    with open(globalVars.path + 'setting.json', 'r') as f:
+    with open(globalVars.path + 'settings.json', 'r') as f:
         data = json.load(f)
 
     if option == "markAirAnime":
@@ -326,7 +326,7 @@ def setOtherOptions(option):
     elif option == "updateOnInfo":
         data['updateOnInfo'] = not data['updateOnInfo']
 
-    with open(globalVars.path + 'setting.json', 'w') as f:
+    with open(globalVars.path + 'settings.json', 'w') as f:
         json.dump(data, f, indent=4)
         
     globalVars.running_a_task = False
@@ -391,6 +391,14 @@ def updateDBonUpdate():
         c.execute(f'ALTER TABLE anime ADD COLUMN lastUpdate TEXT')
         conn.commit()
         conn.close()
+
+def deleteAllAnimes():
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute(f'''DELETE FROM anime''')
+    c.execute("DELETE FROM sqlite_sequence WHERE name='anime'")
+    conn.commit()
+    conn.close()
 
 
 if __name__ == '__main__':

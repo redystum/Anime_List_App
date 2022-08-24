@@ -410,6 +410,20 @@ function updateAnime(animeId) {
     eel.updateAnime(animeId)();
 }
 
+async function deleteAllAnimeData(){
+    await eel.deleteAllAnimes()();
+    getAnimeList();
+    favoriteList();
+}
+
+function deleteAllData() {
+    document.getElementById("KillerClown").classList.remove("hide");
+    eel.deleteAllData()();
+    setTimeout(function () {
+        window.close();
+    }, 3000);
+}
+
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
 
 function changeSearchDisableStatus(status) {

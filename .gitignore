@@ -128,11 +128,13 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#test_*.py
-test*.py
+# Tests 
+test.py
+*.test*
+*.old*
 
-# ideas
+# Ideas
 *.todo
 
-# easter eggs
+# Easter eggs
 */eggs
