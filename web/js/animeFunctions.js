@@ -347,7 +347,7 @@ async function updateApp(verify = 1) {
             h1.textContent += update.version;
             e.appendChild(h1);
             const p = document.createElement('p');
-            p.textContent += update.body.replace("\n", "<br>");
+            p.textContent += update.body;
             e.appendChild(p);
             // launch modal
             const myModal = new bootstrap.Modal(document.getElementById('UpdateModal'))
@@ -355,6 +355,7 @@ async function updateApp(verify = 1) {
         }
     } else if (verify == 0) {
         eel.updateApp()();
+        showToast("Info", "The installer of the new version has been transferred to the download folder, close the app and run it to update", "soft-green", "soft-primary");
     }
 }
 

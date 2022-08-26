@@ -2,6 +2,7 @@
  python -m eel main.py web --onefile --noconsole
 """
 
+import pathlib
 import eel
 import time
 import os
@@ -13,6 +14,7 @@ import dbManager
 import globalVars
 import updater
 import math
+import subprocess
 
 global VERSION
 VERSION = '1.1.0'
@@ -134,12 +136,7 @@ def checkForUpdates():
 
 @eel.expose
 def updateApp():
-    if os.path.exists("updater.exe"):
-        eel.exitApp()
-        os.system("updater.exe update")
-        sys.exit()
-    else:
-        eel.showToast("Error", "Something went wrong while updating the app! Go to my github and update manually <a href='https://github.com/redystum/Anime_List_App/releases' class='visibleLink'>Click Here</a>", "red", "primary")
+    updater.updateApp()
 
 def onDbCheck(id):
     r = dbManager.onDbCheck(id)    
