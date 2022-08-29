@@ -16,10 +16,10 @@ Create an app with integration to the [My Anime List](https://myanimelist.net/) 
 - Themes
 - Update Anime Info
 - Mark Airing Anime
+- Import/Export saves
 
 ## Coming soon
-- Logo
-- Import/Export data
+- Logo (the current one is temporary)
 - Generate a radom anime (which is not in the table)
 - Manga list (unsure)
 

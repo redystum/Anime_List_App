@@ -400,6 +400,106 @@ def deleteAllAnimes():
     conn.commit()
     conn.close()
 
+def exportAnimeList(path):
+    globalVars.running_a_task = True
+    try:
+        conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+        c = conn.cursor()
+        q = 'SELECT * FROM anime'
+        c.execute(q)
+        animeList = c.fetchall()
+        conn.close()
+        names = list(map(lambda x: x[0], c.description))
+        finalAnimeList = []
+        for i in range(len(animeList)):
+            animeList[i] = list(animeList[i])
+            listWKeys = {}
+            for j in range(len(animeList[i])):
+                listWKeys[names[j]] = animeList[i][j]
+            finalAnimeList.append(listWKeys)
+
+        conn = sqlite3.connect(path)
+        c = conn.cursor()
+        c.execute('''DROP TABLE IF EXISTS anime''')
+        conn.commit()
+        conn.close()
+        conn = sqlite3.connect(path)
+        c = conn.cursor()
+        c.execute('''CREATE TABLE IF NOT EXISTS 
+        anime(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, titleJp TEXT, animeID INTEGER, image TEXT, notes TEXT, startDate TEXT, endDate TEXT, synopsis TEXT, episodes INTEGER, averageEpDuration INTEGER, globalScore FLOAT, localScore FLOAT, pictures TEXT, viewed BOOLEAN, status TEXT, genres TEXT, background TEXT, studio TEXT, relatedAnime TEXT, relatedManga TEXT, favorite BOOLEAN, lastUpdate TEXT)''')
+        conn.commit()
+        conn.close()
+        conn = sqlite3.connect(path)
+        c = conn.cursor()
+        for anime in finalAnimeList:
+            c.execute(f'''INSERT INTO anime VALUES (NULL, "{anime['title']}", "{anime['titleJp']}", "{anime['animeID']}", "{anime['image']}", "{anime['notes']}", "{anime['startDate']}", "{anime['endDate']}", "{anime['synopsis']}", "{anime['episodes']}", "{anime['averageEpDuration']}", "{anime['globalScore']}", "{anime['localScore']}", "{anime['pictures']}", "{anime['viewed']}", "{anime['status']}", "{anime['genres']}", "{anime['background']}", "{anime['studio']}", "{anime['relatedAnime']}", "{anime['relatedManga']}", "{anime['favorite']}","{anime['lastUpdate']}")''')
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        globalVars.running_a_task = False
+        return {"error": str(e)}
+    globalVars.running_a_task = False
+    return True
+
+
+def importSavedList(path, overWrite, importLoadFav, importLoadWatched, importLoadScore, importLoadNotes):
+    globalVars.running_a_task = True
+        
+    try:
+        if overWrite == True:
+            deleteAllAnimes()
+
+        conn = sqlite3.connect(path)
+        c = conn.cursor()
+        q = 'SELECT * FROM anime'
+        c.execute(q)
+        animeList = c.fetchall()
+        conn.close()
+        names = list(map(lambda x: x[0], c.description))
+        finalAnimeList = []
+        for i in range(len(animeList)):
+            animeList[i] = list(animeList[i])
+            listWKeys = {}
+            for j in range(len(animeList[i])):
+                listWKeys[names[j]] = animeList[i][j]
+            finalAnimeList.append(listWKeys)
+
+        conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+        c = conn.cursor()
+
+        for anime in finalAnimeList:
+            if importLoadFav == False:
+                anime['favorite'] = 0
+            if importLoadWatched == False:
+                anime['viewed'] = 0
+            if importLoadScore == False:
+                anime['localScore'] = ""
+            if importLoadNotes == False:
+                anime['notes'] = ""
+            c.execute(f'''INSERT INTO anime VALUES (NULL, "{anime['title']}", "{anime['titleJp']}", "{anime['animeID']}", "{anime['image']}", "{anime['notes']}", "{anime['startDate']}", "{anime['endDate']}", "{anime['synopsis']}", "{anime['episodes']}", "{anime['averageEpDuration']}", "{anime['globalScore']}", "{anime['localScore']}", "{anime['pictures']}", "{anime['viewed']}", "{anime['status']}", "{anime['genres']}", "{anime['background']}", "{anime['studio']}", "{anime['relatedAnime']}", "{anime['relatedManga']}", "{anime['favorite']}","{anime['lastUpdate']}")''')
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        globalVars.running_a_task = False
+        print(e)
+        return False
+    globalVars.running_a_task = False
+    return True
+
+def verifyDBFile(path):
+    try:
+        conn = sqlite3.connect(path)
+        c = conn.cursor()
+        q = 'SELECT * FROM anime'
+        c.execute(q)
+        animeList = c.fetchall()
+        conn.close()
+        if len(animeList) == 0:
+            return False, 'The selected file does not contain any saved anime'
+    except:
+        return False, "The selected file is not a valid anime list save"
+    
+    return True, str(len(animeList)) + " Anime found"
 
 if __name__ == '__main__':
     getAnimeList()

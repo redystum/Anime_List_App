@@ -131,6 +131,7 @@ dmypy.json
 # Tests 
 test.py
 *.test*
+*test*
 *.old*
 
 # Ideas
@@ -138,3 +139,4 @@ test.py
 
 # Easter eggs
 */eggs
+*.eggs.py

@@ -1,4 +1,4 @@
-:root{
+:root {
     --primary: #131516;
     --soft-primary: #181a1b;
     --orange: #f4aa89;
@@ -15,7 +15,7 @@
 ::-webkit-scrollbar {
     width: 3px;
     border-radius: 5px;
-    
+
 }
 
 ::-webkit-scrollbar-track {
@@ -32,53 +32,74 @@
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' -25,
-  'opsz' 48
+    font-variation-settings:
+        'FILL'0,
+        'wght'400,
+        'GRAD'-25,
+        'opsz'48
 }
 
 
-a         { color: inherit; text-decoration: none; }
-a:link    { color: inherit; text-decoration: none; }
-a:visited { color: inherit; text-decoration: none; }
-a:hover   { color: inherit; text-decoration: none; }
-a:active  { color: inherit; text-decoration: none; } 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:link {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:active {
+    color: inherit;
+    text-decoration: none;
+}
 
 .table {
     vertical-align: middle;
     color: var(--secondary) !important;
 }
 
-body{
+body {
     background-color: var(--primary);
     color: var(--secondary) !important;
 }
 
-.tableName{
+.tableName {
     width: 90% !important;
 }
 
-.tableStars{
+.tableStars {
     width: 100% !important;
     text-align: center;
 }
 
-.deleteBtn{
+.deleteBtn {
     cursor: pointer;
     color: var(--secondary)
 }
-.deleteBtn:hover{
+
+.deleteBtn:hover {
     transition: ease-in .25s;
     color: var(--red);
 }
 
-.doneBtn{
+.doneBtn {
     cursor: pointer;
     color: var(--secondary);
 }
-.doneBtn:hover{
+
+.doneBtn:hover {
     transition: ease-in .25s;
     color: var(--green)
 }
@@ -86,23 +107,23 @@ body{
 .form-control:focus {
     border-color: var(--soft-green);
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px var(--soft-green);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px var(--soft-green);    
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
     background-color: var(--soft-primary);
 }
 
 .form-control {
     border-color: rgba(255, 255, 255, 0.5);
-    outline: 0; 
+    outline: 0;
     background-color: var(--soft-primary);
     color: var(--secondary) !important;
 }
 
 .tableHover tbody tr:hover td, .tableHover tbody tr:hover th {
     background-color: var(--soft-primary);
-  }
+}
 
-.addAnimeBtn{
+.addAnimeBtn {
     border: 0;
     border-radius: 5px;
     width: 100%;
@@ -110,104 +131,118 @@ body{
     background-color: var(--soft-primary);
     border: var(--secondary) 1px solid;
     color: var(--secondary);
-    
+
 }
-.addAnimeBtn:hover{
+
+.addAnimeBtn:hover {
     transition: ease-in-out .25s;
     background-color: var(--soft-green);
     border: 1px solid transparent;
 }
-.addAnimeBtn:active{
+
+.addAnimeBtn:active {
     background-color: var(--green);
     border: 1px solid transparent;
 }
-.glowShadow{
+
+.glowShadow {
     transition: ease-in-out .25s;
     animation: glow 900ms infinite alternate;
 }
 
 @keyframes glow {
-  from {
-    box-shadow: 0 0 10px -10px var(--orange);
-  }
-  to {
-    box-shadow: 0 0 10px 2px var(--orange);
-  }
+    from {
+        box-shadow: 0 0 10px -10px var(--orange);
+    }
+
+    to {
+        box-shadow: 0 0 10px 2px var(--orange);
+    }
 }
-.addAnimeBtn:disabled{
+
+.addAnimeBtn:disabled {
     background-color: var(--soft-primary);
     color: rgba(255, 255, 255, 0.5);
     border: 1px solid transparent;
 }
-#animeNameAdd:disabled{
+
+#animeNameAdd:disabled {
     background-color: rgba(255, 255, 255, 0.056);
 }
 
-.offcanvas{
+.offcanvas {
     background-color: var(--soft-primary);
 }
-.closeBtn{
+
+.closeBtn {
     background: transparent;
     border: 1px solid transparent;
     color: var(--green);
 }
-.closeBtn:hover{
+
+.closeBtn:hover {
     transition: ease-in-out .25s;
     color: var(--orange);
 }
 
-.toast-header{
+.toast-header {
     color: white;
 }
 
-.modal-content{
+.modal-content {
     color: var(--secondary);
     background-color: var(--soft-primary);
 }
 
-.animeNameChooseTable:hover{
+.animeNameChooseTable:hover {
     cursor: pointer;
     transition: ease-in-out .25s;
     color: var(--green);
 }
 
-.addAnimeFields{
+.addAnimeFields {
     vertical-align: middle;
     padding: 10px 50px 10px 0px;
 }
-.addText{
+
+.addText {
     vertical-align: middle;
     padding: 10px 50px 10px 50px;
 }
 
-.positiveScore{
+.positiveScore {
     color: var(--secondary);
 }
-.middleScore{
+
+.middleScore {
     color: var(--secondary);
 }
-.negativeScore{
+
+.negativeScore {
     color: var(--secondary);
 }
-.positiveScore:hover{
+
+.positiveScore:hover {
     transition: ease-in-out .25s;
     color: var(--green);
 }
-.middleScore:hover{
+
+.middleScore:hover {
     transition: ease-in-out .25s;
     color: var(--orange);
 }
-.negativeScore:hover{
+
+.negativeScore:hover {
     transition: ease-in-out .25s;
     color: var(--red);
 }
 
-#closeModal{
+#closeModal {
     display: none;
     position: relative;
 }
 
-.dropdownBtn{
+.dropdownBtn {
     border: 1px solid var(--secondary);
     border-radius: 5px;
     background-color: var(--soft-primary);
@@ -216,38 +251,43 @@ body{
     line-height: 0;
     color: var(--secondary);
 }
-.dropdownBtn:hover{
+
+.dropdownBtn:hover {
     transition: ease-in-out .25s;
     background-color: var(--soft-green);
 }
-.dropdownBtn:active{
+
+.dropdownBtn:active {
     background-color: var(--green);
 }
 
-.orderBtn{
+.orderBtn {
     vertical-align: middle;
     padding: 10px 0px 10px 0px;
 }
 
-.sortDropdown{
+.sortDropdown {
     align-items: right;
     vertical-align: middle;
     text-align: right;
 }
-.dropdownList{
+
+.dropdownList {
     background-color: var(--soft-primary);
     color: var(--secondary) !important;
 }
-.dropdownList li a:hover{
+
+.dropdownList li a:hover {
     background-color: var(--soft-green) !important;
     color: white !important;
     cursor: pointer;
 }
-.dropdownList li a{
+
+.dropdownList li a {
     color: var(--secondary) !important;
 }
 
-.randomBigBtn{
+.randomBigBtn {
     border: 1px solid var(--secondary);
     border-radius: 5px;
     background-color: var(--soft-primary);
@@ -256,71 +296,72 @@ body{
     line-height: 0;
     color: var(--secondary);
 }
-.randomBigBtn:hover{
+
+.randomBigBtn:hover {
     transition: ease-in-out .25s;
     background-color: var(--soft-green);
 }
-.randomBigBtn:active{
+
+.randomBigBtn:active {
     background-color: var(--green);
 }
 
-.infoBtn{
+.infoBtn {
     text-align: right;
     cursor: pointer;
 }
-#animeListTable tr .infoBtn{
+
+#animeListTable tr .infoBtn {
     opacity: 0;
 }
-#animeListTable tr:hover .infoBtn{
+
+#animeListTable tr:hover .infoBtn {
     transition: ease-in-out .25s;
     opacity: 1;
 }
-#animeListTable tr .infoBtn:hover{
+
+#animeListTable tr .infoBtn:hover {
     transition: ease-in-out .25s;
     color: var(--soft-green);
     cursor: pointer;
 }
 
-#watchedAnimeListTable tr .infoBtn{
+#watchedAnimeListTable tr .infoBtn {
     opacity: 0;
 }
-#watchedAnimeListTable tr:hover .infoBtn{
+
+#watchedAnimeListTable tr:hover .infoBtn {
     transition: ease-in-out .25s;
     opacity: 1;
 }
-#watchedAnimeListTable tr .infoBtn:hover{
+
+#watchedAnimeListTable tr .infoBtn:hover {
     transition: ease-in-out .25s;
     color: var(--green);
     cursor: pointer;
 }
 
-.moreInfoModalImages{
+.moreInfoModalImages {
     transition: cubic-bezier(0.215, 0.610, 0.355, 1) .5s;
     padding: 1px;
-    position: relative;  
+    position: relative;
 }
-.moreInfoModalImages:hover{
+
+.moreInfoModalImages:hover {
     transition: cubic-bezier(0.215, 0.610, 0.355, 1) .5s;
     z-index: 5;
-    transform: scale(2.5); 
+    transform: scale(2.5);
 }
 
-#inpNotesModal{
+#inpNotesModal {
     background-color: var(--soft-primary);
     width: 100%;
     border: 0;
     border-radius: 5px;
     color: var(--secondary);
 }
-#inpNotesModal:focus-visible{
-    background-color: var(--soft-primary);
-    width: 100%;
-    border: 0;
-    border-radius: 5px;
-    color: var(--secondary);
-    outline: 0;
-}
-#inpNotesModal:focus{
+
+#inpNotesModal:focus-visible {
     background-color: var(--soft-primary);
     width: 100%;
     border: 0;
@@ -329,22 +370,24 @@ body{
     outline: 0;
 }
 
-#localScoreInp{
+#inpNotesModal:focus {
     background-color: var(--soft-primary);
-    width: 75%;
-    border: 0;
-    border-radius: 5px;
-    color: var(--secondary);
-}
-#localScoreInp:focus-visible{
-    background-color: var(--soft-primary);
-    width: 75%;
+    width: 100%;
     border: 0;
     border-radius: 5px;
     color: var(--secondary);
     outline: 0;
 }
-#localScoreInp:focus{
+
+#localScoreInp {
+    background-color: var(--soft-primary);
+    width: 75%;
+    border: 0;
+    border-radius: 5px;
+    color: var(--secondary);
+}
+
+#localScoreInp:focus-visible {
     background-color: var(--soft-primary);
     width: 75%;
     border: 0;
@@ -353,153 +396,176 @@ body{
     outline: 0;
 }
 
-.accordion-item{
+#localScoreInp:focus {
+    background-color: var(--soft-primary);
+    width: 75%;
+    border: 0;
+    border-radius: 5px;
+    color: var(--secondary);
+    outline: 0;
+}
+
+.accordion-item {
     background-color: var(--soft-primary);
     color: var(--secondary);
-    border:0;
+    border: 0;
 }
-.accordion-button{
+
+.accordion-button {
     background-color: var(--primary) !important;
     color: var(--secondary) !important;
     border: 0;
 }
-.accordion-button:focus{
+
+.accordion-button:focus {
     outline: 0;
     box-shadow: none;
     /* border: 1px solid var(--green); */
     border: 0;
 }
-.accordion-button:focus-visible{
+
+.accordion-button:focus-visible {
     outline: 0;
     box-shadow: none;
 }
 
-.hide{
+.hide {
     display: none;
     position: absolute;
 }
 
-.myPopover{
-  --bs-popover-border-color: var(--soft-green);
-  --bs-popover-header-bg: var(--soft-primary);
-  --bs-popover-header-color: var(--secondary);
-  --bs-popover-header-color: var(--secondary);
-  --bs-popover-body-padding-x: 1rem;
-  --bs-popover-body-padding-y: .5rem;
-  --bs-popover-bg: var(--primary);
-  --bs-popover-body-color: var(--secondary);
+.myPopover {
+    --bs-popover-border-color: var(--soft-green);
+    --bs-popover-header-bg: var(--soft-primary);
+    --bs-popover-header-color: var(--secondary);
+    --bs-popover-header-color: var(--secondary);
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: .5rem;
+    --bs-popover-bg: var(--primary);
+    --bs-popover-body-color: var(--secondary);
 }
 
-.notesIcon:hover{
+.notesIcon:hover {
     cursor: pointer;
     transition: ease-in-out .25s;
     color: var(--green);
 }
 
-.favoriteBtn{
+.favoriteBtn {
     color: var(--secondary);
     cursor: pointer;
 }
-.favoriteBtn:hover{
-    transition: ease-in .25s;
-    color: var(--favorite);
-}   
 
-.heart_plusBtn{
-    color: var(--secondary);
-    cursor: pointer;
-}
-.heart_plusBtn:hover{
+.favoriteBtn:hover {
     transition: ease-in .25s;
     color: var(--favorite);
 }
 
-.remove_doneBtn{
+.heart_plusBtn {
     color: var(--secondary);
     cursor: pointer;
 }
-.remove_doneBtn:hover{
+
+.heart_plusBtn:hover {
+    transition: ease-in .25s;
+    color: var(--favorite);
+}
+
+.remove_doneBtn {
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+.remove_doneBtn:hover {
     transition: ease-in .25s;
     color: var(--orange);
 }
 
-.actionsBtns{
+.actionsBtns {
     min-width: 90px !important;
     text-align: center;
 }
 
-.addToListBtn{
+.addToListBtn {
     text-align: right;
     cursor: pointer;
 }
-.relatedTableElement .addToListBtn{
+
+.relatedTableElement .addToListBtn {
     opacity: 0;
 }
-.relatedTableElement:hover .addToListBtn{
+
+.relatedTableElement:hover .addToListBtn {
     transition: ease-in-out .25s;
     opacity: 1;
 }
-.relatedTableElement .addToListBtn:hover{
+
+.relatedTableElement .addToListBtn:hover {
     transition: ease-in-out .25s;
     color: var(--soft-green);
     cursor: pointer;
 }
 
-.relatedTableElement .addToListBtn{
+.relatedTableElement .addToListBtn {
     opacity: 0;
 }
-.relatedTableElement:hover .addToListBtn{
+
+.relatedTableElement:hover .addToListBtn {
     transition: ease-in-out .25s;
     opacity: 1;
 }
-.relatedTableElement .addToListBtn:hover{
+
+.relatedTableElement .addToListBtn:hover {
     transition: ease-in-out .25s;
     color: var(--soft-green);
     cursor: pointer;
 }
 
-#favoriteAnimeListTable tr .infoBtn{
+#favoriteAnimeListTable tr .infoBtn {
     opacity: 0;
 }
-#favoriteAnimeListTable tr:hover .infoBtn{
+
+#favoriteAnimeListTable tr:hover .infoBtn {
     transition: ease-in-out .25s;
     opacity: 1;
 }
-#favoriteAnimeListTable tr .infoBtn:hover{
+
+#favoriteAnimeListTable tr .infoBtn:hover {
     transition: ease-in-out .25s;
     color: var(--soft-green);
     cursor: pointer;
 }
 
-.recommendBtn{
+.recommendBtn {
     cursor: default;
 }
 
-.visibleLink{
+.visibleLink {
     text-decoration: underline !important;
 }
 
-.settingsBtn{
+.settingsBtn {
     position: absolute;
     right: 50px;
     top: 20px;
     cursor: pointer;
 }
-.settingsBtn:hover{
+
+.settingsBtn:hover {
     transition: ease-in-out .25s;
     color: var(--soft-green);
 }
 
-#settingsOffCanvasLabel{
+#settingsOffCanvasLabel {
     color: var(--green) !important;
 }
 
-.settingsDangerTitle{
+.settingsDangerTitle {
     color: var(--red) !important;
     text-align: center;
 }
 
-.settingsDangerBox{
+.settingsDangerBox {
     background-color: var(--primary) !important;
     text-align: center;
     padding-top: 15px;
@@ -508,61 +574,95 @@ body{
     border: 1px solid var(--orange);
 }
 
-.importCollapseBody{
+.importCollapseBody {
     background-color: var(--primary) !important;
     color: var(--secondary) !important;
     border: 0 !important;
 }
 
-.yesDeleteData{
+.yesDeleteData {
     background-color: var(--red) !important;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.form-check-input:checked[type="radio"]{
+.form-check-input:checked[type="radio"] {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3'/%3e%3c/svg%3e");
 }
-.form-check-input:checked{
+
+.form-check-input:checked {
     background-color: var(--soft-green) !important;
     border-color: var(--soft-green) !important;
 }
-.form-check-input:focus-visible{
-    outline: 0;
-    box-shadow: none;
-}
-.form-check-input:focus{
+
+.form-check-input:focus-visible {
     outline: 0;
     box-shadow: none;
 }
 
-.airingStatus{
+.form-check-input:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.airingStatus {
     color: var(--secondary);
     vertical-align: middle;
     margin-left: 20px;
     font-size: 15px !important;
     cursor: pointer;
 }
-.airingStatus:hover{
+
+.airingStatus:hover {
     transition: ease-in-out .25s;
     color: var(--soft-green);
 }
-.notYetAiringStatus{
+
+.notYetAiringStatus {
     color: var(--secondary);
     vertical-align: middle;
     margin-left: 20px;
     font-size: 15px !important;
     cursor: pointer;
 }
-.notYetAiringStatus:hover{
+
+.notYetAiringStatus:hover {
     transition: ease-in-out .25s;
     color: var(--orange);
 }
 
-.radio_button_checkedBtn .material-symbols-outlined{
+.radio_button_checkedBtn .material-symbols-outlined {
     font-size: 15px !important;
 }
 
-.undefinedScore{
-    color: var(--secondary);    
+.undefinedScore {
+    color: var(--secondary);
+}
+
+#chooseImportLocation {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#chooseImportLocation:hover {
+    text-overflow: unset;
+    white-space: unset;
+    overflow: visible;
+    word-wrap: anywhere;
+}
+
+.form-select:focus {
+    border-color: var(--soft-green);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    background-color: var(--soft-primary);
+}
+
+.form-select {
+    border-color: rgba(255, 255, 255, 0.5);
+    outline: 0;
+    background-color: var(--soft-primary);
+    color: var(--secondary) !important;
 }

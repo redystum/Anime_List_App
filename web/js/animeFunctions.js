@@ -259,6 +259,7 @@ function saveScoreAndNotes() {
     // reload list
     if (notes != "") {
         getAnimeList();
+        favoriteList();
     }
 }
 
@@ -347,7 +348,7 @@ async function updateApp(verify = 1) {
             h1.textContent += update.version;
             e.appendChild(h1);
             const p = document.createElement('p');
-            p.textContent += update.body.replace("\n", "<br>");
+            p.innerHTML = update.body.replace(/\n/g, "<br>");
             e.appendChild(p);
             // launch modal
             const myModal = new bootstrap.Modal(document.getElementById('UpdateModal'))
@@ -355,6 +356,7 @@ async function updateApp(verify = 1) {
         }
     } else if (verify == 0) {
         eel.updateApp()();
+        showToast("Info", "The installer of the new version has been transferred to the download folder, close the app and run it to update", "soft-green", "soft-primary");
     }
 }
 
@@ -410,10 +412,24 @@ function updateAnime(animeId) {
     eel.updateAnime(animeId)();
 }
 
-async function deleteAllAnimeData(){
+async function deleteAllAnimeData() {
     await eel.deleteAllAnimes()();
     getAnimeList();
     favoriteList();
+}
+
+async function exportAnimeList() {
+    document.getElementById("importExportInfoSettings").innerHTML = "A new window has opened";
+    result = await eel.exportAnimeList()();
+    if (result == true) {
+        document.getElementById("importExportInfoSettings").textContent = "Successfully Exported";
+        document.getElementById("importExportInfoSettings").style.color = "var(--green)";
+        setTimeout(function () { document.getElementById("importExportInfoSettings").textContent = ""; }, 3000);
+    } else {
+        document.getElementById("importExportInfoSettings").textContent = "Export Failed: " + result.error;
+        document.getElementById("importExportInfoSettings").style.color = "var(--orange)";
+        setTimeout(function () { document.getElementById("importExportInfoSettings").textContent = ""; }, 3000);
+    }
 }
 
 function deleteAllData() {
@@ -422,6 +438,33 @@ function deleteAllData() {
     setTimeout(function () {
         window.close();
     }, 3000);
+}
+
+
+async function chooseImportFile() {
+    document.getElementById("chooseImportLocation").innerHTML = "A new window has opened";
+    result = await eel.chooseImportFile()();
+    console.log(result);
+    if (result.info == "error") {
+        document.getElementById("importExportInfo").textContent = "Import Failed: " + result.message;
+        document.getElementById("importExportInfo").style.color = "var(--orange)";
+        document.getElementById("loadAnimeListBtn").disabled = true;
+    } else {
+        document.getElementById("importExportInfo").textContent = result.message;
+        document.getElementById("importExportInfo").style.color = "var(--green)";
+        document.getElementById("chooseImportLocation").innerHTML = result.filePath;
+        document.getElementById("loadAnimeListBtn").disabled = false;
+    }
+}
+
+async function importSavedList() {
+    path = document.getElementById("chooseImportLocation").innerText
+    overWrite = (document.getElementById("importMethodSelect").value == 1) ? false : true;
+    importLoadFav = document.getElementById("importLoadFav").checked;
+    importLoadWatched = document.getElementById("importLoadWatched").checked;
+    importLoadScore = document.getElementById("importLoadScore").checked;
+    importLoadNotes = document.getElementById("importLoadNotes").checked;
+    result = await eel.importSavedList(path, overWrite, importLoadFav, importLoadWatched, importLoadScore, importLoadNotes)();
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)
