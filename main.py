@@ -2,22 +2,22 @@
  python -m eel main.py web --onefile --noconsole
 """
 
-import pathlib
 import eel
 import time
 import os
 import sys
+import math
+import threading
+from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog
 # project imports
 import getData
-import threading
 import dbManager
 import globalVars
 import updater
-import math
-import subprocess
+
 
 global VERSION
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 
 @eel.expose
 def getAnime(data):
@@ -88,6 +88,7 @@ def changeJsFunction(id):
     row = dbManager.getRowId(id)
     time.sleep(.5)
     eel.changeBtnId(row, id)
+    
 @eel.expose
 def dbSize():
     file_stat = os.stat(globalVars.path + 'LocalStorage.db')
@@ -129,6 +130,47 @@ def deleteAllData():
     os.remove(globalVars.path + 'settings.json')
     globalVars.running_a_task = False
 
+@eel.expose
+def exportAnimeList():
+    path = getSavedDbLocation()
+    if path != "" or path != False or path != None:
+        return dbManager.exportAnimeList(path)
+    return {"error": "No path selected"}
+
+@eel.expose
+def importSavedList(path, overWrite, importLoadFav, importLoadWatched, importLoadScore, importLoadNotes):
+    return dbManager.importSavedList(path, overWrite, importLoadFav, importLoadWatched, importLoadScore, importLoadNotes)
+
+@eel.expose
+def chooseImportFile():
+    path = getOpenDbLocation()
+    if path == False or path == "":
+        return {"info": "error", "message": "No file selected"}
+    result, msg = dbManager.verifyDBFile(path)
+    if result == True:
+        return {"info": "success", "filePath": str(path), "message": str(msg)}
+    else:
+        return {"info": "error", "message": str(msg)}
+
+@eel.expose
+def getSavedDbLocation():
+    file = App().saveFileDialog()
+    return file
+
+@eel.expose
+def getOpenDbLocation():
+    file = App().openFileNameDialog()
+    return file
+
+class App(QWidget):
+    def openFileNameDialog(self):
+        fileName, _ = QFileDialog.getOpenFileName(self, str("Import Anime List Save"), "", str("Data Base File (*.db)"))
+        return fileName
+    
+    def saveFileDialog(self):
+        fileName, _ = QFileDialog.getSaveFileName(self, str("Save Anime List Save"), "Anime_List_Save.db", str("Data Base File (*.db)"))
+        return fileName
+
 
 @eel.expose
 def checkForUpdates():
@@ -153,6 +195,7 @@ def close_callback(route, websockets):
     sys.exit()
 
 globalVars.init()
+app = QApplication(["C:\\"])
 
 path = globalVars.path
 if not os.path.exists(path + "LocalStorage.db"):

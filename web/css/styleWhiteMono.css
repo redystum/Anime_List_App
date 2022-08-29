@@ -573,3 +573,31 @@ body{
 .undefinedScore{
     color: var(--secondary);    
 }
+
+#chooseImportLocation {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#chooseImportLocation:hover {
+    text-overflow: unset;
+    white-space: unset;
+    overflow: visible;
+    word-wrap: anywhere;
+}
+
+.form-select:focus {
+    border-color: var(--soft-green);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--soft-green);
+    background-color: var(--soft-primary);
+}
+
+.form-select {
+    border-color: rgba(255, 255, 255, 0.5);
+    outline: 0;
+    background-color: var(--soft-primary);
+    color: var(--secondary) !important;
+}

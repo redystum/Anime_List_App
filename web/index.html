@@ -7,22 +7,22 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
-    <link rel="stylesheet" href="./css/styleMono.css" class="cssFile">
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="./css/style.css" class="cssFile">
     <script>
         // load theme
-        async function loadCss(){
+        async function loadCss() {
             let file = await eel.cssFile()();
             cssFiles = document.getElementsByClassName('cssFile')
-            if(cssFiles != undefined){
-                for(let i = cssFiles.length; i > 0; i--){
-                    cssFiles[i-1].remove()
+            if (cssFiles != undefined) {
+                for (let i = cssFiles.length; i > 0; i--) {
+                    cssFiles[i - 1].remove()
                 }
             }
             var newlink = document.createElement("link");
@@ -307,28 +307,32 @@
 
             <h4 class="text-center">Themes</h4>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio1" onclick="selectTheme(1)" checked>
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio1"
+                    onclick="selectTheme(1)" checked>
                 <label class="form-check-label" for="themesRadio1">
                     <p>Default Theme</p>
                     <img src="./img/defaultTheme.png" alt="" class="img-fluid">
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio2" onclick="selectTheme(2)">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio2"
+                    onclick="selectTheme(2)">
                 <label class="form-check-label" for="themesRadio2">
                     <p>Default Monochromatic Theme</p>
                     <img src="./img/defaultMono.png" alt="" class="img-fluid">
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio3" onclick="selectTheme(3)">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio3"
+                    onclick="selectTheme(3)">
                 <label class="form-check-label" for="themesRadio3">
                     <p>White Theme</p>
                     <img src="./img/whiteTheme.png" alt="" class="img-fluid">
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio4" onclick="selectTheme(4)">
+                <input class="form-check-input" type="radio" name="themesRadio" id="themesRadio4"
+                    onclick="selectTheme(4)">
                 <label class="form-check-label" for="themesRadio4">
                     <p>White Monochromatic Theme</p>
                     <img src="./img/whiteMono.png" alt="" class="img-fluid">
@@ -337,7 +341,8 @@
             <br><br>
             <h4 class="text-center">Other Options</h4>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="markAirAnime" onclick="changeOtherOptions('markAirAnime');">
+                <input class="form-check-input" type="checkbox" value="" id="markAirAnime"
+                    onclick="changeOtherOptions('markAirAnime');">
                 <label class="form-check-label" for="markAirAnime">
                     Mark animes that are still on air. <a href="" class="visibleLink" type="button"
                         data-bs-toggle="collapse" data-bs-target="#markAnimeExample" aria-expanded="false"
@@ -349,35 +354,30 @@
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="updateOnInfo" onclick="changeOtherOptions('updateOnInfo');">
+                <input class="form-check-input" type="checkbox" value="" id="updateOnInfo"
+                    onclick="changeOtherOptions('updateOnInfo');">
                 <label class="form-check-label" for="updateOnInfo">
                     Update anime when the info panel is opened
                 </label>
             </div>
             <br><br>
-            <!-- last things -->
             <div class="settingsDangerBox">
                 <h4 class="settingsDangerTitle">Danger Zone</h4>
                 <br>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
-                            <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#importCollapse" aria-expanded="false"
-                                aria-controls="importCollapse">Import List</button>
-                            <div class="collapse" id="importCollapse">
-                                <div class="card card-body importCollapseBody">
-                                    <button class="addAnimeBtn" style="margin-bottom: 10px;">Overwrite List</button>
-                                    <button class="addAnimeBtn">Add to List</button>
-                                </div>
-                            </div>
+                            <button class="addAnimeBtn" type="button" data-bs-toggle="modal"
+                                data-bs-target="#importAnimeList">Import List</button>
                         </div>
                         <div class="col-md-6">
-                            <button class="addAnimeBtn">Export List</button>
+                            <button class="addAnimeBtn" onclick="exportAnimeList();">Export List</button>
                         </div>
                     </div>
-                    <div class="row text-center" id="importExportInfo">
-                        <!-- injected by js -->
+                    <div class="row text-center">
+                        <div class="col-md-12 text-center" id="importExportInfoSettings">
+                            <!-- injected by js -->
+                        </div>
                     </div>
                     <br>
                     <div class="row">
@@ -388,10 +388,11 @@
                             <div class="collapse" id="deleteAnimeTableCollapse">
                                 <div class="card card-body importCollapseBody">
                                     Are you sure you want to delete Anime List data?
-                                    <button class="addAnimeBtn yesDeleteData" onclick="deleteAllAnimeData();">Yes, Delete</button>
+                                    <button class="addAnimeBtn yesDeleteData" onclick="deleteAllAnimeData();">Yes,
+                                        Delete</button>
                                     <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#deleteAnimeTableCollapse" aria-expanded="false"
-                                    aria-controls="deleteAnimeTableCollapse">No</button>
+                                        data-bs-target="#deleteAnimeTableCollapse" aria-expanded="false"
+                                        aria-controls="deleteAnimeTableCollapse">No</button>
                                 </div>
                             </div>
                         </div>
@@ -399,11 +400,14 @@
                             <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#deleteAllTableCollapse" aria-expanded="false"
                                 aria-controls="deleteAllTableCollapse">Delete All Data</button>
-                                <div class="collapse" id="deleteAllTableCollapse">
+                            <div class="collapse" id="deleteAllTableCollapse">
                                 <div class="card card-body importCollapseBody">
                                     Are you sure you want to delete <b>ALL</b> data?
-                                    <button class="addAnimeBtn yesDeleteData" onclick="deleteAllData();">Yes, Delete</button>
-                                    <p class="hide" style="color:var(--red)" id="KillerClown">The app will close and erase all data in 3 seconds</p>
+                                    <button class="addAnimeBtn yesDeleteData" onclick="deleteAllData();">Yes,
+                                        Delete</button>
+                                    <p class="hide" style="color:var(--red)" id="KillerClown">The app will close and
+                                        erase
+                                        all data in 3 seconds</p>
                                     <button class="addAnimeBtn" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#deleteAllTableCollapse" aria-expanded="false"
                                         aria-controls="deleteAllTableCollapse">No</button>
@@ -427,6 +431,76 @@
             </div>
         </div>
     </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importAnimeList">
+        Launch demo modal
+    </button>
+
+    <div class="modal fade" id="importAnimeList" tabindex="-1" aria-labelledby="importAnimeListLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importAnimeListLabel">Import Anime</h5>
+                </div>
+                <div class="modal-body">
+                    <h3>Choose the list you want to import</h3>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="addAnimeBtn" onclick="chooseImportFile();">Choose File</button>
+                        </div>
+                        <div class="col-md-9">
+                            <p type="text" id="chooseImportLocation">
+                                <!-- injected by js -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center" id="importExportInfo">
+                        <!-- injected by js -->
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h4>Method</h4>
+                    <select class="form-select" aria-label="Default select example" id="importMethodSelect">
+                        <option value="1" selected>Add to the Existent List</option>
+                        <option value="2">OverWrite</option>
+                    </select>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="importLoadFav" checked>
+                        <label class="form-check-label" for="importLoadFav">
+                            Load Favorites Table
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="importLoadWatched" checked>
+                        <label class="form-check-label" for="importLoadWatched">
+                            Load Watched Table
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="importLoadScore" checked>
+                        <label class="form-check-label" for="importLoadScore">
+                            Load Score
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="importLoadNotes" checked>
+                        <label class="form-check-label" for="importLoadNotes">
+                            Load Notes
+                        </label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="addAnimeBtn" id="loadAnimeListBtn" onclick="importSavedList();"
+                        disabled>Load Anime List</button>
+                    <button type="button" class="addAnimeBtn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- JS Scripts -->
 
