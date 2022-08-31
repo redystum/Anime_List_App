@@ -133,9 +133,9 @@ def deleteAllData():
 @eel.expose
 def exportAnimeList():
     path = getSavedDbLocation()
-    if path != "" or path != False or path != None:
-        return dbManager.exportAnimeList(path)
-    return {"error": "No path selected"}
+    if path == "" or path == False or path == None:
+        return {"error": "No path selected"}
+    return dbManager.exportAnimeList(path)
 
 @eel.expose
 def importSavedList(path, overWrite, importLoadFav, importLoadWatched, importLoadScore, importLoadNotes):
