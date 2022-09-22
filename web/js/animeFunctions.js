@@ -80,6 +80,7 @@ async function getAnimeData(AnimeId) {
     removeLoading_NoAnime('animeListTable');
     // activate "add anime" fields
     changeSearchDisableStatus(false);
+    loadTableInfos();
 }
 eel.expose(getAnimeList);
 async function getAnimeList(order = 0) {
@@ -185,6 +186,7 @@ async function deleteAnime(id, AnimeId, table) {
     if (t == 'watchedAnimeListTable') {
         favoriteList();
     }
+    loadTableInfos();
 }
 
 function pickRandom(table) {
@@ -225,6 +227,7 @@ function changeBtnId(row, id) {
         e[i - 1].classList.remove("processing");
     }
     document.getElementById(`Anime${id}_`).id += row;
+    loadTableInfos();
 }
 
 function saveScoreAndNotes() {
@@ -390,10 +393,12 @@ async function loadSettings() {
         document.getElementById("themesRadio1").checked = true;
         document.getElementById("markAirAnime").checked = false;
         document.getElementById("updateOnInfo").checked = false;
+        document.getElementById("listStatus").checked = false;
     } else {
         document.getElementById("themesRadio" + data.themeId).checked = true;
         document.getElementById("markAirAnime").checked = data.markAirAnime;
         document.getElementById("updateOnInfo").checked = data.updateOnInfo;
+        document.getElementById("listStatus").checked = data.ListStatus;
     }
 }
 
@@ -406,6 +411,7 @@ async function changeOtherOptions(option) {
     await eel.setOtherOptions(option)();
     getAnimeList();
     favoriteList();
+    loadTableInfos();
 }
 
 function updateAnime(animeId) {
@@ -465,6 +471,32 @@ async function importSavedList() {
     importLoadScore = document.getElementById("importLoadScore").checked;
     importLoadNotes = document.getElementById("importLoadNotes").checked;
     result = await eel.importSavedList(path, overWrite, importLoadFav, importLoadWatched, importLoadScore, importLoadNotes)();
+}
+
+async function loadTableInfos() {
+    data = await eel.getTableInfos()();
+    console.log(data);
+    watched = data.watched;
+    notWatched = data.notWatched;
+    watchedEpisodes = data.watchedEpisodes;
+    notWatchedEpisodes = data.notWatchedEpisodes;
+    watchedDuration = data.watchedDuration
+    notWatchedDuration = data.notWatchedDuration
+
+    document.getElementById("animeNumToWatch").textContent = notWatched + " Episodes to Watch";
+    // document.getElementById("animeNumWatched").textContent = watched 
+    document.getElementById("timeToWatch").textContent = notWatchedDuration + " to Watch";
+    // document.getElementById("timeWatched").textContent = watchedDuration 
+    document.getElementById("epNumToWatch").textContent = notWatchedEpisodes + " Episodes to Watch";
+    // document.getElementById("epNumWatched").textContent = watchedEpisodes 
+
+    settings = await eel.getSettings()();
+    if (settings.ListStatus == true) {
+        document.getElementById("geralStatus").hidden = false;
+    } else {
+        document.getElementById("geralStatus").hidden = true;
+    }
+    return
 }
 
 //! Auxiliary functions (these functions are not really necessary, they only save code lines)

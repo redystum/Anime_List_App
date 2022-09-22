@@ -666,3 +666,7 @@ body {
     background-color: var(--soft-primary);
     color: var(--secondary) !important;
 }
+
+#geralStatus{
+    padding: 0px 30px 0px 30px;
+}

@@ -101,6 +101,15 @@
                         <!-- injected by js -->
                     </tbody>
                 </table>
+
+                <div id="geralStatus" hidden>
+                    <div class="row">
+                        <div class="col-md-4" id="animeNumToWatch"></div>
+                        <div class="col-md-4 text-center" id="timeToWatch"></div>
+                        <div class="col-md-4 text-end" id="epNumToWatch"></div>
+                    </div>
+                </div>
+
                 <div class="row addAnimeFields flex-nowrap">
                     <div class="col-md-1 addText">
                         Add
@@ -360,6 +369,13 @@
                     Update anime when the info panel is opened
                 </label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="listStatus"
+                    onclick="changeOtherOptions('listStatus');">
+                <label class="form-check-label" for="listStatus">
+                    Show Anime List information's (total animes, total episodes, ...)
+                </label>
+            </div>
             <br><br>
             <div class="settingsDangerBox">
                 <h4 class="settingsDangerTitle">Danger Zone</h4>
@@ -598,6 +614,7 @@
         favoriteList();
         updateApp();
         loadSettings();
+        loadTableInfos();
     </script>
 
     <script>
