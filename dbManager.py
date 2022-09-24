@@ -512,14 +512,14 @@ def getTableInfos():
     conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
     c = conn.cursor()
 
-    q = ['SELECT count(*) from anime where viewed=true', 'SELECT count(*) from anime where viewed=false', 'SELECT sum(episodes) from anime where viewed=true', 'SELECT sum(episodes) from anime where viewed=false', 'SELECT sum(averageEpDuration*episodes) from anime where viewed=true', 'SELECT sum(averageEpDuration*episodes) from anime where viewed=false']
+    q = ['SELECT count(*) from anime where viewed=true', 'SELECT count(*) from anime where viewed=false', 'SELECT sum(episodes) from anime where viewed=true', 'SELECT sum(episodes) from anime where viewed=false']
     result = {
         'watched': 0,
         'notWatched': 0,
         'watchedEpisodes': 0,
         'notWatchedEpisodes': 0,
-        'watchedDuration': 0,
-        'notWatchedDuration': 0
+        # 'watchedDuration': 0,
+        # 'notWatchedDuration': 0
     }
 
     for i, query in enumerate(q):
@@ -527,10 +527,29 @@ def getTableInfos():
         response = c.fetchall()[0][0]
         result[list(result.keys())[i]] = response if response != None else 0
 
-    result['watchedDuration'] = datetime.datetime.utcfromtimestamp(result['watchedDuration']).strftime('%Hh%Mm')
-    result['notWatchedDuration'] = datetime.datetime.utcfromtimestamp(result['notWatchedDuration']).strftime('%Hh%Mm')
-
     conn.close()
+
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute('SELECT averageEpDuration, episodes from anime where viewed=true')
+    response = c.fetchall()
+    watchedDuration = 0
+    for anime in response:
+        if type(anime[1]) == int and type(anime[0]) == int:
+            time = int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%H')) * 60 + int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%M'))
+            watchedDuration += time * int(anime[1])
+    result['watchedDuration'] = "{}h{}m".format(*divmod(watchedDuration, 60))
+
+    c.execute('SELECT averageEpDuration, episodes from anime where viewed=false')
+    response = c.fetchall()
+    notWatchedDuration = 0
+    for anime in response:
+        if type(anime[1]) == int and type(anime[0]) == int:
+            time = int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%H')) * 60 + int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%M'))
+            notWatchedDuration += time * int(anime[1])
+    result['notWatchedDuration'] = "{}h{}m".format(*divmod(notWatchedDuration, 60))
+    conn.close()
+
     return result
 
 if __name__ == '__main__':

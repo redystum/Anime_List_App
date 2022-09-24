@@ -17,6 +17,7 @@ Create an app with integration to the [My Anime List](https://myanimelist.net/) 
 - Update Anime Info
 - Mark Airing Anime
 - Import/Export saves
+- Table statistics
 
 ## Coming soon
 - Generate a radom anime (which is not in the table)

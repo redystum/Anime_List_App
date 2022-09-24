@@ -475,7 +475,6 @@ async function importSavedList() {
 
 async function loadTableInfos() {
     data = await eel.getTableInfos()();
-    console.log(data);
     watched = data.watched;
     notWatched = data.notWatched;
     watchedEpisodes = data.watchedEpisodes;
@@ -483,18 +482,20 @@ async function loadTableInfos() {
     watchedDuration = data.watchedDuration
     notWatchedDuration = data.notWatchedDuration
 
-    document.getElementById("animeNumToWatch").textContent = notWatched + " Episodes to Watch";
-    // document.getElementById("animeNumWatched").textContent = watched 
+    document.getElementById("animeNumToWatch").textContent = notWatched + " Animes to Watch";
+    document.getElementById("animeNumWatched").textContent = watched + " Animes Watched";
     document.getElementById("timeToWatch").textContent = notWatchedDuration + " to Watch";
-    // document.getElementById("timeWatched").textContent = watchedDuration 
+    document.getElementById("timeWatched").textContent = watchedDuration + " Watched";
     document.getElementById("epNumToWatch").textContent = notWatchedEpisodes + " Episodes to Watch";
-    // document.getElementById("epNumWatched").textContent = watchedEpisodes 
+    document.getElementById("epNumWatched").textContent = watchedEpisodes + " Episodes Watched";
 
     settings = await eel.getSettings()();
     if (settings.ListStatus == true) {
-        document.getElementById("geralStatus").hidden = false;
+        document.getElementById("geralStatusToWatch").hidden = false;
+        document.getElementById("geralStatusWatched").hidden = false;
     } else {
-        document.getElementById("geralStatus").hidden = true;
+        document.getElementById("geralStatusToWatch").hidden = true;
+        document.getElementById("geralStatusWatched").hidden = true;
     }
     return
 }
