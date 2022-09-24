@@ -307,7 +307,8 @@ def setOtherOptions(option):
     "cssFile": 0,
     "themeId": 1,
     "markAirAnime": false,
-    "updateOnInfo": false
+    "updateOnInfo": false,
+    "ListStatus": false
     }
     """
     templateJson = json.loads(template)
@@ -321,10 +322,16 @@ def setOtherOptions(option):
     with open(globalVars.path + 'settings.json', 'r') as f:
         data = json.load(f)
 
+    for i in templateJson:
+        if i not in data:
+            data[list(templateJson.keys())[i]] = templateJson[list(templateJson.keys())[i]]
+
     if option == "markAirAnime":
         data['markAirAnime'] = not data['markAirAnime']
     elif option == "updateOnInfo":
         data['updateOnInfo'] = not data['updateOnInfo']
+    elif option == "listStatus":
+        data['ListStatus'] = not data['ListStatus']
 
     with open(globalVars.path + 'settings.json', 'w') as f:
         json.dump(data, f, indent=4)
@@ -500,6 +507,50 @@ def verifyDBFile(path):
         return False, "The selected file is not a valid anime list save"
     
     return True, str(len(animeList)) + " Anime found"
+
+def getTableInfos():
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+
+    q = ['SELECT count(*) from anime where viewed=true', 'SELECT count(*) from anime where viewed=false', 'SELECT sum(episodes) from anime where viewed=true', 'SELECT sum(episodes) from anime where viewed=false']
+    result = {
+        'watched': 0,
+        'notWatched': 0,
+        'watchedEpisodes': 0,
+        'notWatchedEpisodes': 0,
+        # 'watchedDuration': 0,
+        # 'notWatchedDuration': 0
+    }
+
+    for i, query in enumerate(q):
+        c.execute(query)
+        response = c.fetchall()[0][0]
+        result[list(result.keys())[i]] = response if response != None else 0
+
+    conn.close()
+
+    conn = sqlite3.connect(globalVars.path + 'LocalStorage.db')
+    c = conn.cursor()
+    c.execute('SELECT averageEpDuration, episodes from anime where viewed=true')
+    response = c.fetchall()
+    watchedDuration = 0
+    for anime in response:
+        if type(anime[1]) == int and type(anime[0]) == int:
+            time = int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%H')) * 60 + int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%M'))
+            watchedDuration += time * int(anime[1])
+    result['watchedDuration'] = "{}h{}m".format(*divmod(watchedDuration, 60))
+
+    c.execute('SELECT averageEpDuration, episodes from anime where viewed=false')
+    response = c.fetchall()
+    notWatchedDuration = 0
+    for anime in response:
+        if type(anime[1]) == int and type(anime[0]) == int:
+            time = int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%H')) * 60 + int(datetime.datetime.utcfromtimestamp(anime[0]).strftime('%M'))
+            notWatchedDuration += time * int(anime[1])
+    result['notWatchedDuration'] = "{}h{}m".format(*divmod(notWatchedDuration, 60))
+    conn.close()
+
+    return result
 
 if __name__ == '__main__':
     getAnimeList()

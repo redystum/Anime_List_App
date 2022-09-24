@@ -171,6 +171,11 @@ class App(QWidget):
         fileName, _ = QFileDialog.getSaveFileName(self, str("Save Anime List Save"), "Anime_List_Save.db", str("Data Base File (*.db)"))
         return fileName
 
+@eel.expose
+def getTableInfos():
+    return dbManager.getTableInfos()
+
+
 
 @eel.expose
 def checkForUpdates():
